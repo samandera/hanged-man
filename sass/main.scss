@@ -1,0 +1,13 @@
+@import 'components/FirstComponent';
+
+body {
+  background-color: yellow;
+  display: table;
+  margin:0;
+  width:100vw;
+  height:100vh;
+  .mount {
+    display:table-cell;
+    vertical-align: middle;
+  }
+}

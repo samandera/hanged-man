@@ -1,0 +1,42 @@
+{
+  "name": "react-starter",
+  "version": "0.0.5",
+  "description": "React starter project with sass and bootstrap",
+  "main": "src/index.js",
+  "scripts": {
+    "compile": "webpack",
+    "start": "node server.js",
+    "watch-sass": "webpack --watch"
+  },
+  "keywords": [
+    "react",
+    "webpack",
+    "babel",
+    "minimal",
+    "starter"
+  ],
+  "author": "Ela Lach samandera",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/samandera/react-sass-starter.git"
+  },
+  "dependencies": {
+    "babel-core": "^6.24.1",
+    "babel-loader": "^6.4.1",
+    "babel-preset-env": "^1.4.0",
+    "babel-preset-react": "^6.24.1",
+    "express": "^4.15.2",
+    "react": "^15.5.4",
+    "react-bootstrap": "^0.31.0",
+    "react-dom": "^15.5.4",
+    "webpack": "^2.4.1",
+    "webpack-dev-middleware": "^1.10.1"
+  },
+  "devDependencies": {
+    "file-loader": "^0.11.1",
+    "node-sass": "^4.5.2",
+    "sass-loader": "^6.0.3",
+    "webpack": "^2.4.1"
+  }
+}
