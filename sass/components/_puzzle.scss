@@ -1,0 +1,26 @@
+.puzzle {
+  width:90%;
+  position: absolute;
+  bottom:5%;
+  left:5%;
+  >div {
+    @include aspect-ratio(1, 1.25);
+    display: inline-block;
+    font-size:3em;
+    text-align: center;
+    width:(100%/12)*0.94;
+    margin:0 ((100%/11)*0.03);
+    border-radius: 0.1em;
+    background: rgba(80,82,90,0.98);
+    color: #ffffff;
+    .ratio-content {
+      bottom: initial;
+      font-size:1em;
+      text-align: center;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    &.disabled {background: rgba(195,196,198,0.3)}
+  }
+}

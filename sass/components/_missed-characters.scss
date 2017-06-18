@@ -1,0 +1,34 @@
+.missed-characters {
+  margin:2% 5%;
+  width:auto;
+  max-width:70%;
+  float:right;
+  h2 {
+    font-size:1em;
+    text-transform:uppercase;
+    margin: 0;
+    margin-bottom:1.5em;
+  }
+  .characters {
+    list-style: none;
+    padding: 0;
+    margin:0;
+    li {
+      display:inline-block;
+      margin:0 0.2em;
+      line-height:0.5em;
+      width:0.5em;
+      height:0.5em;
+      font-size: 3em;
+      text-align: center;
+      text-transform:uppercase;
+      color:#4d69fa;
+      &:first-child {
+        margin-left: 0
+      }
+      &:first-last {
+        margin-right: 0
+      }
+    }
+  }
+}

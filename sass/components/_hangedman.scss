@@ -1,0 +1,168 @@
+@mixin create-hangedman-element (
+  $element-name,
+  $aspect-width: 1,
+  $aspect-height: $aspect-width,
+  $relative-container-width: 284,
+  $margin:auto,
+  $z-index: 1,
+  $position: relative,
+  $left: initial,
+  $right: initial,
+  $top: initial,
+  $bottom: initial
+) {
+  .#{$element-name} {
+    @include aspect-ratio($aspect-width, $aspect-height);
+    width:($aspect-width * 100%) / $relative-container-width;
+    background:url('/assets/img/#{$element-name}.png') center no-repeat;
+    background-size:cover;
+    margin:$margin;
+    z-index:$z-index;
+    position:$position;
+    left:$left;
+    right:$right;
+    top:$top;
+    bottom:$bottom
+  }
+}
+
+$bar: (
+  element-name: 'bar',
+  aspect-width: 241,
+  aspect-height: 77,
+  relative-container-width: 343,
+  margin:0
+);
+$head: (
+  element-name: 'head',
+  aspect-width: 192,
+  aspect-height: 212
+);
+$neck: (
+  element-name: 'neck',
+  aspect-width: 46,
+  aspect-height: 20,
+  margin:-1% auto,
+  z-index:0
+);
+$corpus: (
+  element-name: 'corpus',
+  aspect-width: 105,
+  aspect-height: 165
+);
+$left-arm: (
+  element-name: 'left-arm',
+  aspect-width: 126,
+  aspect-height: 122,
+  relative-container-width: 131
+);
+$left-palm: (
+  element-name: 'left-palm',
+  aspect-width: 30,
+  relative-container-width: 131,
+  position:absolute,
+  left:0,
+  bottom:0,
+  z-index:0
+);
+$right-arm: (
+  element-name: 'right-arm',
+  aspect-width: 126,
+  aspect-height: 122,
+  relative-container-width: 131
+);
+$right-palm: (
+  element-name: 'right-palm',
+  aspect-width: 30,
+  relative-container-width: 131,
+  position:absolute,
+  right:0,
+  bottom:0,
+  z-index:0
+);
+$right-leg: (
+  element-name: 'right-leg',
+  aspect-width: 82,
+  aspect-height: 178,
+  relative-container-width: 123,
+  position:absolute,
+  top:0,
+  left:0,
+);
+$left-leg: (
+  element-name: 'left-leg',
+  aspect-width: 82,
+  aspect-height: 178,
+  relative-container-width: 123,
+  position:absolute,
+  top:0,
+  right:0
+);
+$right-foot: (
+  element-name: 'right-foot',
+  aspect-width: 85,
+  aspect-height: 36,
+  relative-container-width: 123,
+  z-index:0,
+  position:absolute,
+  bottom: 0,
+  right:0
+);
+$left-foot: (
+  element-name: 'left-foot',
+  aspect-width: 85,
+  aspect-height: 36,
+  relative-container-width: 123,
+  z-index:0,
+  position:absolute,
+  bottom: 0,
+  left:0
+);
+$hangedman-elements: ($bar, $head, $neck, $corpus, $left-arm, $right-arm, $left-palm, $right-palm, $right-leg, $left-leg, $right-foot, $left-foot);
+
+.hangedman-canvas {
+  @include aspect-ratio(343, 638);
+  width:20%;
+  display:inline-block;
+  margin-top:2%;
+  .hangedman {
+    @include aspect-ratio(284, 569);
+    width:85%;
+    position:absolute;
+    right:0;
+    bottom:0;
+
+    .middle-part {
+      @include aspect-ratio(284, 165);
+      z-index:1;
+      width:100%;
+      .left, .right {
+        @include aspect-ratio(131, 127);
+        z-index:0;
+        width:46.13%;
+        position:absolute;
+        top:0;
+      }
+      .right {right:0;}
+      .left {left:0;}
+    }
+
+    .bottom-part {
+      @include aspect-ratio(250, 194);
+      width:88.03%;
+      margin:-6% auto;
+      .left, .right {
+        @include aspect-ratio(123, 193);
+        position: absolute;
+        width:49.2%;
+        bottom:0;
+      }
+      .left {left:0;}
+      .right {right:0;}
+    }
+  }
+
+  @each $element in $hangedman-elements {
+    @include create-hangedman-element($element...);
+  }
+}

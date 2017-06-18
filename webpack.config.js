@@ -6,7 +6,7 @@ module.exports = {
     './main.js',
   ],
   output: {
-    path: path.join(__dirname, 'www'),
+    path: path.join(__dirname, 'docs'),
     filename: 'bundle.js',
   },
   module: {
@@ -29,6 +29,13 @@ module.exports = {
       {
         test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9=&.]+)?$/,
         use: [{loader : 'file-loader'}]
+      },
+      {
+        test: /\.(jpe?g|png|gif|svg)$/i,
+        use: [
+          {loader: 'url-loader?limit=10000'},
+          {loader: 'img-loader'}
+        ]
       }
     ],
   },

@@ -16,7 +16,7 @@ app.use(webpackDevMiddleware(compiler, {
   historyApiFallback: true,
 }));
 
-app.use(express.static(__dirname + '/www'));
+app.use(express.static(__dirname + '/docs'));
 
 const server = app.listen(3000, function() {
   const host = server.address().address;

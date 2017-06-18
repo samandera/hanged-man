@@ -1,0 +1,39 @@
+@mixin box-shadow($top, $left, $blur, $spread, $color) {
+  -webkit-box-shadow: $top $left $blur $spread $color;
+  -moz-box-shadow: $top $left $blur $spread $color;
+  box-shadow: $top $left $blur $spread $color;
+}
+
+html {
+  background-color: #3b4163;
+}
+body {
+  width:100vw;
+  height:100vh;
+  margin:0;
+  position: relative;
+  font-size:16px;
+  font-family:Aller;
+  color:#53555d;
+}
+
+.container {
+  @extend %valign;
+  @include box-shadow(0px, 0px, 21px, 3px, rgba(0,0,0,0.75));
+  @include aspect-ratio(1620, 980);
+  .primary-content {z-index:1}
+  width:70%;
+  border-radius:1em;
+  overflow:hidden;
+  background-color: #f5f5f5;
+  .triangle {
+    position:absolute;
+    bottom:0;
+    right:0;
+    width:33%;
+    z-index:0;
+    polygon {
+      fill: #4d69fa;
+    }
+  }
+}

@@ -2,7 +2,7 @@
   "name": "react-starter",
   "version": "0.0.5",
   "description": "React starter project with sass and bootstrap",
-  "main": "src/index.js",
+  "main": "src/main.js",
   "scripts": {
     "compile": "webpack",
     "start": "node server.js",
@@ -34,9 +34,10 @@
     "webpack-dev-middleware": "^1.10.1"
   },
   "devDependencies": {
-    "file-loader": "^0.11.1",
-    "node-sass": "^4.5.2",
-    "sass-loader": "^6.0.3",
-    "webpack": "^2.4.1"
+    "file-loader": "^0.11.2",
+    "img-loader": "^2.0.0",
+    "node-sass": "^4.5.3",
+    "sass-loader": "^6.0.6",
+    "webpack": "^2.6.1"
   }
 }

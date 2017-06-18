@@ -1,13 +1,11 @@
-@import 'components/FirstComponent';
-
-body {
-  background-color: yellow;
-  display: table;
-  margin:0;
-  width:100vw;
-  height:100vh;
-  .mount {
-    display:table-cell;
-    vertical-align: middle;
-  }
+@font-face {
+  src: url(../assets/Aller_Bd.ttf);
+  font-family: "Aller";
 }
+
+@import 'components/mixins';
+@import 'components/index';
+@import 'components/hangedman';
+@import 'components/missed-characters';
+@import 'components/puzzle';
+@import 'components/game-end';
