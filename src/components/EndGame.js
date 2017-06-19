@@ -6,7 +6,9 @@ class EndGame extends React.Component {
       <div className="ratio-content game-end">
         <div className="message">
           <p>Game over</p>
-          <button>New word</button>
+          <form onSubmit={this.props.getWord}>
+            <button>New word</button>
+          </form>
         </div>
       </div>
     );

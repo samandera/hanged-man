@@ -13,6 +13,12 @@
     border-radius: 0.1em;
     background: rgba(80,82,90,0.98);
     color: #ffffff;
+    &:first-child {
+      margin-left:0;
+    }
+    &:last-child {
+      margin-right:0;
+    }
     .ratio-content {
       bottom: initial;
       font-size:1em;
