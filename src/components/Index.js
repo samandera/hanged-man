@@ -6,10 +6,15 @@ class Index extends React.Component {
 
   constructor() {
     super();
+    this.statics = {
+      maxWordLength:12,
+      steps:12
+    };
     this.state = {
-      word: '',
-      maxWordLength: 12
-    }
+      word: [],
+      missedLetters: []
+    };
+    this.handleKeyPress = this.handleKeyPress.bind(this);
   }
 
   getWord(maxWordLength){
@@ -23,28 +28,60 @@ class Index extends React.Component {
             response.status);
           return;
         }
-
         response.json().then(data => {
-          this.setState({word: data.word});
+          let word = [];
+          for (let letter of data.word) {
+            let visible = !(/^[a-zA-Z]$/.test(letter));
+            word.push({letter, visible});
+          }
+          this.setState({word});
         });
     }).catch(function(err){
       console.log(err)
     });
   };
 
-  componentDidMount() {
-    this.getWord(this.state.maxWordLength);
+  handleKeyPress(pressedKey) {
+    let word = this.state.word;
+    let hasMissedLetter;
+    let missedLetters = this.state.missedLetters;
+    for (let i = 0; i < word.length; i++) {
+      if (/^[a-zA-Z]$/.test(pressedKey) && word[i].letter.toUpperCase() == pressedKey) {
+        word[i].visible = true;
+      }
+    }
+
+    const missedLetterWasPressed = (word,pressedKey) => {
+      let hasLetter = word.find((element)=>{
+        return element.letter.toUpperCase() === pressedKey;
+      }, pressedKey);
+
+      return (hasLetter===undefined)&&(/^[a-zA-Z]$/.test(pressedKey));
+    }
+
+    hasMissedLetter = missedLetterWasPressed(word,pressedKey);
+    hasMissedLetter &&  missedLetters.push(pressedKey);
+    missedLetters = missedLetters.filter(function(elem, index, self) {
+      return index == self.indexOf(elem);
+    })
+    this.setState({word,missedLetters});
   };
+
+  componentWillMount() {
+    this.getWord(this.statics.maxWordLength);
+    window.onkeydown = (event) => {
+      this.handleKeyPress(String.fromCharCode(event.keyCode))
+    };
+  }
 
 
 
 
   render() {
-      const wordLength = this.state.word.length;
       return (
         <div className="container">
-        {wordLength>0 && <PrimaryContent word={this.state.word} puzzlesCount={this.state.maxWordLength}/>}
-        {wordLength>0 && <EndGame getWord={this.getWord}/>}
+        {this.state.word.length>0 && <PrimaryContent missedLetters={this.state.missedLetters} word={this.state.word} puzzles={this.state.maxWordLength}/>}
+
           <svg viewBox="0 0 100 100"  className="triangle">
             <polygon points="0,100 100,100 100,0"/>
           </svg>

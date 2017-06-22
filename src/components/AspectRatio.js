@@ -1,6 +1,9 @@
 import React from 'react';
 
 class AspectRatio extends React.Component {
+
+
+
   render() {
     let {parentClass, ratioAdditionalClass} = this.props;
     if (parentClass===undefined) {parentClass=""};

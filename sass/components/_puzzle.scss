@@ -19,13 +19,11 @@
     &:last-child {
       margin-right:0;
     }
-    .ratio-content {
-      bottom: initial;
-      font-size:1em;
-      text-align: center;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+    .ratio-content > div {
+      width:100%;
+      height:auto;
+      min-height:50px;
+      @extend %valign;
     }
     &.disabled {background: rgba(195,196,198,0.3)}
   }

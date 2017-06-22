@@ -2,9 +2,9 @@ import React from 'react';
 
 class MissedCharacters extends React.Component {
   render() {
-    const letters = ['A','B','C'];
+    const letters = this.props.missedLetters;
     const listItems = letters.map((letter) =>
-      <li>{letter}</li>
+      <li key={letter}>{letter}</li>
     );
     return (
       <div className="missed-characters">
