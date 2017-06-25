@@ -52,7 +52,7 @@ class Index extends React.Component {
     return word;
   }
 
-  handleMissedLetter(word,pressedKey) {
+  handleMissedLetters(word,pressedKey) {
     let missedLetters = this.state.missedLetters;
 
     const missedLetterWasPressed = (word,pressedKey) => {
@@ -92,7 +92,7 @@ class Index extends React.Component {
 
   handleKeyPress(pressedKey) {
     let word = this.handleWinningLetters(this.state.word, pressedKey);
-    let missedLetters = this.handleMissedLetter(word,pressedKey);
+    let missedLetters = this.handleMissedLetters(word,pressedKey);
     this.showEndGame(word,missedLetters);
 
     this.setState({word,missedLetters});
