@@ -9,38 +9,34 @@ class PrimaryContent extends React.Component {
     super();
   }
 
-  renderDisabledPuzzles(disabledCount) {
-    let puzzles = [];
-    for (let i=0; i<disabledCount; i++) {
-      puzzles.push('react render with loop of exactly the same elements is wierd');
-    };
-    return puzzles;
+
+  renderDisabledPuzzles(amount){
+    return Array.from({length: amount}, (value, key) => <AspectRatio parentClass="disabled" />)
   }
 
+  renderLetters(word) {
+    return word.map(function(letterObj, index) {
+      let space = (letterObj.letter==' ' ? "disabled": '')
+      return(
+        <AspectRatio parentClass={space} key={"letter" + index}>
+          <div id={"letter" + index}>{letterObj.visible ? letterObj.letter : ''}</div>
+        </AspectRatio>
+      )
+    }) ;
+  }
 
   render() {
-    let word = this.props.word;
-    let disabledCount = this.props.puzzles - word.length;
+    let disabledCount = this.props.puzzles - this.props.word.length;
     let disabledPuzzles = this.renderDisabledPuzzles(disabledCount);
+    let letters = this.renderLetters(this.props.word);
 
     return (
       <div className="ratio-content primary-content">
         <Hangedman/>
         <MissedCharacters missedLetters={this.props.missedLetters}/>
         <Puzzle>
-          {disabledPuzzles.map((complaint, index) => {
-            return(
-              <AspectRatio parentClass="disabled" key={"disabled" + index}/>
-            )
-          })}
-          {word.map(function(letterObj, index) {
-            let color = (letterObj.visible ? {color:'red'} : {color:'white'});
-            return(
-              <AspectRatio key={"letter" + index}>
-                <div style={color} id={"letter" + index}>{letterObj.letter}</div>
-              </AspectRatio>
-            )
-          })}
+          {disabledPuzzles}
+          {letters}
         </Puzzle>
       </div>
     );
