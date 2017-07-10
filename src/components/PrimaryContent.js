@@ -1,8 +1,17 @@
 import React from 'react';
+import {connect} from 'react-redux';
+import store from '../reducers/store';
 import Hangedman from './Hangedman';
 import AspectRatio from './AspectRatio';
 import Puzzle from './Puzzle';
 import MissedCharacters from './MissedCharacters';
+
+const mapStateToProps = (store) => {
+  return {
+    word: store.wordState.word,
+    missedLetters: store.missedLettersState.missedLetters
+  }
+}
 
 class PrimaryContent extends React.Component {
   constructor() {
@@ -26,6 +35,7 @@ class PrimaryContent extends React.Component {
   }
 
   render() {
+    console.log(this.props.word);
     let disabledCount = this.props.puzzles - this.props.word.length;
     let disabledPuzzles = this.renderDisabledPuzzles(disabledCount);
     let letters = this.renderLetters(this.props.word);
@@ -42,4 +52,4 @@ class PrimaryContent extends React.Component {
     );
   }
 }
-export default PrimaryContent;
+export default connect(mapStateToProps)(PrimaryContent);

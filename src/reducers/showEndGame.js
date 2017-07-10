@@ -1,0 +1,4 @@
+const initialWordState = {
+  word: [],
+  missedLetters: []
+};

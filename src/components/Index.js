@@ -1,6 +1,20 @@
 import React from 'react';
+import {connect} from 'react-redux';
+import store from '../reducers/store';
+import fetchWord from '../methods/fetchWord';
 import PrimaryContent from './PrimaryContent';
 import EndGame from './EndGame';
+
+
+
+const mapStateToProps = (store) => {
+  return {
+    word: store.wordState.word,
+    missedLetters: store.missedLettersState.missedLetters,
+    message: store.messageText.message,
+    showEndGame: store.messageText.showEndGame
+  }
+}
 
 class Index extends React.Component {
 
@@ -11,37 +25,10 @@ class Index extends React.Component {
       steps:11
     };
     this.state = {
-      word: [],
-      missedLetters: [],
-      showEndGame:false,
-      message:''
+      showEndGame:false
     };
     this.handleKeyPress = this.handleKeyPress.bind(this);
   }
-
-  getWord(maxWordLength){
-    const apiRequest = `http://api.wordnik.com:80/v4/words.json/randomWord?hasDictionaryDef=true&minCorpusCount=0&maxCorpusCount=-1&minDictionaryCount=1&maxDictionaryCount=-1&minLength=5&maxLength=${maxWordLength}&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5`;
-    fetch(
-        apiRequest,
-        {method: 'get'}
-      ).then(response => {
-        if (response.status !== 200) {
-          console.log('Looks like there was a problem. Status Code: ' +
-            response.status);
-          return;
-        }
-        response.json().then(data => {
-          let word = [];
-          for (let letter of data.word) {
-            let visible = !(/^[a-zA-Z]$/.test(letter));
-            word.push({letter, visible});
-          }
-          this.setState({word});
-        });
-    }).catch(function(err){
-      console.log(err)
-    });
-  };
 
   handleWinningLetters(word, pressedKey) {
     for (let i = 0; i < word.length; i++) {
@@ -52,57 +39,46 @@ class Index extends React.Component {
     return word;
   }
 
-  handleMissedLetters(word,pressedKey) {
-    let missedLetters = this.state.missedLetters;
-
-    const missedLetterWasPressed = (word,pressedKey) => {
-      let hasLetter = word.find((element)=>{
-        return element.letter.toUpperCase() === pressedKey;
-      }, pressedKey);
-
-      return (hasLetter===undefined)&&(/^[a-zA-Z]$/.test(pressedKey));
-    }
-
-    if (missedLetterWasPressed(word,pressedKey)) {
-      missedLetters.push(pressedKey);
-      missedLetters = missedLetters.filter(function(elem, index, self) {
-        return index == self.indexOf(elem);
-      })
-    }
-
-    return missedLetters;
-  }
-
   showEndGame(word,missedLetters) {
     let unvisibles = word.map((letter) => {return letter.visible});
     let won = unvisibles.find((el) => {return el===false}) === undefined;
     let lost = missedLetters.length===this.statics.steps;
+    let endGameStatus = {won, lost};
 
-    let message = (() => {
-      if (won) {
-        return "Congrats! You've won!"
-      } else if (lost) {
-        return "Game over"
-      } else {return ""}
-    })()
-    let showEndGame = won||lost;
-    window.onkeydown = showEndGame ? '' : this.triggerHandleKeyPress.bind(this);
-    this.setState({message, showEndGame});
+    store.dispatch({
+      showEndGame:endGameStatus,
+      type: 'SET_MESSAGE'
+    })
+
+    store.dispatch({
+      showEndGame:endGameStatus,
+      type: 'SHOW_END_GAME'
+    })
+    window.onkeydown = this.props.showEndGame ? '' : () => {this.handleKeyPress(String.fromCharCode(event.keyCode))};
   }
 
   handleKeyPress(pressedKey) {
-    let word = this.handleWinningLetters(this.state.word, pressedKey);
-    let missedLetters = this.handleMissedLetters(word,pressedKey);
-    this.showEndGame(word,missedLetters);
-
-    this.setState({word,missedLetters});
+    store.dispatch({
+      lettersProps: {
+        word:this.props.word,
+        pressedKey,
+        missedLetters: this.props.missedLetters
+      },
+      type: 'SET_MISSED_LETTERS'
+    });
+    store.dispatch ({
+      wordProps: {
+        word:this.props.word,
+        pressedKey
+      },
+      type: 'UPDATE_WORD'
+    });
+    this.showEndGame(this.props.word,this.props.missedLetters);
   };
 
-  triggerHandleKeyPress(event) {this.handleKeyPress(String.fromCharCode(event.keyCode))}
-
   componentWillMount() {
-    this.getWord(this.statics.maxWordLength);
-    window.onkeydown = this.triggerHandleKeyPress.bind(this);
+    fetchWord(this.statics.maxWordLength);
+    window.onkeydown = () => {this.handleKeyPress(String.fromCharCode(event.keyCode))};
   }
 
 
@@ -111,8 +87,8 @@ class Index extends React.Component {
   render() {
     return (
       <div className="container">
-      {this.state.word.length>0 && <PrimaryContent missedLetters={this.state.missedLetters} word={this.state.word} puzzles={this.statics.maxWordLength}/>}
-      {this.state.showEndGame && <EndGame message={this.state.message}/>}
+        {this.props.word.length>0 && <PrimaryContent word={this.props.word} puzzles={this.statics.maxWordLength}/>}
+        {this.props.showEndGame && <EndGame message={this.props.message}/>}
 
         <svg viewBox="0 0 100 100"  className="triangle">
           <polygon points="0,100 100,100 100,0"/>
@@ -121,4 +97,4 @@ class Index extends React.Component {
     );
   }
 }
-export default Index;
+export default connect(mapStateToProps)(Index);
