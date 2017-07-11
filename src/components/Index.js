@@ -71,7 +71,7 @@ class Index extends React.Component {
         word:this.props.word,
         pressedKey
       },
-      type: 'UPDATE_WORD'
+      type: 'SET_WINNING_LETTERS'
     });
     this.showEndGame(this.props.word,this.props.missedLetters);
   };

@@ -38,7 +38,7 @@ class PrimaryContent extends React.Component {
     console.log(this.props.word);
     let disabledCount = this.props.puzzles - this.props.word.length;
     let disabledPuzzles = this.renderDisabledPuzzles(disabledCount);
-    let letters = this.renderLetters(this.props.word);
+    let WinningLetters = this.renderLetters(this.props.word);
 
     return (
       <div className="ratio-content primary-content">
@@ -46,7 +46,7 @@ class PrimaryContent extends React.Component {
         <MissedCharacters missedLetters={this.props.missedLetters}/>
         <Puzzle>
           {disabledPuzzles}
-          {letters}
+          {WinningLetters}
         </Puzzle>
       </div>
     );

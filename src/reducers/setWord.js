@@ -23,8 +23,8 @@ const updateWord = (wordProps) => {
 
 const setWord = (state = initialWordState, action) => {
   switch(action.type) {
-    case 'UPDATE_WORD': return Object.assign({}, state, updateWord(action.wordProps));
     case 'SET_WORD': return Object.assign({}, state, getWord(action.word));
+    case 'SET_WINNING_LETTERS': return Object.assign({}, state, updateWord(action.wordProps));
   }
   return state;
 }
