@@ -1,4 +1,5 @@
 import store from '../../store';
+import {SET_WORD} from '../reducers/actionTypes';
 
 const fetchWord = () => {
   const maxWordLength = 12;
@@ -14,7 +15,7 @@ const fetchWord = () => {
       response.json().then(data => {
         store.dispatch({
           word: data.word,
-          type: 'SET_WORD'
+          type: SET_WORD
         });
       });
   }).catch(function(err){

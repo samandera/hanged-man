@@ -1,3 +1,5 @@
+import {SET_WORD, SET_WINNING_LETTERS} from './actionTypes';
+
 const initialWordState = {
   word: []
 };
@@ -24,8 +26,8 @@ const updateWord = (wordProps) => {
 
 const setWord = (state = initialWordState, action) => {
   switch(action.type) {
-    case 'SET_WORD': return Object.assign({}, state, getWord(action.word));
-    case 'SET_WINNING_LETTERS': return Object.assign({}, state, updateWord(action.wordProps));
+    case SET_WORD: return Object.assign({}, state, getWord(action.word));
+    case SET_WINNING_LETTERS: return Object.assign({}, state, updateWord(action.wordProps));
   }
   return state;
 }

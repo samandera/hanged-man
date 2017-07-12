@@ -1,4 +1,5 @@
 import store from '../../store';
+import {SHOW_END_GAME, SET_MISSED_LETTERS, SET_WINNING_LETTERS, SET_MESSAGE} from '../reducers/actionTypes';
 
 const showEndGame = (word,missedLetters) => {
   const steps = 11;
@@ -9,12 +10,12 @@ const showEndGame = (word,missedLetters) => {
 
   store.dispatch({
     showEndGame:endGameStatus,
-    type: 'SET_MESSAGE'
+    type: SET_MESSAGE
   })
 
   store.dispatch({
     showEndGame:endGameStatus,
-    type: 'SHOW_END_GAME'
+    type: SHOW_END_GAME
   })
   const state = store.getState();
 
@@ -29,14 +30,14 @@ const handleKeyPress = (pressedKey) => {
       pressedKey,
       missedLetters: state.missedLettersState.missedLetters
     },
-    type: 'SET_MISSED_LETTERS'
+    type: SET_MISSED_LETTERS
   });
   store.dispatch ({
     wordProps: {
       word:state.wordState.word,
       pressedKey
     },
-    type: 'SET_WINNING_LETTERS'
+    type: SET_WINNING_LETTERS
   });
   state = store.getState();
   showEndGame(state.wordState.word,state.missedLettersState.missedLetters);

@@ -1,4 +1,5 @@
 import store from '../../store';
+import {SET_MESSAGE, SHOW_END_GAME, RESET_MISSED_LETTERS} from '../reducers/actionTypes';
 import handleKeyPress from './handleKeyPress';
 import fetchWord from './fetchWord';
 
@@ -10,14 +11,14 @@ const resetStateOnEndGame = () => {
   fetchWord().then(() => {
     store.dispatch({
       showEndGame: endGameStatus,
-      type: 'SET_MESSAGE'
+      type: SET_MESSAGE
     });
     store.dispatch({
       showEndGame: endGameStatus,
-      type: 'SHOW_END_GAME'
+      type: SHOW_END_GAME
     });
     store.dispatch ({
-      type: 'RESET_MISSED_LETTERS'
+      type: RESET_MISSED_LETTERS
     });
     window.onkeydown = () => {handleKeyPress(String.fromCharCode(event.keyCode))};
   });
