@@ -1,12 +1,12 @@
 import { createStore, combineReducers } from 'redux';
 import setWord from '../reducers/setWord';
 import setMissedLetters from '../reducers/setMissedLetters';
-import setMessageState from '../reducers/setEndGameMessage';
+import setEndGameState from '../reducers/showEndGame';
 
 const reducers = combineReducers({
   wordState: setWord,
   missedLettersState: setMissedLetters,
-  messageText: setMessageState
+  messageText: setEndGameState
 });
 
 const store = createStore(reducers);

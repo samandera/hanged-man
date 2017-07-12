@@ -7,19 +7,20 @@ const resetStateOnEndGame = () => {
     won:false,
     lost:false
   };
-  fetchWord();
-  store.dispatch({
-    showEndGame: endGameStatus,
-    type: 'SET_MESSAGE'
-  });
-  store.dispatch({
-    showEndGame: endGameStatus,
-    type: 'SHOW_END_GAME'
-  });
-  store.dispatch ({
-    type: 'RESET_MISSED_LETTERS'
-  });
-  window.onkeydown = () => {handleKeyPress(String.fromCharCode(event.keyCode))};
+  fetchWord().then(() => {
+    store.dispatch({
+      showEndGame: endGameStatus,
+      type: 'SET_MESSAGE'
+    });
+    store.dispatch({
+      showEndGame: endGameStatus,
+      type: 'SHOW_END_GAME'
+    });
+    store.dispatch ({
+      type: 'RESET_MISSED_LETTERS'
+    });
+    window.onkeydown = () => {handleKeyPress(String.fromCharCode(event.keyCode))};
+  });   
 }
 
 export default resetStateOnEndGame;
