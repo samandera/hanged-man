@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import store from '../reducers/store';
+import store from '../../store';
 import resetStateOnEndGame from '../methods/resetStateOnEndGame';
 
 const mapStateToProps = (store) => {

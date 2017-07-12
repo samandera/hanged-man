@@ -1,4 +1,4 @@
-import store from '../reducers/store';
+import store from '../../store';
 
 const fetchWord = () => {
   const maxWordLength = 12;

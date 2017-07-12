@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import store from '../reducers/store';
+import store from '../../store';
 import Hangedman from './Hangedman';
 import Puzzle from './Puzzle';
 import MissedCharacters from './MissedCharacters';

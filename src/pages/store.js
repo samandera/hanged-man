@@ -1,7 +1,7 @@
 import { createStore, combineReducers } from 'redux';
-import setWord from '../reducers/setWord';
-import setMissedLetters from '../reducers/setMissedLetters';
-import setEndGameState from '../reducers/showEndGame';
+import setWord from './game/reducers/setWord';
+import setMissedLetters from './game/reducers/setMissedLetters';
+import setEndGameState from './game/reducers/showEndGame';
 
 const reducers = combineReducers({
   wordState: setWord,

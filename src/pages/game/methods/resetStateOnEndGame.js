@@ -1,4 +1,4 @@
-import store from '../reducers/store';
+import store from '../../store';
 import handleKeyPress from './handleKeyPress';
 import fetchWord from './fetchWord';
 
@@ -20,7 +20,7 @@ const resetStateOnEndGame = () => {
       type: 'RESET_MISSED_LETTERS'
     });
     window.onkeydown = () => {handleKeyPress(String.fromCharCode(event.keyCode))};
-  });   
+  });
 }
 
 export default resetStateOnEndGame;

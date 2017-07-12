@@ -1,4 +1,4 @@
-import store from '../reducers/store';
+import store from '../../store';
 
 const showEndGame = (word,missedLetters) => {
   const steps = 11;
