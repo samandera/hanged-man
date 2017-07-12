@@ -29,6 +29,7 @@ const handleMissedLetters = (lettersProps) => {
 const setMissedLetters = (state = initialMissedLettersState, action) => {
   switch(action.type) {
     case 'SET_MISSED_LETTERS': return Object.assign({}, state, handleMissedLetters(action.lettersProps));
+    case 'RESET_MISSED_LETTERS': return Object.assign({}, state, {missedLetters: []});
   }
   return state;
 };

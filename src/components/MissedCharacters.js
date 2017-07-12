@@ -1,4 +1,12 @@
 import React from 'react';
+import {connect} from 'react-redux';
+import store from '../reducers/store';
+
+const mapStateToProps = (store) => {
+  return {
+    missedLetters: store.missedLettersState.missedLetters
+  }
+}
 
 class MissedCharacters extends React.Component {
   render() {
@@ -16,4 +24,4 @@ class MissedCharacters extends React.Component {
     );
   }
 }
-export default MissedCharacters;
+export default connect(mapStateToProps)(MissedCharacters);

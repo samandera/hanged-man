@@ -13,11 +13,12 @@ const getWord = (word) => {
 
 const updateWord = (wordProps) => {
   let {word, pressedKey} = wordProps;
-  for (let i = 0; i < word.length; i++) {
-    if (/^[a-zA-Z]$/.test(pressedKey) && word[i].letter.toUpperCase() == pressedKey) {
-      word[i].visible = true;
+  word = Array.from(word);
+  word.map((letterObj, index) => {
+    if (/^[a-zA-Z]$/.test(pressedKey) && letterObj.letter.toUpperCase() == pressedKey) {
+      letterObj.visible = true;
     }
-  }
+  });
   return {word};
 }
 
