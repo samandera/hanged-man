@@ -23,27 +23,27 @@ class Hangedman extends React.Component {
       <AspectRatio parentClass="hangedman-canvas">
         <Bar/>
         <TheMan>
-          <Head></Head>
-          <Neck></Neck>
+          <Head/>
+          <Neck/>
           <MiddlePart>
-            <Corpus></Corpus>
+            <Corpus/>
             <Limb bodySide="left">
-              <LeftArm></LeftArm>
-              <LeftPalm></LeftPalm>
+              <LeftArm/>
+              <LeftPalm/>
             </Limb>
             <Limb bodySide="right">
-              <RightArm></RightArm>
-              <RightPalm></RightPalm>
+              <RightArm/>
+              <RightPalm/>
             </Limb>
           </MiddlePart>
           <BottomPart>
             <Limb bodySide="left">
-              <LeftLeg></LeftLeg>
-              <LeftFoot></LeftFoot>
+              <LeftLeg/>
+              <LeftFoot/>
             </Limb>
             <Limb bodySide="right">
-              <RightLeg></RightLeg>
-              <RightFoot></RightFoot>
+              <RightLeg/>
+              <RightFoot/>
             </Limb>
           </BottomPart>
         </TheMan>

@@ -1,12 +1,25 @@
 {
-  "name": "react-starter",
+  "name": "hangedman-phrasal-flashcards",
   "version": "0.0.5",
   "description": "React starter project with sass and bootstrap",
   "main": "src/main.js",
   "scripts": {
     "compile": "webpack",
     "start": "node server.js",
-    "watch-sass": "webpack --watch"
+    "watch-sass": "webpack --watch",
+    "test": "jest",
+    "test:watch": "npm test -- --watch"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.tsx?$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "verbose": true,
+    "testRegex": "(/__tests__/.*|(\\.|/)(jest))\\.jsx?$",
+    "moduleFileExtensions": [
+      "js",
+      "json"
+    ]
   },
   "keywords": [
     "react",
@@ -19,7 +32,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git://github.com/samandera/react-sass-starter.git"
+    "url": "git://github.com/samandera/hangedman.git"
   },
   "dependencies": {
     "babel-core": "^6.24.1",
@@ -37,9 +50,12 @@
     "webpack-dev-middleware": "^1.10.1"
   },
   "devDependencies": {
+    "babel-jest": "^20.0.3",
     "file-loader": "^0.11.2",
     "img-loader": "^2.0.0",
+    "jest": "^20.0.4",
     "node-sass": "^4.5.3",
+    "regenerator-runtime": "^0.10.5",
     "sass-loader": "^6.0.6",
     "webpack": "^2.6.1"
   }
