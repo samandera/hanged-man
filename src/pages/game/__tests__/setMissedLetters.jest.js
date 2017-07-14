@@ -2,7 +2,7 @@ import setMissedLetters from '../reducers/setMissedLetters';
 import {SET_MISSED_LETTERS, RESET_MISSED_LETTERS} from '../reducers/actionTypes';
 
 
-decribe("Handling missed letters reducer", () => {
+describe("Handling missed letters reducer", () => {
   const initialMissedLettersState = {
     word: [],
     missedLetters: [],
@@ -25,15 +25,10 @@ decribe("Handling missed letters reducer", () => {
           type: SET_MISSED_LETTERS
         }
       )
-    ).toEqual([
-      {
-        word: [
-          {letter:'A', visible:false},
-          {letter:'B', visible:false}
-        ,
-        missedLetters: ['C'],
-        pressedKey: 'C'
-      }
-    ])
+    ).toEqual({
+      word: [],
+      missedLetters: ['C'],
+      pressedKey:""
+    })
   })
 })
