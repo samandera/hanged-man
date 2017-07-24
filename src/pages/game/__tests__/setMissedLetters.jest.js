@@ -9,7 +9,7 @@ describe("Handling missed letters reducer", () => {
     pressedKey: ''
   };
 
-  it("Array's missedLetters length should be equal 1", () => {
+  it("Pressed key should be pushed to missedLetters array", () => {
     expect(
       setMissedLetters(
         initialMissedLettersState,
@@ -24,11 +24,19 @@ describe("Handling missed letters reducer", () => {
           },
           type: SET_MISSED_LETTERS
         }
-      )
-    ).toEqual({
-      word: [],
-      missedLetters: ['C'],
-      pressedKey:""
-    })
-  })
+      ).missedLetters
+    ).toEqual(['C'])
+  });
+
+
+  it("After reseting missedLetters, missedLetters array shoulb be empty, it's length should be equal 0", () => {
+    expect(
+      setMissedLetters(
+        initialMissedLettersState,
+        {
+          type:RESET_MISSED_LETTERS
+        }
+      ).missedLetters
+    ).toEqual([])
+  });
 })
