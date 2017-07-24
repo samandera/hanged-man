@@ -1,25 +1,24 @@
 import {SET_MESSAGE, SHOW_END_GAME} from './actionTypes';
 
-const initialEndGameState = {
+export const initialEndGameState = {
   message:"",
   showEndGame: false
 }
+export const messageWon = "Congrats! You've won!";
+export const messageLost = "Game over. You've lost.";
+export const messageGameIsRunning = ""
 
 const setMessageTxt = (endGameStatus) => {
   let message;
-  if (endGameStatus.won) {message = "Congrats! You've won!"}
-  else if (endGameStatus.lost) {message = "Game over. You've lost."}
-  else {message = ""}
+  if (endGameStatus.won) {message = messageWon}
+  else if (endGameStatus.lost) {message = messageLost}
+  else {message = messageGameIsRunning}
 
   return {message}
 }
 
-const toggleShowEndGame = (endGameStatus) => {
-  return (endGameStatus.won) || (endGameStatus.lost);
-}
 
-
-export const setEndGameState = (state = initialEndGameState, action) => {
+const setEndGameState = (state = initialEndGameState, action) => {
   switch (action.type) {
     case SET_MESSAGE: return Object.assign({}, state, setMessageTxt(action.showEndGame));
     case SHOW_END_GAME: return Object.assign({}, state, {showEndGame:(action.showEndGame.won||action.showEndGame.lost)})

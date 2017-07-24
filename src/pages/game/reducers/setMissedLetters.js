@@ -1,6 +1,6 @@
 import {SET_MISSED_LETTERS, RESET_MISSED_LETTERS} from './actionTypes';
 
-const initialMissedLettersState = {
+export const initialMissedLettersState = {
   word: [],
   missedLetters: [],
   pressedKey: ''

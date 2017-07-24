@@ -1,14 +1,9 @@
 import setMissedLetters from '../reducers/setMissedLetters';
+import {initialMissedLettersState} from '../reducers/setMissedLetters';
 import {SET_MISSED_LETTERS, RESET_MISSED_LETTERS} from '../reducers/actionTypes';
 
 
 describe("Handling missed letters reducer", () => {
-  const initialMissedLettersState = {
-    word: [],
-    missedLetters: [],
-    pressedKey: ''
-  };
-
   it("Pressed key should be pushed to missedLetters array", () => {
     expect(
       setMissedLetters(

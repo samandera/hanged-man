@@ -1,6 +1,6 @@
 import {SET_WORD, SET_WINNING_LETTERS} from './actionTypes';
 
-const initialWordState = {
+export const initialWordState = {
   word: []
 };
 
