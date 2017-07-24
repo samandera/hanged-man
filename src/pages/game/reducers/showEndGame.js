@@ -19,13 +19,10 @@ const toggleShowEndGame = (endGameStatus) => {
 }
 
 
-const setEndGameState = (state = initialEndGameState, action) => {
+export const setEndGameState = (state = initialEndGameState, action) => {
   switch (action.type) {
     case SET_MESSAGE: return Object.assign({}, state, setMessageTxt(action.showEndGame));
-    case SHOW_END_GAME: return {
-      ...state,
-      showEndGame:(action.showEndGame.won) || (action.showEndGame.lost)
-    }
+    case SHOW_END_GAME: return Object.assign({}, state, {showEndGame:(action.showEndGame.won||action.showEndGame.lost)})
   }
   return state;
 };

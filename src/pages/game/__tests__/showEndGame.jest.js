@@ -1,4 +1,4 @@
-import setEndGameState from '../reducers/setWord';
+import {setEndGameState} from '../reducers/showEndGame';
 import {SET_MESSAGE, SHOW_END_GAME} from '../reducers/actionTypes';
 
 const initialEndGameState = {

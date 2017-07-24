@@ -38,6 +38,15 @@ Babel spread loader plugin
 npm install --save-dev babel-plugin-transform-object-rest-spread
 ```
 
+Adding tests
+---
+
+```
+npm install --save-dev jest
+npm install --save-dev babel-jest
+
+```
+
 
 Compile
 ---
@@ -62,13 +71,4 @@ Start the development server with this command:
 
 ```
 npm start
-```
-
-Adding tests
----
-
-```
-npm install --save-dev jest
-npm install --save-dev babel-jest
-
 ```
