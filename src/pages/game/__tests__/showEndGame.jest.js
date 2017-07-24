@@ -12,7 +12,7 @@ describe("Testing End game screen configuration", () => {
       setEndGameState(
         initialEndGameState,
         {showEndGame:{
-          won: true,
+          won: false,
           lost: false
         },
         type: SHOW_END_GAME}
