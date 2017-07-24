@@ -12685,7 +12685,6 @@ var setMissedLetters = function setMissedLetters() {
     case __WEBPACK_IMPORTED_MODULE_0__actionTypes__["c" /* RESET_MISSED_LETTERS */]:
       return Object.assign({}, state, { missedLetters: [] });
   }
-  console.log(state);
   return state;
 };
 
@@ -12768,9 +12767,11 @@ var setWord = function setWord() {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__actionTypes__ = __webpack_require__(19);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 
-var initialMessage = {
+
+var initialEndGameState = {
   message: "",
   showEndGame: false
 };
@@ -12789,18 +12790,20 @@ var setMessageTxt = function setMessageTxt(endGameStatus) {
 };
 
 var toggleShowEndGame = function toggleShowEndGame(endGameStatus) {
-  return { showEndGame: endGameStatus.won || endGameStatus.lost };
+  return endGameStatus.won || endGameStatus.lost;
 };
 
 var setEndGameState = function setEndGameState() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialMessage;
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialEndGameState;
   var action = arguments[1];
 
   switch (action.type) {
     case __WEBPACK_IMPORTED_MODULE_0__actionTypes__["a" /* SET_MESSAGE */]:
       return Object.assign({}, state, setMessageTxt(action.showEndGame));
     case __WEBPACK_IMPORTED_MODULE_0__actionTypes__["b" /* SHOW_END_GAME */]:
-      return Object.assign({}, state, toggleShowEndGame(action.showEndGame));
+      return _extends({}, state, {
+        showEndGame: toggleShowEndGame(action.showEndGame)
+      });
   }
   return state;
 };

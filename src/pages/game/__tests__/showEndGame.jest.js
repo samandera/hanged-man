@@ -21,16 +21,6 @@ describe("Testing End game screen configuration", () => {
   });
 
   it("End Game screen should display (showEndGame state = true) while endGameStatus.won is set to true and endGameStatus.lost is set to false", () => {
-    console.log(setEndGameState(
-      initialEndGameState,
-      {
-        showEndGame:{
-          won: true,
-          lost: false
-        },
-        type: SHOW_END_GAME
-      }
-    ));
     expect(
       setEndGameState(
         initialEndGameState,

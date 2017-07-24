@@ -15,15 +15,17 @@ const setMessageTxt = (endGameStatus) => {
 }
 
 const toggleShowEndGame = (endGameStatus) => {
-  let showEndGame = (endGameStatus.won) || (endGameStatus.lost);
-  return {showEndGame};
+  return (endGameStatus.won) || (endGameStatus.lost);
 }
 
 
 const setEndGameState = (state = initialEndGameState, action) => {
   switch (action.type) {
     case SET_MESSAGE: return Object.assign({}, state, setMessageTxt(action.showEndGame));
-    case SHOW_END_GAME: return Object.assign({}, state, toggleShowEndGame(action.showEndGame))
+    case SHOW_END_GAME: return {
+      ...state,
+      showEndGame:(action.showEndGame.won) || (action.showEndGame.lost)
+    }
   }
   return state;
 };

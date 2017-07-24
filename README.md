@@ -1,4 +1,4 @@
-# react-sass-starter
+# multilingual-hangedman-flashcards
 
 Setup
 ---
@@ -29,6 +29,13 @@ Fonts loader
 
 ```
 npm install --save-dev file-loader
+```
+
+Babel spread loader plugin
+---
+
+```
+npm install --save-dev babel-plugin-transform-object-rest-spread
 ```
 
 
