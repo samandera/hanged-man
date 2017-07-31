@@ -1,7 +1,7 @@
 {
-  "name": "hangedman-phrasal-flashcards",
+  "name": "hangedman-idioms-flashcards",
   "version": "0.0.5",
-  "description": "React starter project with sass and bootstrap",
+  "description": "Tool for learning idioms playing hangedman",
   "main": "src/main.js",
   "scripts": {
     "compile": "webpack",
@@ -41,6 +41,7 @@
     "react-bootstrap": "^0.31.0",
     "react-dom": "^15.5.4",
     "react-redux": "^5.0.5",
+    "react-router-dom": "^4.1.2",
     "redux": "^3.7.1",
     "redux-thunk": "^2.2.0",
     "webpack": "^2.4.1",
