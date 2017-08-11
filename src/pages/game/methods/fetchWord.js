@@ -1,14 +1,5 @@
 import store from '../../store';
-import {SET_WORD} from '../reducers/actionTypes';
-
-
-const setWordToLocalStorage = () => {
-  let words = JSON.parse(localStorage.getItem('words'));
-  (words === null) && (words = []);
-  let word = store.getState().wordState.word;
-  words.push(word);
-  localStorage.setItem('words', JSON.stringify(words));
-};
+import {SET_WORD, SET_PLAYED_WORDS} from '../reducers/actionTypes';
 
 const fetchWord = () => {
   const maxWordLength = 12;
@@ -26,7 +17,10 @@ const fetchWord = () => {
         word: data.word,
         type: SET_WORD
       });
-      setWordToLocalStorage();
+      store.dispatch({
+        playedWord: [],
+        type: SET_PLAYED_WORDS
+      });
     });
   }).catch(function(err){
     console.log(err)
