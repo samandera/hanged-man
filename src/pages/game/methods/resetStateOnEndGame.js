@@ -1,5 +1,5 @@
 import store from '../../store';
-import {SET_MESSAGE, SHOW_END_GAME, RESET_MISSED_LETTERS} from '../reducers/actionTypes';
+import {SET_MESSAGE, SHOW_END_GAME, RESET_MISSED_LETTERS, SET_PLAYED_WORDS} from '../reducers/actionTypes';
 import handleKeyPress from './handleKeyPress';
 import fetchWord from './fetchWord';
 
@@ -8,6 +8,11 @@ const resetStateOnEndGame = () => {
     won:false,
     lost:false
   };
+  let state = store.getState();
+  store.dispatch({
+    playedWord: state.wordState.word,
+    type: SET_PLAYED_WORDS
+  });
   fetchWord().then(() => {
     store.dispatch({
       showEndGame: endGameStatus,
