@@ -47,6 +47,12 @@ npm install --save-dev babel-jest
 
 ```
 
+For testing with events
+
+```
+npm install trigger-event
+```
+
 
 Compile
 ---
