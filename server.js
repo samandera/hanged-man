@@ -18,6 +18,10 @@ app.use(webpackDevMiddleware(compiler, {
 
 app.use(express.static(__dirname + '/docs'));
 
+app.get('/*', function (req, res) {
+   res.sendFile(__dirname + '/docs/index.html');
+ });
+
 const server = app.listen(3000, function() {
   const host = server.address().address;
   const port = server.address().port;

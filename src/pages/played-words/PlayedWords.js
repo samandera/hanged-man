@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import {connect} from 'react-redux';
 import store from '../store';
 
@@ -27,4 +28,4 @@ class PlayedWords extends React.Component {
   }
 }
 
-export default connect(mapStateToProps)(PlayedWords);
+export default withRouter(connect(mapStateToProps)(PlayedWords));
