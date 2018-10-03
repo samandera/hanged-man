@@ -7571,28 +7571,31 @@ module.exports = lowPriorityWarning;
 
 
 
+var dispatched = function dispatched(data) {
+  __WEBPACK_IMPORTED_MODULE_0__store__["a" /* default */].dispatch({
+    word: data.word,
+    type: __WEBPACK_IMPORTED_MODULE_1__reducers_actionTypes__["g" /* SET_WORD */]
+  });
+  __WEBPACK_IMPORTED_MODULE_0__store__["a" /* default */].dispatch({
+    playedWord: [],
+    type: __WEBPACK_IMPORTED_MODULE_1__reducers_actionTypes__["a" /* SET_PLAYED_WORDS */]
+  });
+};
+
 var fetchWord = function fetchWord() {
   var maxWordLength = 12;
   var apiRequest = 'http://api.wordnik.com:80/v4/words.json/randomWord?hasDictionaryDef=true&minCorpusCount=0&maxCorpusCount=-1&minDictionaryCount=1&maxDictionaryCount=-1&minLength=5&maxLength=' + maxWordLength + '&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5';
-  var promise = fetch(apiRequest, { method: 'get' }).then(function (response) {
+  return fetch(apiRequest, { method: 'get' }).then(function (response) {
     if (response.status !== 200) {
       console.log('Looks like there was a problem. Status Code: ' + response.status);
       return;
     }
     response.json().then(function (data) {
-      __WEBPACK_IMPORTED_MODULE_0__store__["a" /* default */].dispatch({
-        word: data.word,
-        type: __WEBPACK_IMPORTED_MODULE_1__reducers_actionTypes__["g" /* SET_WORD */]
-      });
-      __WEBPACK_IMPORTED_MODULE_0__store__["a" /* default */].dispatch({
-        playedWord: [],
-        type: __WEBPACK_IMPORTED_MODULE_1__reducers_actionTypes__["a" /* SET_PLAYED_WORDS */]
-      });
+      return dispatched(data);
     });
   }).catch(function (err) {
     console.log(err);
   });
-  return promise;
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (fetchWord);
