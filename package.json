@@ -5,10 +5,10 @@
   "main": "src/main.js",
   "scripts": {
     "compile": "webpack",
-    "start": "node server.js",
     "watch-sass": "webpack --watch",
     "test": "jest",
-    "test:watch": "npm test -- --watch"
+    "test:watch": "npm test -- --watch",
+    "start": "node server.js & npm run watch-sass & npm run test:watch"
   },
   "jest": {
     "verbose": true,
