@@ -12908,7 +12908,7 @@ var Game = function (_React$Component) {
     key: 'componentWillMount',
     value: function componentWillMount() {
       //fetchWord();
-      __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__methods_fetchIdiomsIndexesList__["a" /* default */])();
+      __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__methods_fetchIdiomsIndexesList__["a" /* default */])("https://en.wiktionary.org/w/api.php?action=query&format=json&list=categorymembers&cmtitle=Category%3AEnglish_idioms&cmlimit=500&cmcontinue=");
       window.onkeydown = function () {
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__methods_handleKeyPress__["a" /* default */])(String.fromCharCode(event.keyCode));
       };
@@ -13968,8 +13968,19 @@ var Puzzle = function (_React$Component) {
 "use strict";
 
 
-var fetchIdiomsIndexesList = function fetchIdiomsIndexesList() {
-  return "void";
+var fetchIdiomsIndexesList = function fetchIdiomsIndexesList(url) {
+  return fetch(url, {
+    method: 'get',
+    mode: "cors"
+  }).then(function (response) {
+    if (response.status !== 200) {
+      console.log('Looks like there was a problem. Status Code: ' + response.status);
+      return;
+    }
+    response.json().then(function (data) {
+      return console.log(data);
+    });
+  });
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (fetchIdiomsIndexesList);

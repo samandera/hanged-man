@@ -9,7 +9,7 @@ class Game extends React.Component {
 
   componentWillMount() {
     //fetchWord();
-    fetchIdiomsIndexesList();
+    fetchIdiomsIndexesList("https://en.wiktionary.org/w/api.php?action=query&format=json&list=categorymembers&cmtitle=Category%3AEnglish_idioms&cmlimit=500&cmcontinue=");
     window.onkeydown = () => {handleKeyPress(String.fromCharCode(event.keyCode))}
   }
 

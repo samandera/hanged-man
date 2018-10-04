@@ -1,7 +1,10 @@
-const mockedPage0 = {
+//https://en.wiktionary.org/w/api.php?action=query&format=json&list=categorymembers&cmtitle=Category%3AEnglish_idioms&cmlimit=500&cmcontinue=
+//https://en.wiktionary.org/w/api.php?action=query&format=json&list=categorymembers&cmtitle=Category%3AEnglish_idioms&cmlimit=500&cmcontinue=page|4245415420464545540a424541542046454554|1614367
+
+export const mockedPage0 = {
   batchcomplete:"",
   continue:{
-    cmcontinue:"page|332d4f4e2d5448452d545245450a332d4f4e2d5448452d54524545|325400",
+    cmcontinue:"mockedPage1",
     continue:"-||"
   },
   query:{categorymembers:[
@@ -18,12 +21,8 @@ const mockedPage0 = {
   ]}
 }
 
-const mockedPage1 = {
+export const mockedPage1 = {
   batchcomplete:"",
-  continue:{
-    cmcontinue:"page|41204c494645204f4620495453204f574e0a41204c494645204f4620495453204f574e|803367",
-    continue:"-||"
-  },
   query:{categorymembers:[
     {pageid:325400,ns:0,title:"3-on-the-tree"},
     {pageid:791553,ns:0,title:"800-pound gorilla"},
@@ -38,8 +37,5 @@ const mockedPage1 = {
   ]}
 };
 
-export default async term => {
-  return await new Promise(resolve => {
-    resolve(mockedPage0);
-  });
-};
+
+export default new Promise(resolve => {resolve(mockedPage0)});
