@@ -7,7 +7,7 @@
     "compile": "webpack",
     "watch-sass": "webpack --watch",
     "test": "jest",
-    "test:watch": "npm test -- --watch",
+    "test:watch": "npm test -- --watchAll",
     "start": "node server.js & npm run watch-sass & npm run test:watch"
   },
   "jest": {
@@ -45,6 +45,7 @@
     "react-dom": "^15.5.4",
     "react-redux": "^5.0.5",
     "react-router-dom": "^4.1.2",
+    "react-test-renderer": "^16.2.0",
     "redux": "^3.7.1",
     "redux-thunk": "^2.2.0",
     "style-loader": "^0.23.0",
