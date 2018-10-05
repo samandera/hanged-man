@@ -9,6 +9,18 @@ describe("testing filterList", () => {
   it("pagesIds key in an object returned by filterList should be an array", () => {
     expect(filterList().pagesIds).toBeInstanceOf(Array)
   });
+  it("returned object should have a key cmcontinue", () => {
+    expect(filterList().cmcontinue).toBeDefined();
+  });
+  it("returned object's cmcontinue value should be a string", () => {
+    expect(typeof filterList().cmcontinue).toBe("string");
+  });
+  it("returned object's cmcontinue value shouldn't be an empty string", () => {
+    expect(filterList(mockedPage0).cmcontinue).toBeTruthy();
+  });
+  it("returned object's cmcontinue value should be an empty string", () => {
+    expect(filterList(mockedPage1).cmcontinue).toBeFalsy();
+  })
 });
 
 describe("values in pagesIds should be present in passed data.query.categorymembers array", () => {

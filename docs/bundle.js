@@ -13987,6 +13987,7 @@ var filterList = function filterList(data) {
   console.log(data);
   var pagesData = void 0;
   var pagesIds = [];
+  var cmcontinue = "";
   if (data && data.query && data.query.categorymembers) {
     pagesData = data.query.categorymembers;
     pagesData.forEach(function (page) {
@@ -13995,7 +13996,10 @@ var filterList = function filterList(data) {
       }
     });
   }
-  return { pagesIds: pagesIds };
+  if (data && data.continue && data.continue.cmcontinue) {
+    cmcontinue = data.continue.cmcontinue;
+  }
+  return { pagesIds: pagesIds, cmcontinue: cmcontinue };
 };
 
 var categoriesInLanguages = {
@@ -14005,9 +14009,8 @@ var categoriesInLanguages = {
 
 var makeIdiomsIndexesList = function makeIdiomsIndexesList(idiomsLang) {
   var cmcontinue = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "";
-  var fetchMethod = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : fetchIdiomsIndexesList;
 
-  fetchMethod('https://' + idiomsLang + '.wiktionary.org/w/api.php?action=query&format=json&list=categorymembers&cmtitle=' + categoriesInLanguages[idiomsLang] + '&cmlimit=500&cmcontinue=' + cmcontinue).then(function (data) {
+  fetchIdiomsIndexesList('https://' + idiomsLang + '.wiktionary.org/w/api.php?action=query&format=json&list=categorymembers&cmtitle=' + categoriesInLanguages[idiomsLang] + '&cmlimit=500&cmcontinue=' + cmcontinue).then(function (data) {
     return filterList(data);
   });
 };
