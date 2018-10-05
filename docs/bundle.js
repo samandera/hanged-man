@@ -12905,8 +12905,8 @@ var Game = function (_React$Component) {
   }
 
   _createClass(Game, [{
-    key: 'componentWillMount',
-    value: function componentWillMount() {
+    key: 'componentDidMount',
+    value: function componentDidMount() {
       //fetchWord();
       __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__methods_makeIdiomsIndexesList__["a" /* default */])("en");
       window.onkeydown = function () {
@@ -13984,9 +13984,9 @@ var fetchIdiomsIndexesList = function fetchIdiomsIndexesList(url) {
 };
 
 var filterList = function filterList(data) {
-  console.log(data);
+  var pagesIds = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+
   var pagesData = void 0;
-  var pagesIds = [];
   var cmcontinue = "";
   if (data && data.query && data.query.categorymembers) {
     pagesData = data.query.categorymembers;
@@ -14002,16 +14002,33 @@ var filterList = function filterList(data) {
   return { pagesIds: pagesIds, cmcontinue: cmcontinue };
 };
 
+var fetchNextIdiomsIndexesPage = function fetchNextIdiomsIndexesPage(idiomsLang, data) {
+  if (data && data.cmcontinue) {
+    return wrapSingleIndexesQuery(idiomsLang, data.pagesIds, data.cmcontinue);
+  } else {
+    return data.pagesIds;
+  }
+};
+
 var categoriesInLanguages = {
-  //en: "Category%3AEnglish_idioms"
-  en: "Category%3AEnglish_pronouns"
+  en: "Category%3AEnglish_idioms",
+  fr: "Catégorie%3AMétaphores_en_français"
+};
+
+var wrapSingleIndexesQuery = function wrapSingleIndexesQuery(idiomsLang) {
+  var pagesIds = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+  var cmcontinue = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "";
+
+  return fetchIdiomsIndexesList('https://' + idiomsLang + '.wiktionary.org/w/api.php?action=query&format=json&list=categorymembers&cmtitle=' + categoriesInLanguages[idiomsLang] + '&cmlimit=500&cmcontinue=' + cmcontinue).then(function (data) {
+    return filterList(data, pagesIds);
+  }).then(function (data) {
+    return fetchNextIdiomsIndexesPage(idiomsLang, data);
+  });
 };
 
 var makeIdiomsIndexesList = function makeIdiomsIndexesList(idiomsLang) {
-  var cmcontinue = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "";
-
-  fetchIdiomsIndexesList('https://' + idiomsLang + '.wiktionary.org/w/api.php?action=query&format=json&list=categorymembers&cmtitle=' + categoriesInLanguages[idiomsLang] + '&cmlimit=500&cmcontinue=' + cmcontinue).then(function (data) {
-    return filterList(data);
+  return wrapSingleIndexesQuery(idiomsLang).then(function (pagesIds) {
+    console.log(pagesIds);
   });
 };
 

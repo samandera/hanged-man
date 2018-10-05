@@ -7,7 +7,7 @@ import EndGame from './components/EndGame';
 
 class Game extends React.Component {
 
-  componentWillMount() {
+  componentDidMount() {
     //fetchWord();
     makeIdiomsIndexesList("en");
     window.onkeydown = () => {handleKeyPress(String.fromCharCode(event.keyCode))}
