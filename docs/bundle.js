@@ -13984,7 +13984,7 @@ var fetchIdiomsIndexesList = function fetchIdiomsIndexesList(url) {
 };
 
 var filterList = function filterList(data) {
-  console.log(data);
+  return { data: data };
 };
 
 var categoriesInLanguages = {

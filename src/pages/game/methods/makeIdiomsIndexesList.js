@@ -15,7 +15,7 @@ export const fetchIdiomsIndexesList = (url) => {
 }
 
 export const filterList = data => {
-  console.log(data);
+  return {data};
 }
 
 export const categoriesInLanguages = {
