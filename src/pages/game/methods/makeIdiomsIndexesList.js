@@ -15,7 +15,15 @@ export const fetchIdiomsIndexesList = (url) => {
 }
 
 export const filterList = data => {
-  return {data};
+  let pagesData;
+  const pagesIds = [];
+  if (data && data.query && data.query.categorymembers) {
+    pagesData = data.query.categorymembers;
+    pagesData.forEach(page => {
+      if (page.ns === 0) {pagesIds.push(page.pageid)}
+    })
+  }
+  return {pagesIds};
 }
 
 export const categoriesInLanguages = {
@@ -23,8 +31,8 @@ export const categoriesInLanguages = {
 }
 
 const makeIdiomsIndexesList = (idiomsLang, cmcontinue = "", fetchMethod = fetchIdiomsIndexesList) => {
-   fetchMethod(`https://${idiomsLang}.wiktionary.org/w/api.php?action=query&format=json&list=categorymembers&cmtitle=${categoriesInLanguages[idiomsLang]}&cmlimit=500&cmcontinue=${cmcontinue}`)
-   .then(data => filterList(data));
+  fetchMethod(`https://${idiomsLang}.wiktionary.org/w/api.php?action=query&format=json&list=categorymembers&cmtitle=${categoriesInLanguages[idiomsLang]}&cmlimit=500&cmcontinue=${cmcontinue}`)
+  .then(data => filterList(data));
 }
 
 export default makeIdiomsIndexesList;

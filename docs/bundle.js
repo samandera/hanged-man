@@ -13984,7 +13984,17 @@ var fetchIdiomsIndexesList = function fetchIdiomsIndexesList(url) {
 };
 
 var filterList = function filterList(data) {
-  return { data: data };
+  var pagesData = void 0;
+  var pagesIds = [];
+  if (data && data.query && data.query.categorymembers) {
+    pagesData = data.query.categorymembers;
+    pagesData.forEach(function (page) {
+      if (page.ns === 0) {
+        pagesIds.push(page.pageid);
+      }
+    });
+  }
+  return { pagesIds: pagesIds };
 };
 
 var categoriesInLanguages = {
