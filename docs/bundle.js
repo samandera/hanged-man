@@ -13984,6 +13984,7 @@ var fetchIdiomsIndexesList = function fetchIdiomsIndexesList(url) {
 };
 
 var filterList = function filterList(data) {
+  console.log(data);
   var pagesData = void 0;
   var pagesIds = [];
   if (data && data.query && data.query.categorymembers) {
@@ -13998,7 +13999,8 @@ var filterList = function filterList(data) {
 };
 
 var categoriesInLanguages = {
-  en: "Category%3AEnglish_idioms"
+  //en: "Category%3AEnglish_idioms"
+  en: "Category%3AEnglish_pronouns"
 };
 
 var makeIdiomsIndexesList = function makeIdiomsIndexesList(idiomsLang) {

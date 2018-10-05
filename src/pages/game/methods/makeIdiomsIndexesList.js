@@ -15,6 +15,7 @@ export const fetchIdiomsIndexesList = (url) => {
 }
 
 export const filterList = data => {
+  console.log(data);
   let pagesData;
   const pagesIds = [];
   if (data && data.query && data.query.categorymembers) {
@@ -27,7 +28,8 @@ export const filterList = data => {
 }
 
 export const categoriesInLanguages = {
-  en: "Category%3AEnglish_idioms"
+  //en: "Category%3AEnglish_idioms"
+  en: "Category%3AEnglish_pronouns"
 }
 
 const makeIdiomsIndexesList = (idiomsLang, cmcontinue = "", fetchMethod = fetchIdiomsIndexesList) => {

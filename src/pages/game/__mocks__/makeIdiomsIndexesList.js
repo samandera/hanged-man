@@ -14,7 +14,7 @@ export const mockedPage0 = {
     {pageid:6910319,ns:0,title:"11th commandment"},
     {pageid:3676773,ns:0,title:"12-ounce curls"},
     {pageid:324858,ns:0,title:"15 minutes of fame"},
-    {pageid:2082070,ns:0,title:"1600 Pennsylvania Avenue"},
+    {pageid:2082070,ns:40,title:"1600 Pennsylvania Avenue"},
     {pageid:520693,ns:100,title:"Appendix:English 19th Century idioms"},
     {pageid:1956649,ns:0,title:"23 skidoo"},
     {pageid:1957094,ns:0,title:"23 Skidoo Street"}
