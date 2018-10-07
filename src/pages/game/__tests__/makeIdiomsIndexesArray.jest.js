@@ -1,5 +1,5 @@
-import makeIdiomsIndexesList, { filterList } from "../methods/makeIdiomsIndexesList";
-import { mockFetchIndexesList, mockedPage0, mockedPage1 } from '../__mocks__/makeIdiomsIndexesList';
+import makeIdiomsIndexesArray, { filterList } from "../methods/makeIdiomsIndexesArray";
+import { mockFetchIndexesArray, mockedPage0, mockedPage1 } from '../__mocks__/makeIdiomsIndexesArray';
 import * as _ from 'underscore';
 
 describe("testing filterList", () => {
@@ -54,8 +54,8 @@ describe("should return only records which namespace (ns key value) is 0", () =>
   })
 });
 
-describe("makeIdiomsIndexesList", () => {
-  it("array returned from makeIdiomsIndexesList should be equal to amout of pages with ns of 0", () => {
+describe("makeIdiomsIndexesArray behaviour", () => {
+  it("array returned from makeIdiomsIndexesArray should be equal to amout of pages with ns of 0", () => {
     let indexes = [];
     mockedPage0.query.categorymembers.forEach(page => {
       if( page.ns === 0 ) {indexes.push(page.pageid)}
@@ -63,8 +63,7 @@ describe("makeIdiomsIndexesList", () => {
     mockedPage1.query.categorymembers.forEach(page => {
       if( page.ns === 0 ) {indexes.push(page.pageid)}
     });
-    makeIdiomsIndexesList("whatever", mockFetchIndexesList).then(data => {
-      console.log(data);
+    makeIdiomsIndexesArray("whatever", mockFetchIndexesArray).then(data => {
       return expect(data.length).toEqual(indexes.length)
     })
   })

@@ -50,8 +50,13 @@ export const wrapSingleIndexesQuery = (idiomsLang, fetchingPageNrInfo, pagesIds,
   .then(data => fetchNextIdiomsIndexesPage(idiomsLang, data, fetchingPageNrInfo, fetchMethod));
 }
 
-const makeIdiomsIndexesList = (idiomsLang, fetchMethod = fetchIdiomsIndexesList) => {
-  return wrapSingleIndexesQuery(idiomsLang, 1, [], "", fetchMethod)
+const makeIdiomsIndexesArray = (idiomsLang, fetchMethod = fetchIdiomsIndexesList) => {
+  const initialPageNumber = 1;
+  const initialIndexesArray = [];
+  const initialNextPage = "";
+  return wrapSingleIndexesQuery(
+    idiomsLang, initialPageNumber, initialIndexesArray, initialNextPage, fetchMethod
+  )
 }
 
-export default makeIdiomsIndexesList;
+export default makeIdiomsIndexesArray;

@@ -34,7 +34,7 @@ export const mockedPage1 = {
   ]}
 };
 
-export const mockFetchIndexesList = url => {
+export const mockFetchIndexesArray = url => {
   const pages = { mockedPage0, mockedPage1 };
   const searchPhrase = "cmcontinue=";
   const searchPhraseIndex = url.indexOf(searchPhrase.toString());

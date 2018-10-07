@@ -12877,11 +12877,10 @@ var Index = function (_React$Component) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_redux__ = __webpack_require__(22);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__methods_fetchWord__ = __webpack_require__(69);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__methods_makeIdiomsIndexesList__ = __webpack_require__(146);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__methods_makeIdiomsIndexesArray__ = __webpack_require__(311);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__methods_handleKeyPress__ = __webpack_require__(70);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_PrimaryContent__ = __webpack_require__(144);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_EndGame__ = __webpack_require__(125);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__mocks_makeIdiomsIndexesList__ = __webpack_require__(310);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -12898,13 +12897,12 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
-
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
-    makeIdiomsIndexesList: function makeIdiomsIndexesList(lang) {
-      __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__methods_makeIdiomsIndexesList__["a" /* default */])(lang);
+    makeIdiomsIndexesArray: function makeIdiomsIndexesArray(lang) {
+      __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__methods_makeIdiomsIndexesArray__["a" /* default */])(lang);
     }
-    //makeIdiomsIndexesList: (lang) => {makeIdiomsIndexesList(dispatch, lang)}
+    //makeIdiomsIndexesArray: (lang) => {makeIdiomsIndexesArray(dispatch, lang)}
   };
 };
 
@@ -12921,7 +12919,7 @@ var Game = function (_React$Component) {
     key: 'componentDidMount',
     value: function componentDidMount() {
       //fetchWord();
-      this.props.makeIdiomsIndexesList("en");
+      this.props.makeIdiomsIndexesArray("en");
       window.onkeydown = function () {
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__methods_handleKeyPress__["a" /* default */])(String.fromCharCode(event.keyCode));
       };
@@ -13975,78 +13973,7 @@ var Puzzle = function (_React$Component) {
 /* harmony default export */ __webpack_exports__["a"] = (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_react_redux__["b" /* connect */])(mapStateToProps)(Puzzle));
 
 /***/ }),
-/* 146 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* unused harmony export fetchIdiomsIndexesList */
-/* unused harmony export filterList */
-/* unused harmony export categoriesInLanguages */
-/* unused harmony export wrapSingleIndexesQuery */
-var fetchIdiomsIndexesList = function fetchIdiomsIndexesList(url) {
-  return fetch(url, {
-    method: 'get',
-    mode: "cors"
-  }).then(function (response) {
-    if (response.status !== 200) {
-      console.log('Looks like there was a problem. Status Code: ' + response.status);
-      return;
-    }
-    return response.json();
-  });
-};
-
-var filterList = function filterList(data) {
-  var pagesIds = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
-
-  var pagesData = void 0;
-  var cmcontinue = "";
-  if (data && data.query && data.query.categorymembers) {
-    pagesData = data.query.categorymembers;
-    pagesData.forEach(function (page) {
-      if (page.ns === 0) {
-        pagesIds.push(page.pageid);
-      }
-    });
-  }
-  if (data && data.continue && data.continue.cmcontinue) {
-    cmcontinue = data.continue.cmcontinue;
-  }
-  return { pagesIds: pagesIds, cmcontinue: cmcontinue };
-};
-
-var fetchNextIdiomsIndexesPage = function fetchNextIdiomsIndexesPage(idiomsLang, data, fetchingPageNrInfo, fetchMethod) {
-  if (data && data.cmcontinue) {
-    return wrapSingleIndexesQuery(idiomsLang, fetchingPageNrInfo, data.pagesIds, data.cmcontinue, fetchMethod);
-  } else {
-    return data.pagesIds;
-  }
-};
-
-var categoriesInLanguages = {
-  en: "Category%3AEnglish_idioms",
-  fr: "Catégorie%3AMétaphores_en_français"
-};
-
-var wrapSingleIndexesQuery = function wrapSingleIndexesQuery(idiomsLang, fetchingPageNrInfo, pagesIds, cmcontinue, fetchMethod) {
-  console.log(fetchingPageNrInfo);
-  fetchingPageNrInfo++;
-  return fetchMethod('https://' + idiomsLang + '.wiktionary.org/w/api.php?action=query&format=json&list=categorymembers&cmtitle=' + categoriesInLanguages[idiomsLang] + '&cmlimit=500&cmcontinue=' + cmcontinue).then(function (data) {
-    return filterList(data, pagesIds);
-  }).then(function (data) {
-    return fetchNextIdiomsIndexesPage(idiomsLang, data, fetchingPageNrInfo, fetchMethod);
-  });
-};
-
-var makeIdiomsIndexesList = function makeIdiomsIndexesList(idiomsLang) {
-  var fetchMethod = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : fetchIdiomsIndexesList;
-
-  return wrapSingleIndexesQuery(idiomsLang, 1, [], "", fetchMethod);
-};
-
-/* harmony default export */ __webpack_exports__["a"] = (makeIdiomsIndexesList);
-
-/***/ }),
+/* 146 */,
 /* 147 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -30882,35 +30809,80 @@ module.exports = __webpack_require__(122);
 
 
 /***/ }),
-/* 310 */
+/* 310 */,
+/* 311 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* unused harmony export mockedPage0 */
-/* unused harmony export mockedPage1 */
-/* unused harmony export mockFetchIndexesList */
-var mockedPage0 = {
-  batchcomplete: "",
-  continue: {
-    cmcontinue: "mockedPage1",
-    continue: "-||"
-  },
-  query: { categorymembers: [{ pageid: 1936116, ns: 0, title: "10 Downing Street" }, { pageid: 5653121, ns: 0, title: "11 Downing Street" }, { pageid: 859923, ns: 0, title: "110 proof" }, { pageid: 6910319, ns: 0, title: "11th commandment" }, { pageid: 3676773, ns: 0, title: "12-ounce curls" }, { pageid: 324858, ns: 0, title: "15 minutes of fame" }, { pageid: 2082070, ns: 40, title: "1600 Pennsylvania Avenue" }, { pageid: 520693, ns: 100, title: "Appendix:English 19th Century idioms" }, { pageid: 1956649, ns: 0, title: "23 skidoo" }, { pageid: 1957094, ns: 0, title: "23 Skidoo Street" }] }
+/* unused harmony export fetchIdiomsIndexesList */
+/* unused harmony export filterList */
+/* unused harmony export categoriesInLanguages */
+/* unused harmony export wrapSingleIndexesQuery */
+var fetchIdiomsIndexesList = function fetchIdiomsIndexesList(url) {
+  return fetch(url, {
+    method: 'get',
+    mode: "cors"
+  }).then(function (response) {
+    if (response.status !== 200) {
+      console.log('Looks like there was a problem. Status Code: ' + response.status);
+      return;
+    }
+    return response.json();
+  });
 };
 
-var mockedPage1 = {
-  batchcomplete: "",
-  query: { categorymembers: [{ pageid: 325400, ns: 0, title: "3-on-the-tree" }, { pageid: 791553, ns: 0, title: "800-pound gorilla" }, { pageid: 2464067, ns: 0, title: "a bridge too far" }, { pageid: 4200625, ns: 0, title: "a cold day in July" }, { pageid: 480896, ns: 0, title: "a day late and a dollar short" }, { pageid: 1867181, ns: 0, title: "a good deal" }, { pageid: 1196949, ns: 0, title: "a great deal" }, { pageid: 3433369, ns: 0, title: "a hair's breadth" }, { pageid: 4387, ns: 0, title: "a hundred and ten percent" }, { pageid: 94342, ns: 0, title: "a into g" }] }
+var filterList = function filterList(data) {
+  var pagesIds = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+
+  var pagesData = void 0;
+  var cmcontinue = "";
+  if (data && data.query && data.query.categorymembers) {
+    pagesData = data.query.categorymembers;
+    pagesData.forEach(function (page) {
+      if (page.ns === 0) {
+        pagesIds.push(page.pageid);
+      }
+    });
+  }
+  if (data && data.continue && data.continue.cmcontinue) {
+    cmcontinue = data.continue.cmcontinue;
+  }
+  return { pagesIds: pagesIds, cmcontinue: cmcontinue };
 };
 
-var mockFetchIndexesList = function mockFetchIndexesList(url) {
-  var pages = { mockedPage0: mockedPage0, mockedPage1: mockedPage1 };
-  var searchPhrase = "cmcontinue=";
-  var searchPhraseIndex = url.indexOf(searchPhrase.toString());
-  var keyIndex = searchPhraseIndex + searchPhrase.length;
-  var key = url.slice(keyIndex);
-  return Promise.resolve(pages[key]);
+var fetchNextIdiomsIndexesPage = function fetchNextIdiomsIndexesPage(idiomsLang, data, fetchingPageNrInfo, fetchMethod) {
+  if (data && data.cmcontinue) {
+    return wrapSingleIndexesQuery(idiomsLang, fetchingPageNrInfo, data.pagesIds, data.cmcontinue, fetchMethod);
+  } else {
+    return data.pagesIds;
+  }
 };
+
+var categoriesInLanguages = {
+  en: "Category%3AEnglish_idioms",
+  fr: "Catégorie%3AMétaphores_en_français"
+};
+
+var wrapSingleIndexesQuery = function wrapSingleIndexesQuery(idiomsLang, fetchingPageNrInfo, pagesIds, cmcontinue, fetchMethod) {
+  console.log(fetchingPageNrInfo);
+  fetchingPageNrInfo++;
+  return fetchMethod('https://' + idiomsLang + '.wiktionary.org/w/api.php?action=query&format=json&list=categorymembers&cmtitle=' + categoriesInLanguages[idiomsLang] + '&cmlimit=500&cmcontinue=' + cmcontinue).then(function (data) {
+    return filterList(data, pagesIds);
+  }).then(function (data) {
+    return fetchNextIdiomsIndexesPage(idiomsLang, data, fetchingPageNrInfo, fetchMethod);
+  });
+};
+
+var makeIdiomsIndexesArray = function makeIdiomsIndexesArray(idiomsLang) {
+  var fetchMethod = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : fetchIdiomsIndexesList;
+
+  var initialPageNumber = 1;
+  var initialIndexesArray = [];
+  var initialNextPage = "";
+  return wrapSingleIndexesQuery(idiomsLang, initialPageNumber, initialIndexesArray, initialNextPage, fetchMethod);
+};
+
+/* harmony default export */ __webpack_exports__["a"] = (makeIdiomsIndexesArray);
 
 /***/ })
 /******/ ]);
