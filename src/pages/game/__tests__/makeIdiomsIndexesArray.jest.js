@@ -55,16 +55,23 @@ describe("should return only records which namespace (ns key value) is 0", () =>
 });
 
 describe("makeIdiomsIndexesArray behaviour", () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+  const indexes = filterList(mockedPage1, filterList(mockedPage0).pagesIds).pagesIds;
   it("array returned from makeIdiomsIndexesArray should be equal to amout of pages with ns of 0", () => {
-    const indexes = filterList(mockedPage1, filterList(mockedPage0).pagesIds).pagesIds;
-    makeIdiomsIndexesArray("it's a test so whatever", mockFetchIndexesArray)
-    .then(data => {
-      return expect(data.length).toEqual(indexes.length)
-    })
-  })
+    expect(makeIdiomsIndexesArray("en", mockFetchIndexesArray)).resolves.toBe(indexes)
+  });
   it("makeIdiomsIndexesArray should be called with wrapSingleIndexesQuery", () => {
     const spy = jest.spyOn(indexArrayMethods, "wrapSingleIndexesQuery");
-    makeIdiomsIndexesArray("it's a test so whatever", mockFetchIndexesArray);
+    localStorage.clear();
+    makeIdiomsIndexesArray("en", mockFetchIndexesArray);
     expect(spy).toHaveBeenCalled();
+  });
+  it("makeIdiomsIndexesArray should not be called with wrapSingleIndexesQuery", () => {
+    localStorage.setItem("enIdioms", JSON.stringify(indexes));
+    const spy = jest.spyOn(indexArrayMethods, "wrapSingleIndexesQuery");
+    makeIdiomsIndexesArray("en", mockFetchIndexesArray);
+    expect(spy).not.toBeCalled();
   })
 })
