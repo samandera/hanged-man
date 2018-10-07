@@ -3,6 +3,18 @@ export const categoriesInLanguages = {
   fr: "Catégorie%3AMétaphores_en_français"
 }
 
+const makeIdiomsIndexesArray = (idiomsLang, fetchMethod = fetchIdiomsIndexesList) => {
+  const localStorageKey = `${idiomsLang}Idioms`;
+  const indexes = localStorage.getItem(localStorageKey);
+  if (indexes === null) {
+    const initialPageNumber = 1;
+    return indexArrayMethods.singleIndexesQuery(
+      idiomsLang, initialPageNumber, {pagesIds: [], cmcontinue: ""}, fetchMethod
+    );
+  }
+  return Promise.resolve(JSON.parse(indexes))
+}
+
 export const fetchIdiomsIndexesList = (url) => {
   return fetch( url, {method: 'get'} ).then(response => {
     if (response.status !== 200) {
@@ -11,6 +23,14 @@ export const fetchIdiomsIndexesList = (url) => {
     }
     return response.json()
   })
+}
+
+export const singleIndexesQuery = (idiomsLang, fetchingPageNrInfo, idsData, fetchMethod) => {
+  console.log(fetchingPageNrInfo);
+  fetchingPageNrInfo++;
+  return fetchMethod(`https://${idiomsLang}.wiktionary.org/w/api.php?action=query&format=json&list=categorymembers&cmtitle=${categoriesInLanguages[idiomsLang]}&cmlimit=500&cmcontinue=${idsData.cmcontinue}`)
+  .then(data => indexArrayMethods.filterList(data, idsData.pagesIds))
+  .then(data => indexArrayMethods.fetchNextIdiomsIndexesPage(idiomsLang, data, fetchingPageNrInfo, fetchMethod));
 }
 
 export const filterList = (data, pagesIds = []) => {
@@ -37,26 +57,6 @@ export const fetchNextIdiomsIndexesPage = (idiomsLang, data, fetchingPageNrInfo,
     localStorage.setItem(`${idiomsLang}Idioms`, JSON.stringify(data.pagesIds));
     return Promise.resolve(data.pagesIds);
   }
-}
-
-export const singleIndexesQuery = (idiomsLang, fetchingPageNrInfo, idsData, fetchMethod) => {
-  console.log(fetchingPageNrInfo);
-  fetchingPageNrInfo++;
-  return fetchMethod(`https://${idiomsLang}.wiktionary.org/w/api.php?action=query&format=json&list=categorymembers&cmtitle=${categoriesInLanguages[idiomsLang]}&cmlimit=500&cmcontinue=${idsData.cmcontinue}`)
-  .then(data => indexArrayMethods.filterList(data, idsData.pagesIds))
-  .then(data => indexArrayMethods.fetchNextIdiomsIndexesPage(idiomsLang, data, fetchingPageNrInfo, fetchMethod));
-}
-
-const makeIdiomsIndexesArray = (idiomsLang, fetchMethod = fetchIdiomsIndexesList) => {
-  const localStorageKey = `${idiomsLang}Idioms`;
-  const indexes = localStorage.getItem(localStorageKey);
-  if (indexes === null) {
-    const initialPageNumber = 1;
-    return indexArrayMethods.singleIndexesQuery(
-      idiomsLang, initialPageNumber, {pagesIds: [], cmcontinue: ""}, fetchMethod
-    );
-  }
-  return Promise.resolve(JSON.parse(indexes))
 }
 
 export const indexArrayMethods = {
