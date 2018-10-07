@@ -1,15 +1,22 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import fetchWord from './methods/fetchWord';
 import makeIdiomsIndexesList from './methods/makeIdiomsIndexesList';
 import handleKeyPress from './methods/handleKeyPress';
 import PrimaryContent from './components/PrimaryContent';
 import EndGame from './components/EndGame';
+import * as mockedPages from "./__mocks__/makeIdiomsIndexesList";
+
+const mapDispatchToProps = dispatch => ({
+  makeIdiomsIndexesList: (lang) => {makeIdiomsIndexesList(lang)},
+  //makeIdiomsIndexesList: (lang) => {makeIdiomsIndexesList(dispatch, lang)}
+})
 
 class Game extends React.Component {
 
   componentDidMount() {
     //fetchWord();
-    makeIdiomsIndexesList("en");
+    this.props.makeIdiomsIndexesList("en");
     window.onkeydown = () => {handleKeyPress(String.fromCharCode(event.keyCode))}
   }
 
@@ -23,4 +30,4 @@ class Game extends React.Component {
     );
   }
 }
-export default Game;
+export default connect(null, mapDispatchToProps)(Game);
