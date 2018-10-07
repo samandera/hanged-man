@@ -30814,15 +30814,18 @@ module.exports = __webpack_require__(122);
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* unused harmony export categoriesInLanguages */
 /* unused harmony export fetchIdiomsIndexesList */
 /* unused harmony export filterList */
-/* unused harmony export categoriesInLanguages */
 /* unused harmony export wrapSingleIndexesQuery */
+/* unused harmony export indexArrayMethods */
+var categoriesInLanguages = {
+  en: "Category%3AEnglish_idioms",
+  fr: "Catégorie%3AMétaphores_en_français"
+};
+
 var fetchIdiomsIndexesList = function fetchIdiomsIndexesList(url) {
-  return fetch(url, {
-    method: 'get',
-    mode: "cors"
-  }).then(function (response) {
+  return fetch(url, { method: 'get' }).then(function (response) {
     if (response.status !== 200) {
       console.log('Looks like there was a problem. Status Code: ' + response.status);
       return;
@@ -30852,21 +30855,16 @@ var filterList = function filterList(data) {
 
 var fetchNextIdiomsIndexesPage = function fetchNextIdiomsIndexesPage(idiomsLang, data, fetchingPageNrInfo, fetchMethod) {
   if (data && data.cmcontinue) {
-    return wrapSingleIndexesQuery(idiomsLang, fetchingPageNrInfo, data.pagesIds, data.cmcontinue, fetchMethod);
+    return indexArrayMethods.wrapSingleIndexesQuery(idiomsLang, fetchingPageNrInfo, data.pagesIds, data.cmcontinue, fetchMethod);
   } else {
     return data.pagesIds;
   }
 };
 
-var categoriesInLanguages = {
-  en: "Category%3AEnglish_idioms",
-  fr: "Catégorie%3AMétaphores_en_français"
-};
-
 var wrapSingleIndexesQuery = function wrapSingleIndexesQuery(idiomsLang, fetchingPageNrInfo, pagesIds, cmcontinue, fetchMethod) {
   console.log(fetchingPageNrInfo);
   fetchingPageNrInfo++;
-  return fetchMethod('https://' + idiomsLang + '.wiktionary.org/w/api.php?action=query&format=json&list=categorymembers&cmtitle=' + categoriesInLanguages[idiomsLang] + '&cmlimit=500&cmcontinue=' + cmcontinue).then(function (data) {
+  return fetchMethod("https://" + idiomsLang + ".wiktionary.org/w/api.php?action=query&format=json&list=categorymembers&cmtitle=" + categoriesInLanguages[idiomsLang] + "&cmlimit=500&cmcontinue=" + cmcontinue).then(function (data) {
     return filterList(data, pagesIds);
   }).then(function (data) {
     return fetchNextIdiomsIndexesPage(idiomsLang, data, fetchingPageNrInfo, fetchMethod);
@@ -30879,7 +30877,13 @@ var makeIdiomsIndexesArray = function makeIdiomsIndexesArray(idiomsLang) {
   var initialPageNumber = 1;
   var initialIndexesArray = [];
   var initialNextPage = "";
-  return wrapSingleIndexesQuery(idiomsLang, initialPageNumber, initialIndexesArray, initialNextPage, fetchMethod);
+  return indexArrayMethods.wrapSingleIndexesQuery(idiomsLang, initialPageNumber, initialIndexesArray, initialNextPage, fetchMethod).then(function (data) {
+    return console.log(data);
+  });
+};
+
+var indexArrayMethods = {
+  wrapSingleIndexesQuery: wrapSingleIndexesQuery
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (makeIdiomsIndexesArray);

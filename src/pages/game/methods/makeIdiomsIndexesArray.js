@@ -1,11 +1,10 @@
+export const categoriesInLanguages = {
+  en: "Category%3AEnglish_idioms",
+  fr: "Catégorie%3AMétaphores_en_français"
+}
+
 export const fetchIdiomsIndexesList = (url) => {
-  return fetch(
-    url,
-    {
-      method: 'get',
-      mode: "cors"
-    }
-  ).then(response => {
+  return fetch( url, {method: 'get'} ).then(response => {
     if (response.status !== 200) {
       console.log('Looks like there was a problem. Status Code: ' + response.status);
       return;
@@ -31,15 +30,12 @@ export const filterList = (data, pagesIds = []) => {
 
 const fetchNextIdiomsIndexesPage = (idiomsLang, data, fetchingPageNrInfo, fetchMethod) => {
   if (data && data.cmcontinue) {
-    return wrapSingleIndexesQuery(idiomsLang, fetchingPageNrInfo, data.pagesIds, data.cmcontinue, fetchMethod)
+    return indexArrayMethods.wrapSingleIndexesQuery(
+      idiomsLang, fetchingPageNrInfo, data.pagesIds, data.cmcontinue, fetchMethod
+    )
   } else {
     return data.pagesIds;
   }
-}
-
-export const categoriesInLanguages = {
-  en: "Category%3AEnglish_idioms",
-  fr: "Catégorie%3AMétaphores_en_français"
 }
 
 export const wrapSingleIndexesQuery = (idiomsLang, fetchingPageNrInfo, pagesIds, cmcontinue, fetchMethod) => {
@@ -54,9 +50,13 @@ const makeIdiomsIndexesArray = (idiomsLang, fetchMethod = fetchIdiomsIndexesList
   const initialPageNumber = 1;
   const initialIndexesArray = [];
   const initialNextPage = "";
-  return wrapSingleIndexesQuery(
+  return indexArrayMethods.wrapSingleIndexesQuery(
     idiomsLang, initialPageNumber, initialIndexesArray, initialNextPage, fetchMethod
-  )
+  ).then( data => console.log(data))
+}
+
+export const indexArrayMethods = {
+  wrapSingleIndexesQuery
 }
 
 export default makeIdiomsIndexesArray;

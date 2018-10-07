@@ -1,4 +1,4 @@
-import makeIdiomsIndexesArray, { filterList } from "../methods/makeIdiomsIndexesArray";
+import makeIdiomsIndexesArray, { filterList, indexArrayMethods } from "../methods/makeIdiomsIndexesArray";
 import { mockFetchIndexesArray, mockedPage0, mockedPage1 } from '../__mocks__/makeIdiomsIndexesArray';
 import * as _ from 'underscore';
 
@@ -63,8 +63,14 @@ describe("makeIdiomsIndexesArray behaviour", () => {
     mockedPage1.query.categorymembers.forEach(page => {
       if( page.ns === 0 ) {indexes.push(page.pageid)}
     });
-    makeIdiomsIndexesArray("whatever", mockFetchIndexesArray).then(data => {
+    makeIdiomsIndexesArray("it's a test so whatever", mockFetchIndexesArray)
+    .then(data => {
       return expect(data.length).toEqual(indexes.length)
     })
+  })
+  it("makeIdiomsIndexesArray should be called with wrapSingleIndexesQuery", () => {
+    const spy = jest.spyOn(indexArrayMethods, "wrapSingleIndexesQuery");
+    makeIdiomsIndexesArray("it's a test so whatever", mockFetchIndexesArray);
+    expect(spy).toHaveBeenCalled();
   })
 })
