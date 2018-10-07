@@ -30858,18 +30858,18 @@ var filterList = function filterList(data) {
 
 var fetchNextIdiomsIndexesPage = function fetchNextIdiomsIndexesPage(idiomsLang, data, fetchingPageNrInfo, fetchMethod) {
   if (data && data.cmcontinue) {
-    return indexArrayMethods.wrapSingleIndexesQuery(idiomsLang, fetchingPageNrInfo, data.pagesIds, data.cmcontinue, fetchMethod);
+    return indexArrayMethods.wrapSingleIndexesQuery(idiomsLang, fetchingPageNrInfo, data, fetchMethod);
   } else {
     localStorage.setItem(idiomsLang + "Idioms", JSON.stringify(data.pagesIds));
     return Promise.resolve(data.pagesIds);
   }
 };
 
-var wrapSingleIndexesQuery = function wrapSingleIndexesQuery(idiomsLang, fetchingPageNrInfo, pagesIds, cmcontinue, fetchMethod) {
+var wrapSingleIndexesQuery = function wrapSingleIndexesQuery(idiomsLang, fetchingPageNrInfo, idsData, fetchMethod) {
   console.log(fetchingPageNrInfo);
   fetchingPageNrInfo++;
-  return fetchMethod("https://" + idiomsLang + ".wiktionary.org/w/api.php?action=query&format=json&list=categorymembers&cmtitle=" + categoriesInLanguages[idiomsLang] + "&cmlimit=500&cmcontinue=" + cmcontinue).then(function (data) {
-    return filterList(data, pagesIds);
+  return fetchMethod("https://" + idiomsLang + ".wiktionary.org/w/api.php?action=query&format=json&list=categorymembers&cmtitle=" + categoriesInLanguages[idiomsLang] + "&cmlimit=500&cmcontinue=" + idsData.cmcontinue).then(function (data) {
+    return filterList(data, idsData.pagesIds);
   }).then(function (data) {
     return fetchNextIdiomsIndexesPage(idiomsLang, data, fetchingPageNrInfo, fetchMethod);
   });
@@ -30882,9 +30882,7 @@ var makeIdiomsIndexesArray = function makeIdiomsIndexesArray(idiomsLang) {
   var indexes = localStorage.getItem(localStorageKey);
   if (indexes === null) {
     var initialPageNumber = 1;
-    var initialIndexesArray = [];
-    var initialNextPage = "";
-    return indexArrayMethods.wrapSingleIndexesQuery(idiomsLang, initialPageNumber, initialIndexesArray, initialNextPage, fetchMethod);
+    return indexArrayMethods.wrapSingleIndexesQuery(idiomsLang, initialPageNumber, { pagesIds: [], cmcontinue: "" }, fetchMethod);
   }
   return Promise.resolve(JSON.parse(indexes));
 };

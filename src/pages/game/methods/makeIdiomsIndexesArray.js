@@ -31,7 +31,7 @@ export const filterList = (data, pagesIds = []) => {
 export const fetchNextIdiomsIndexesPage = (idiomsLang, data, fetchingPageNrInfo, fetchMethod) => {
   if (data && data.cmcontinue) {
     return indexArrayMethods.wrapSingleIndexesQuery(
-      idiomsLang, fetchingPageNrInfo, data.pagesIds, data.cmcontinue, fetchMethod
+      idiomsLang, fetchingPageNrInfo, data, fetchMethod
     )
   } else {
     localStorage.setItem(`${idiomsLang}Idioms`, JSON.stringify(data.pagesIds));
@@ -39,11 +39,11 @@ export const fetchNextIdiomsIndexesPage = (idiomsLang, data, fetchingPageNrInfo,
   }
 }
 
-export const wrapSingleIndexesQuery = (idiomsLang, fetchingPageNrInfo, pagesIds, cmcontinue, fetchMethod) => {
+export const wrapSingleIndexesQuery = (idiomsLang, fetchingPageNrInfo, idsData, fetchMethod) => {
   console.log(fetchingPageNrInfo);
   fetchingPageNrInfo++;
-  return fetchMethod(`https://${idiomsLang}.wiktionary.org/w/api.php?action=query&format=json&list=categorymembers&cmtitle=${categoriesInLanguages[idiomsLang]}&cmlimit=500&cmcontinue=${cmcontinue}`)
-  .then(data => filterList(data, pagesIds))
+  return fetchMethod(`https://${idiomsLang}.wiktionary.org/w/api.php?action=query&format=json&list=categorymembers&cmtitle=${categoriesInLanguages[idiomsLang]}&cmlimit=500&cmcontinue=${idsData.cmcontinue}`)
+  .then(data => filterList(data, idsData.pagesIds))
   .then(data => fetchNextIdiomsIndexesPage(idiomsLang, data, fetchingPageNrInfo, fetchMethod));
 }
 
@@ -52,10 +52,8 @@ const makeIdiomsIndexesArray = (idiomsLang, fetchMethod = fetchIdiomsIndexesList
   const indexes = localStorage.getItem(localStorageKey);
   if (indexes === null) {
     const initialPageNumber = 1;
-    const initialIndexesArray = [];
-    const initialNextPage = "";
     return indexArrayMethods.wrapSingleIndexesQuery(
-      idiomsLang, initialPageNumber, initialIndexesArray, initialNextPage, fetchMethod
+      idiomsLang, initialPageNumber, {pagesIds: [], cmcontinue: ""}, fetchMethod
     );
   }
   return Promise.resolve(JSON.parse(indexes))
