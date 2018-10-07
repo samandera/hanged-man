@@ -1,6 +1,3 @@
-//https://en.wiktionary.org/w/api.php?action=query&format=json&list=categorymembers&cmtitle=Category%3AEnglish_idioms&cmlimit=500&cmcontinue=
-//https://en.wiktionary.org/w/api.php?action=query&format=json&list=categorymembers&cmtitle=Category%3AEnglish_idioms&cmlimit=500&cmcontinue=page|4245415420464545540a424541542046454554|1614367
-
 export const mockedPage0 = {
   batchcomplete:"",
   continue:{
@@ -36,6 +33,3 @@ export const mockedPage1 = {
     {pageid:94342,ns:0,title:"a into g"}
   ]}
 };
-
-
-export default new Promise(resolve => {resolve(mockedPage0)});
