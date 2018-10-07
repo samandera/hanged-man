@@ -1,5 +1,5 @@
-import { filterList } from "../methods/makeIdiomsIndexesList";
-import { mockedPage0, mockedPage1 } from '../__mocks__/makeIdiomsIndexesList';
+import makeIdiomsIndexesList, { filterList } from "../methods/makeIdiomsIndexesList";
+import mockFetch, { mockedPage0, mockedPage1 } from '../__mocks__/makeIdiomsIndexesList';
 import * as _ from 'underscore';
 
 describe("testing filterList", () => {
@@ -52,4 +52,4 @@ describe("should return only records which namespace (ns key value) is 0", () =>
       expect(idExistsInPassedData()).toBeFalsy();
     })
   })
-})
+});

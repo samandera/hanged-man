@@ -14014,9 +14014,9 @@ var filterList = function filterList(data) {
   return { pagesIds: pagesIds, cmcontinue: cmcontinue };
 };
 
-var fetchNextIdiomsIndexesPage = function fetchNextIdiomsIndexesPage(idiomsLang, data, fetchRequest) {
+var fetchNextIdiomsIndexesPage = function fetchNextIdiomsIndexesPage(idiomsLang, data) {
   if (data && data.cmcontinue) {
-    return wrapSingleIndexesQuery(idiomsLang, data.pagesIds, data.cmcontinue, fetchRequest);
+    return wrapSingleIndexesQuery(idiomsLang, data.pagesIds, data.cmcontinue);
   } else {
     return data.pagesIds;
   }
@@ -14030,20 +14030,17 @@ var categoriesInLanguages = {
 var wrapSingleIndexesQuery = function wrapSingleIndexesQuery(idiomsLang) {
   var pagesIds = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
   var cmcontinue = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "";
-  var fetchRequest = arguments[3];
 
-  return fetchRequest('https://' + idiomsLang + '.wiktionary.org/w/api.php?action=query&format=json&list=categorymembers&cmtitle=' + categoriesInLanguages[idiomsLang] + '&cmlimit=500&cmcontinue=' + cmcontinue).then(function (data) {
+  return fetchIdiomsIndexesList('https://' + idiomsLang + '.wiktionary.org/w/api.php?action=query&format=json&list=categorymembers&cmtitle=' + categoriesInLanguages[idiomsLang] + '&cmlimit=500&cmcontinue=' + cmcontinue).then(function (data) {
     return filterList(data, pagesIds);
   }).then(function (data) {
-    return fetchNextIdiomsIndexesPage(idiomsLang, data, fetchRequest);
+    return fetchNextIdiomsIndexesPage(idiomsLang, data);
   });
 };
 
 var makeIdiomsIndexesList = function makeIdiomsIndexesList(idiomsLang) {
-  var fetchRequest = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : fetchIdiomsIndexesList;
-
-  return wrapSingleIndexesQuery(idiomsLang, [], "", fetchRequest).then(function (pagesIds) {
-    console.log(pagesIds);
+  return wrapSingleIndexesQuery(idiomsLang, [], "").then(function (data) {
+    return console.log(data);
   });
 };
 
