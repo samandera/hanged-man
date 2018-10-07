@@ -14016,7 +14016,7 @@ var filterList = function filterList(data) {
 
 var fetchNextIdiomsIndexesPage = function fetchNextIdiomsIndexesPage(idiomsLang, data, fetchingPageNrInfo) {
   if (data && data.cmcontinue) {
-    return wrapSingleIndexesQuery(idiomsLang, data.pagesIds, data.cmcontinue, fetchingPageNrInfo);
+    return wrapSingleIndexesQuery(idiomsLang, fetchingPageNrInfo, data.pagesIds, data.cmcontinue);
   } else {
     return data.pagesIds;
   }
@@ -14028,9 +14028,9 @@ var categoriesInLanguages = {
 };
 
 var wrapSingleIndexesQuery = function wrapSingleIndexesQuery(idiomsLang) {
-  var pagesIds = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
-  var cmcontinue = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "";
-  var fetchingPageNrInfo = arguments[3];
+  var fetchingPageNrInfo = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
+  var pagesIds = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
+  var cmcontinue = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : "";
 
   console.log(fetchingPageNrInfo);
   fetchingPageNrInfo++;
@@ -14042,8 +14042,7 @@ var wrapSingleIndexesQuery = function wrapSingleIndexesQuery(idiomsLang) {
 };
 
 var makeIdiomsIndexesList = function makeIdiomsIndexesList(idiomsLang) {
-  var fetchingPageNrInfo = 1;
-  return wrapSingleIndexesQuery(idiomsLang, [], "", fetchingPageNrInfo).then(function (data) {
+  return wrapSingleIndexesQuery(idiomsLang).then(function (data) {
     return console.log(data);
   });
 };
