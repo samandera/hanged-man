@@ -33,3 +33,12 @@ export const mockedPage1 = {
     {pageid:94342,ns:0,title:"a into g"}
   ]}
 };
+
+export const mockFetchIndexesList = url => {
+  const pages = { mockedPage0, mockedPage1 };
+  const searchPhrase = "cmcontinue=";
+  const searchPhraseIndex = url.indexOf(searchPhrase.toString());
+  const keyIndex = searchPhraseIndex + searchPhrase.length;
+  const key = url.slice(keyIndex);
+  return Promise.resolve(pages[key]);
+}

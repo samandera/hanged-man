@@ -29,9 +29,9 @@ export const filterList = (data, pagesIds = []) => {
   return {pagesIds, cmcontinue};
 }
 
-const fetchNextIdiomsIndexesPage = (idiomsLang, data, fetchingPageNrInfo) => {
+const fetchNextIdiomsIndexesPage = (idiomsLang, data, fetchingPageNrInfo, fetchMethod) => {
   if (data && data.cmcontinue) {
-    return wrapSingleIndexesQuery(idiomsLang, fetchingPageNrInfo, data.pagesIds, data.cmcontinue)
+    return wrapSingleIndexesQuery(idiomsLang, fetchingPageNrInfo, data.pagesIds, data.cmcontinue, fetchMethod)
   } else {
     return data.pagesIds;
   }
@@ -42,16 +42,16 @@ export const categoriesInLanguages = {
   fr: "Catégorie%3AMétaphores_en_français"
 }
 
-const wrapSingleIndexesQuery = (idiomsLang, fetchingPageNrInfo = 1, pagesIds = [], cmcontinue = "") => {
+export const wrapSingleIndexesQuery = (idiomsLang, fetchingPageNrInfo, pagesIds, cmcontinue, fetchMethod) => {
   console.log(fetchingPageNrInfo);
   fetchingPageNrInfo++;
-  return fetchIdiomsIndexesList(`https://${idiomsLang}.wiktionary.org/w/api.php?action=query&format=json&list=categorymembers&cmtitle=${categoriesInLanguages[idiomsLang]}&cmlimit=500&cmcontinue=${cmcontinue}`)
+  return fetchMethod(`https://${idiomsLang}.wiktionary.org/w/api.php?action=query&format=json&list=categorymembers&cmtitle=${categoriesInLanguages[idiomsLang]}&cmlimit=500&cmcontinue=${cmcontinue}`)
   .then(data => filterList(data, pagesIds))
-  .then(data => fetchNextIdiomsIndexesPage(idiomsLang, data, fetchingPageNrInfo));
+  .then(data => fetchNextIdiomsIndexesPage(idiomsLang, data, fetchingPageNrInfo, fetchMethod));
 }
 
-const makeIdiomsIndexesList = (idiomsLang) => {
-  return wrapSingleIndexesQuery(idiomsLang).then(data => console.log(data))
+const makeIdiomsIndexesList = (idiomsLang, fetchMethod = fetchIdiomsIndexesList) => {
+  return wrapSingleIndexesQuery(idiomsLang, 1, [], "", fetchMethod)
 }
 
 export default makeIdiomsIndexesList;

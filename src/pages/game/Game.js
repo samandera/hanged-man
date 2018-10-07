@@ -5,7 +5,7 @@ import makeIdiomsIndexesList from './methods/makeIdiomsIndexesList';
 import handleKeyPress from './methods/handleKeyPress';
 import PrimaryContent from './components/PrimaryContent';
 import EndGame from './components/EndGame';
-import * as mockedPages from "./__mocks__/makeIdiomsIndexesList";
+import {mockFetchIndexesList} from "./__mocks__/makeIdiomsIndexesList";
 
 const mapDispatchToProps = dispatch => ({
   makeIdiomsIndexesList: (lang) => {makeIdiomsIndexesList(lang)},

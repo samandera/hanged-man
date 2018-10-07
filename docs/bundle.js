@@ -13982,6 +13982,7 @@ var Puzzle = function (_React$Component) {
 /* unused harmony export fetchIdiomsIndexesList */
 /* unused harmony export filterList */
 /* unused harmony export categoriesInLanguages */
+/* unused harmony export wrapSingleIndexesQuery */
 var fetchIdiomsIndexesList = function fetchIdiomsIndexesList(url) {
   return fetch(url, {
     method: 'get',
@@ -14014,9 +14015,9 @@ var filterList = function filterList(data) {
   return { pagesIds: pagesIds, cmcontinue: cmcontinue };
 };
 
-var fetchNextIdiomsIndexesPage = function fetchNextIdiomsIndexesPage(idiomsLang, data, fetchingPageNrInfo) {
+var fetchNextIdiomsIndexesPage = function fetchNextIdiomsIndexesPage(idiomsLang, data, fetchingPageNrInfo, fetchMethod) {
   if (data && data.cmcontinue) {
-    return wrapSingleIndexesQuery(idiomsLang, fetchingPageNrInfo, data.pagesIds, data.cmcontinue);
+    return wrapSingleIndexesQuery(idiomsLang, fetchingPageNrInfo, data.pagesIds, data.cmcontinue, fetchMethod);
   } else {
     return data.pagesIds;
   }
@@ -14027,24 +14028,20 @@ var categoriesInLanguages = {
   fr: "Catégorie%3AMétaphores_en_français"
 };
 
-var wrapSingleIndexesQuery = function wrapSingleIndexesQuery(idiomsLang) {
-  var fetchingPageNrInfo = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
-  var pagesIds = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
-  var cmcontinue = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : "";
-
+var wrapSingleIndexesQuery = function wrapSingleIndexesQuery(idiomsLang, fetchingPageNrInfo, pagesIds, cmcontinue, fetchMethod) {
   console.log(fetchingPageNrInfo);
   fetchingPageNrInfo++;
-  return fetchIdiomsIndexesList('https://' + idiomsLang + '.wiktionary.org/w/api.php?action=query&format=json&list=categorymembers&cmtitle=' + categoriesInLanguages[idiomsLang] + '&cmlimit=500&cmcontinue=' + cmcontinue).then(function (data) {
+  return fetchMethod('https://' + idiomsLang + '.wiktionary.org/w/api.php?action=query&format=json&list=categorymembers&cmtitle=' + categoriesInLanguages[idiomsLang] + '&cmlimit=500&cmcontinue=' + cmcontinue).then(function (data) {
     return filterList(data, pagesIds);
   }).then(function (data) {
-    return fetchNextIdiomsIndexesPage(idiomsLang, data, fetchingPageNrInfo);
+    return fetchNextIdiomsIndexesPage(idiomsLang, data, fetchingPageNrInfo, fetchMethod);
   });
 };
 
 var makeIdiomsIndexesList = function makeIdiomsIndexesList(idiomsLang) {
-  return wrapSingleIndexesQuery(idiomsLang).then(function (data) {
-    return console.log(data);
-  });
+  var fetchMethod = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : fetchIdiomsIndexesList;
+
+  return wrapSingleIndexesQuery(idiomsLang, 1, [], "", fetchMethod);
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (makeIdiomsIndexesList);
@@ -30891,6 +30888,7 @@ module.exports = __webpack_require__(122);
 "use strict";
 /* unused harmony export mockedPage0 */
 /* unused harmony export mockedPage1 */
+/* unused harmony export mockFetchIndexesList */
 var mockedPage0 = {
   batchcomplete: "",
   continue: {
@@ -30903,6 +30901,15 @@ var mockedPage0 = {
 var mockedPage1 = {
   batchcomplete: "",
   query: { categorymembers: [{ pageid: 325400, ns: 0, title: "3-on-the-tree" }, { pageid: 791553, ns: 0, title: "800-pound gorilla" }, { pageid: 2464067, ns: 0, title: "a bridge too far" }, { pageid: 4200625, ns: 0, title: "a cold day in July" }, { pageid: 480896, ns: 0, title: "a day late and a dollar short" }, { pageid: 1867181, ns: 0, title: "a good deal" }, { pageid: 1196949, ns: 0, title: "a great deal" }, { pageid: 3433369, ns: 0, title: "a hair's breadth" }, { pageid: 4387, ns: 0, title: "a hundred and ten percent" }, { pageid: 94342, ns: 0, title: "a into g" }] }
+};
+
+var mockFetchIndexesList = function mockFetchIndexesList(url) {
+  var pages = { mockedPage0: mockedPage0, mockedPage1: mockedPage1 };
+  var searchPhrase = "cmcontinue=";
+  var searchPhraseIndex = url.indexOf(searchPhrase.toString());
+  var keyIndex = searchPhraseIndex + searchPhrase.length;
+  var key = url.slice(keyIndex);
+  return Promise.resolve(pages[key]);
 };
 
 /***/ })
