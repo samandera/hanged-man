@@ -28,7 +28,7 @@ export const filterList = (data, pagesIds = []) => {
   return {pagesIds, cmcontinue};
 }
 
-const fetchNextIdiomsIndexesPage = (idiomsLang, data, fetchingPageNrInfo, fetchMethod) => {
+export const fetchNextIdiomsIndexesPage = (idiomsLang, data, fetchingPageNrInfo, fetchMethod) => {
   if (data && data.cmcontinue) {
     return indexArrayMethods.wrapSingleIndexesQuery(
       idiomsLang, fetchingPageNrInfo, data.pagesIds, data.cmcontinue, fetchMethod
