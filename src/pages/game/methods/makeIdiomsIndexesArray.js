@@ -30,7 +30,7 @@ export const filterList = (data, pagesIds = []) => {
 
 export const fetchNextIdiomsIndexesPage = (idiomsLang, data, fetchingPageNrInfo, fetchMethod) => {
   if (data && data.cmcontinue) {
-    return indexArrayMethods.wrapSingleIndexesQuery(
+    return indexArrayMethods.singleIndexesQuery(
       idiomsLang, fetchingPageNrInfo, data, fetchMethod
     )
   } else {
@@ -39,7 +39,7 @@ export const fetchNextIdiomsIndexesPage = (idiomsLang, data, fetchingPageNrInfo,
   }
 }
 
-export const wrapSingleIndexesQuery = (idiomsLang, fetchingPageNrInfo, idsData, fetchMethod) => {
+export const singleIndexesQuery = (idiomsLang, fetchingPageNrInfo, idsData, fetchMethod) => {
   console.log(fetchingPageNrInfo);
   fetchingPageNrInfo++;
   return fetchMethod(`https://${idiomsLang}.wiktionary.org/w/api.php?action=query&format=json&list=categorymembers&cmtitle=${categoriesInLanguages[idiomsLang]}&cmlimit=500&cmcontinue=${idsData.cmcontinue}`)
@@ -52,7 +52,7 @@ const makeIdiomsIndexesArray = (idiomsLang, fetchMethod = fetchIdiomsIndexesList
   const indexes = localStorage.getItem(localStorageKey);
   if (indexes === null) {
     const initialPageNumber = 1;
-    return indexArrayMethods.wrapSingleIndexesQuery(
+    return indexArrayMethods.singleIndexesQuery(
       idiomsLang, initialPageNumber, {pagesIds: [], cmcontinue: ""}, fetchMethod
     );
   }
@@ -60,7 +60,7 @@ const makeIdiomsIndexesArray = (idiomsLang, fetchMethod = fetchIdiomsIndexesList
 }
 
 export const indexArrayMethods = {
-  wrapSingleIndexesQuery
+  singleIndexesQuery
 }
 
 export default makeIdiomsIndexesArray;

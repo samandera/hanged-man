@@ -11,15 +11,15 @@ describe("makeIdiomsIndexesArray behaviour", () => {
   it("array returned from makeIdiomsIndexesArray should be equal to amout of pages with ns of 0", () => {
     expect(makeIdiomsIndexesArray("en", mockFetchIndexesArray)).resolves.toBe(indexes)
   });
-  it("makeIdiomsIndexesArray should be called with wrapSingleIndexesQuery", () => {
-    const spy = jest.spyOn(indexArrayMethods, "wrapSingleIndexesQuery");
+  it("makeIdiomsIndexesArray should be called with singleIndexesQuery", () => {
+    const spy = jest.spyOn(indexArrayMethods, "singleIndexesQuery");
     localStorage.clear();
     makeIdiomsIndexesArray("en", mockFetchIndexesArray);
     expect(spy).toHaveBeenCalled();
   });
-  it("makeIdiomsIndexesArray should not be called with wrapSingleIndexesQuery", () => {
+  it("makeIdiomsIndexesArray should not be called with singleIndexesQuery", () => {
     localStorage.setItem("enIdioms", JSON.stringify(indexes));
-    const spy = jest.spyOn(indexArrayMethods, "wrapSingleIndexesQuery");
+    const spy = jest.spyOn(indexArrayMethods, "singleIndexesQuery");
     makeIdiomsIndexesArray("en", mockFetchIndexesArray);
     expect(spy).not.toBeCalled();
   })

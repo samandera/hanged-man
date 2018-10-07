@@ -30820,7 +30820,7 @@ module.exports = __webpack_require__(122);
 /* unused harmony export fetchIdiomsIndexesList */
 /* unused harmony export filterList */
 /* unused harmony export fetchNextIdiomsIndexesPage */
-/* unused harmony export wrapSingleIndexesQuery */
+/* unused harmony export singleIndexesQuery */
 /* unused harmony export indexArrayMethods */
 var categoriesInLanguages = {
   en: "Category%3AEnglish_idioms",
@@ -30858,14 +30858,14 @@ var filterList = function filterList(data) {
 
 var fetchNextIdiomsIndexesPage = function fetchNextIdiomsIndexesPage(idiomsLang, data, fetchingPageNrInfo, fetchMethod) {
   if (data && data.cmcontinue) {
-    return indexArrayMethods.wrapSingleIndexesQuery(idiomsLang, fetchingPageNrInfo, data, fetchMethod);
+    return indexArrayMethods.singleIndexesQuery(idiomsLang, fetchingPageNrInfo, data, fetchMethod);
   } else {
     localStorage.setItem(idiomsLang + "Idioms", JSON.stringify(data.pagesIds));
     return Promise.resolve(data.pagesIds);
   }
 };
 
-var wrapSingleIndexesQuery = function wrapSingleIndexesQuery(idiomsLang, fetchingPageNrInfo, idsData, fetchMethod) {
+var singleIndexesQuery = function singleIndexesQuery(idiomsLang, fetchingPageNrInfo, idsData, fetchMethod) {
   console.log(fetchingPageNrInfo);
   fetchingPageNrInfo++;
   return fetchMethod("https://" + idiomsLang + ".wiktionary.org/w/api.php?action=query&format=json&list=categorymembers&cmtitle=" + categoriesInLanguages[idiomsLang] + "&cmlimit=500&cmcontinue=" + idsData.cmcontinue).then(function (data) {
@@ -30882,13 +30882,13 @@ var makeIdiomsIndexesArray = function makeIdiomsIndexesArray(idiomsLang) {
   var indexes = localStorage.getItem(localStorageKey);
   if (indexes === null) {
     var initialPageNumber = 1;
-    return indexArrayMethods.wrapSingleIndexesQuery(idiomsLang, initialPageNumber, { pagesIds: [], cmcontinue: "" }, fetchMethod);
+    return indexArrayMethods.singleIndexesQuery(idiomsLang, initialPageNumber, { pagesIds: [], cmcontinue: "" }, fetchMethod);
   }
   return Promise.resolve(JSON.parse(indexes));
 };
 
 var indexArrayMethods = {
-  wrapSingleIndexesQuery: wrapSingleIndexesQuery
+  singleIndexesQuery: singleIndexesQuery
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (makeIdiomsIndexesArray);

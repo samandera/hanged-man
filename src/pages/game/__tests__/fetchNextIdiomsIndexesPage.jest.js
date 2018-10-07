@@ -9,16 +9,16 @@ describe("fetchNextIdiomsIndexesPage behaviour", () => {
   afterEach(() => {
     jest.clearAllMocks();
   });
-  it("should not be called with wrapSingleIndexesQuery", () => {
-    const spy = jest.spyOn(indexArrayMethods, "wrapSingleIndexesQuery");
+  it("should not be called with singleIndexesQuery", () => {
+    const spy = jest.spyOn(indexArrayMethods, "singleIndexesQuery");
     fetchNextIdiomsIndexesPage("en", {
       pagesIds: [],
       cmcontinue: ""
     }, 1, mockFetchIndexesArray);
     expect(spy).not.toHaveBeenCalled();
   });
-  it("should not be called with wrapSingleIndexesQuery", () => {
-    const spy = jest.spyOn(indexArrayMethods, "wrapSingleIndexesQuery");
+  it("should not be called with singleIndexesQuery", () => {
+    const spy = jest.spyOn(indexArrayMethods, "singleIndexesQuery");
     fetchNextIdiomsIndexesPage("en", {
       pagesIds: [],
       cmcontinue: "mockedPage1"
