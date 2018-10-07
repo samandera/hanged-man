@@ -34,7 +34,8 @@ const fetchNextIdiomsIndexesPage = (idiomsLang, data, fetchingPageNrInfo, fetchM
       idiomsLang, fetchingPageNrInfo, data.pagesIds, data.cmcontinue, fetchMethod
     )
   } else {
-    return data.pagesIds;
+    localStorage.setItem(`${idiomsLang}Idioms`, JSON.stringify(data.pagesIds));
+    return Promise.resolve(data.pagesIds);
   }
 }
 
@@ -47,12 +48,17 @@ export const wrapSingleIndexesQuery = (idiomsLang, fetchingPageNrInfo, pagesIds,
 }
 
 const makeIdiomsIndexesArray = (idiomsLang, fetchMethod = fetchIdiomsIndexesList) => {
-  const initialPageNumber = 1;
-  const initialIndexesArray = [];
-  const initialNextPage = "";
-  return indexArrayMethods.wrapSingleIndexesQuery(
-    idiomsLang, initialPageNumber, initialIndexesArray, initialNextPage, fetchMethod
-  ).then( data => console.log(data))
+  const localStorageKey = `${idiomsLang}Idioms`;
+  const indexes = localStorage.getItem(localStorageKey);
+  if (indexes === null) {
+    const initialPageNumber = 1;
+    const initialIndexesArray = [];
+    const initialNextPage = "";
+    return indexArrayMethods.wrapSingleIndexesQuery(
+      idiomsLang, initialPageNumber, initialIndexesArray, initialNextPage, fetchMethod
+    );
+  }
+  return Promise.resolve(JSON.parse(indexes))
 }
 
 export const indexArrayMethods = {

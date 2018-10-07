@@ -12900,7 +12900,9 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     makeIdiomsIndexesArray: function makeIdiomsIndexesArray(lang) {
-      __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__methods_makeIdiomsIndexesArray__["a" /* default */])(lang);
+      __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__methods_makeIdiomsIndexesArray__["a" /* default */])(lang).then(function (data) {
+        return console.log(data);
+      });
     }
     //makeIdiomsIndexesArray: (lang) => {makeIdiomsIndexesArray(dispatch, lang)}
   };
@@ -30857,7 +30859,8 @@ var fetchNextIdiomsIndexesPage = function fetchNextIdiomsIndexesPage(idiomsLang,
   if (data && data.cmcontinue) {
     return indexArrayMethods.wrapSingleIndexesQuery(idiomsLang, fetchingPageNrInfo, data.pagesIds, data.cmcontinue, fetchMethod);
   } else {
-    return data.pagesIds;
+    localStorage.setItem(idiomsLang + "Idioms", JSON.stringify(data.pagesIds));
+    return Promise.resolve(data.pagesIds);
   }
 };
 
@@ -30874,12 +30877,15 @@ var wrapSingleIndexesQuery = function wrapSingleIndexesQuery(idiomsLang, fetchin
 var makeIdiomsIndexesArray = function makeIdiomsIndexesArray(idiomsLang) {
   var fetchMethod = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : fetchIdiomsIndexesList;
 
-  var initialPageNumber = 1;
-  var initialIndexesArray = [];
-  var initialNextPage = "";
-  return indexArrayMethods.wrapSingleIndexesQuery(idiomsLang, initialPageNumber, initialIndexesArray, initialNextPage, fetchMethod).then(function (data) {
-    return console.log(data);
-  });
+  var localStorageKey = idiomsLang + "Idioms";
+  var indexes = localStorage.getItem(localStorageKey);
+  if (indexes === null) {
+    var initialPageNumber = 1;
+    var initialIndexesArray = [];
+    var initialNextPage = "";
+    return indexArrayMethods.wrapSingleIndexesQuery(idiomsLang, initialPageNumber, initialIndexesArray, initialNextPage, fetchMethod);
+  }
+  return Promise.resolve(JSON.parse(indexes));
 };
 
 var indexArrayMethods = {
