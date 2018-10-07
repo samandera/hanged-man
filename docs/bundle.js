@@ -14014,9 +14014,9 @@ var filterList = function filterList(data) {
   return { pagesIds: pagesIds, cmcontinue: cmcontinue };
 };
 
-var fetchNextIdiomsIndexesPage = function fetchNextIdiomsIndexesPage(idiomsLang, data) {
+var fetchNextIdiomsIndexesPage = function fetchNextIdiomsIndexesPage(idiomsLang, data, fetchingPageNrInfo) {
   if (data && data.cmcontinue) {
-    return wrapSingleIndexesQuery(idiomsLang, data.pagesIds, data.cmcontinue);
+    return wrapSingleIndexesQuery(idiomsLang, data.pagesIds, data.cmcontinue, fetchingPageNrInfo);
   } else {
     return data.pagesIds;
   }
@@ -14030,16 +14030,20 @@ var categoriesInLanguages = {
 var wrapSingleIndexesQuery = function wrapSingleIndexesQuery(idiomsLang) {
   var pagesIds = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
   var cmcontinue = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "";
+  var fetchingPageNrInfo = arguments[3];
 
+  console.log(fetchingPageNrInfo);
+  fetchingPageNrInfo++;
   return fetchIdiomsIndexesList('https://' + idiomsLang + '.wiktionary.org/w/api.php?action=query&format=json&list=categorymembers&cmtitle=' + categoriesInLanguages[idiomsLang] + '&cmlimit=500&cmcontinue=' + cmcontinue).then(function (data) {
     return filterList(data, pagesIds);
   }).then(function (data) {
-    return fetchNextIdiomsIndexesPage(idiomsLang, data);
+    return fetchNextIdiomsIndexesPage(idiomsLang, data, fetchingPageNrInfo);
   });
 };
 
 var makeIdiomsIndexesList = function makeIdiomsIndexesList(idiomsLang) {
-  return wrapSingleIndexesQuery(idiomsLang, [], "").then(function (data) {
+  var fetchingPageNrInfo = 1;
+  return wrapSingleIndexesQuery(idiomsLang, [], "", fetchingPageNrInfo).then(function (data) {
     return console.log(data);
   });
 };
