@@ -7,7 +7,7 @@
     "compile": "webpack",
     "watch-sass": "webpack --watch",
     "test": "jest",
-    "test:watch": "npm test -- --watchAll",
+    "test:watch": "npm test -- --watch",
     "start": "node server.js & npm run watch-sass & npm run test:watch"
   },
   "jest": {

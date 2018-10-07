@@ -8,7 +8,7 @@ import EndGame from './components/EndGame';
 
 const mapDispatchToProps = dispatch => ({
   makeIdiomsIndexesArray: (lang) => {makeIdiomsIndexesArray(lang).then(data => (console.log(data)))},
-  //makeIdiomsIndexesArray: (lang) => {makeIdiomsIndexesArray(dispatch, lang)}
+  //loadWord: (lang) => {makeIdiomsIndexesArray(dispatch, lang)}
 })
 
 class Game extends React.Component {
