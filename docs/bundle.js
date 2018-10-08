@@ -12882,10 +12882,11 @@ var Index = function (_React$Component) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_redux__ = __webpack_require__(22);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__methods_fetchWord__ = __webpack_require__(69);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__methods_makeIdiomsIndexesArray__ = __webpack_require__(146);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__methods_loadIdiom__ = __webpack_require__(311);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__methods_handleKeyPress__ = __webpack_require__(70);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_PrimaryContent__ = __webpack_require__(144);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_EndGame__ = __webpack_require__(125);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_LoadingIdiom__ = __webpack_require__(312);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -12902,14 +12903,17 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
+
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
-    makeIdiomsIndexesArray: function makeIdiomsIndexesArray(lang) {
-      __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__methods_makeIdiomsIndexesArray__["a" /* default */])(lang).then(function (data) {
-        return console.log(data);
-      });
+    loadIdiom: function loadIdiom(lang) {
+      __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__methods_loadIdiom__["a" /* default */])(dispatch, lang);
     }
-    //loadIdiom: (lang) => {makeIdiomsIndexesArray(dispatch, lang)}
+  };
+};
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    IdiomIsLoading: state.flags.loadIdiom
   };
 };
 
@@ -12926,7 +12930,7 @@ var Game = function (_React$Component) {
     key: 'componentDidMount',
     value: function componentDidMount() {
       //fetchWord();
-      this.props.makeIdiomsIndexesArray("en");
+      this.props.loadIdiom("en");
       window.onkeydown = function () {
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__methods_handleKeyPress__["a" /* default */])(String.fromCharCode(event.keyCode));
       };
@@ -12934,11 +12938,13 @@ var Game = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
+      console.log(this.props);
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
         { className: 'game' },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_6__components_EndGame__["a" /* default */], null),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__components_PrimaryContent__["a" /* default */], null)
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__components_PrimaryContent__["a" /* default */], null),
+        this.props.IdiomIsLoading && __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__components_LoadingIdiom__["a" /* default */], null)
       );
     }
   }]);
@@ -12946,7 +12952,7 @@ var Game = function (_React$Component) {
   return Game;
 }(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
 
-/* harmony default export */ __webpack_exports__["a"] = (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_react_redux__["b" /* connect */])(null, mapDispatchToProps)(Game));
+/* harmony default export */ __webpack_exports__["a"] = (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_react_redux__["b" /* connect */])(mapStateToProps, mapDispatchToProps)(Game));
 
 /***/ }),
 /* 125 */
@@ -13989,7 +13995,7 @@ var Puzzle = function (_React$Component) {
 /* unused harmony export singleIndexesQuery */
 /* unused harmony export filterList */
 /* unused harmony export fetchNextIdiomsIndexesPage */
-/* unused harmony export indexArrayMethods */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return indexArrayMethods; });
 var categoriesInLanguages = {
   en: "Category%3AEnglish_idioms",
   fr: "Catégorie%3AMétaphores_en_français"
@@ -14063,7 +14069,7 @@ var indexArrayMethods = {
   fetchIdiomsIndexesList: fetchIdiomsIndexesList
 };
 
-/* harmony default export */ __webpack_exports__["a"] = (makeIdiomsIndexesArray);
+/* unused harmony default export */ var _unused_webpack_default_export = (makeIdiomsIndexesArray);
 
 /***/ }),
 /* 147 */
@@ -30925,6 +30931,77 @@ module.exports = function(module) {
 
 module.exports = __webpack_require__(122);
 
+
+/***/ }),
+/* 311 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__reducers_actionTypes__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__makeIdiomsIndexesArray__ = __webpack_require__(146);
+
+
+
+var loadIdiom = function loadIdiom(dispatch, lang) {
+  var fetchIdiomsArray = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : __WEBPACK_IMPORTED_MODULE_1__makeIdiomsIndexesArray__["a" /* indexArrayMethods */].fetchIdiomsIndexesList;
+
+  dispatch({ type: __WEBPACK_IMPORTED_MODULE_0__reducers_actionTypes__["h" /* LOAD_IDIOM */], loadIdiom: true });
+  return __WEBPACK_IMPORTED_MODULE_1__makeIdiomsIndexesArray__["a" /* indexArrayMethods */].makeIdiomsIndexesArray(lang, fetchIdiomsArray).then(function (data) {
+    return console.log(data);
+  }).then(function () {
+    return dispatch({ type: __WEBPACK_IMPORTED_MODULE_0__reducers_actionTypes__["h" /* LOAD_IDIOM */], loadIdiom: false });
+  });
+};
+
+/* harmony default export */ __webpack_exports__["a"] = (loadIdiom);
+
+/***/ }),
+/* 312 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_redux__ = __webpack_require__(22);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {};
+};
+
+var LoadingIdiom = function (_React$Component) {
+  _inherits(LoadingIdiom, _React$Component);
+
+  function LoadingIdiom() {
+    _classCallCheck(this, LoadingIdiom);
+
+    return _possibleConstructorReturn(this, (LoadingIdiom.__proto__ || Object.getPrototypeOf(LoadingIdiom)).apply(this, arguments));
+  }
+
+  _createClass(LoadingIdiom, [{
+    key: 'render',
+    value: function render() {
+      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'div',
+        { className: 'loading-idiom' },
+        'LOADING IDIOM!!!!!'
+      );
+    }
+  }]);
+
+  return LoadingIdiom;
+}(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["a"] = (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_react_redux__["b" /* connect */])(mapStateToProps)(LoadingIdiom));
 
 /***/ })
 /******/ ]);
