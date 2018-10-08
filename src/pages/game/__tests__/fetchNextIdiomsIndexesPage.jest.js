@@ -4,6 +4,7 @@ import
     fetchNextIdiomsIndexesPage
   } from "../methods/makeIdiomsIndexesArray";
 import { mockFetchIndexesArray, mockedPage0, mockedPage1 } from '../__mocks__/makeIdiomsIndexesArray';
+import store from '../../store';
 
 describe("fetchNextIdiomsIndexesPage behaviour", () => {
   afterEach(() => {
@@ -11,7 +12,7 @@ describe("fetchNextIdiomsIndexesPage behaviour", () => {
   });
   it("should not be called with singleIndexesQuery", () => {
     const spy = jest.spyOn(indexArrayMethods, "singleIndexesQuery");
-    fetchNextIdiomsIndexesPage("en", {
+    fetchNextIdiomsIndexesPage(store.dispatch, "en", {
       pagesIds: [],
       cmcontinue: ""
     }, 1, mockFetchIndexesArray);
@@ -19,7 +20,7 @@ describe("fetchNextIdiomsIndexesPage behaviour", () => {
   });
   it("should not be called with singleIndexesQuery", () => {
     const spy = jest.spyOn(indexArrayMethods, "singleIndexesQuery");
-    fetchNextIdiomsIndexesPage("en", {
+    fetchNextIdiomsIndexesPage(store.dispatch, "en", {
       pagesIds: [],
       cmcontinue: "mockedPage1"
     }, 1, mockFetchIndexesArray);

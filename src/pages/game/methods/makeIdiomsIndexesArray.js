@@ -1,15 +1,17 @@
+import { SET_LOADING_MESSAGE } from '../reducers/actionTypes';
+
 export const categoriesInLanguages = {
   en: "Category%3AEnglish_idioms",
   fr: "Catégorie%3AMétaphores_en_français"
 }
 
-const makeIdiomsIndexesArray = (idiomsLang, fetchMethod = fetchIdiomsIndexesList) => {
+const makeIdiomsIndexesArray = (dispatch, idiomsLang, fetchMethod = fetchIdiomsIndexesList) => {
   const localStorageKey = `${idiomsLang}Idioms`;
   const indexes = localStorage.getItem(localStorageKey);
   if (indexes === null) {
     const initialPageNumber = 1;
     return indexArrayMethods.singleIndexesQuery(
-      idiomsLang, initialPageNumber, {pagesIds: [], cmcontinue: ""}, fetchMethod
+      dispatch, idiomsLang, initialPageNumber, {pagesIds: [], cmcontinue: ""}, fetchMethod
     );
   }
   return Promise.resolve(JSON.parse(indexes))
@@ -25,12 +27,15 @@ export const fetchIdiomsIndexesList = (url) => {
   })
 }
 
-export const singleIndexesQuery = (idiomsLang, fetchingPageNrInfo, idsData, fetchMethod) => {
-  console.log(fetchingPageNrInfo);
+export const singleIndexesQuery = (dispatch, idiomsLang, fetchingPageNrInfo, idsData, fetchMethod) => {
+  dispatch({
+    type: SET_LOADING_MESSAGE,
+    message: `Loading idioms's page no. ${fetchingPageNrInfo}`
+  });
   fetchingPageNrInfo++;
   return fetchMethod(`https://${idiomsLang}.wiktionary.org/w/api.php?action=query&format=json&list=categorymembers&cmtitle=${categoriesInLanguages[idiomsLang]}&cmlimit=500&cmcontinue=${idsData.cmcontinue}`)
   .then(data => indexArrayMethods.filterList(data, idsData.pagesIds))
-  .then(data => indexArrayMethods.fetchNextIdiomsIndexesPage(idiomsLang, data, fetchingPageNrInfo, fetchMethod));
+  .then(data => indexArrayMethods.fetchNextIdiomsIndexesPage(dispatch, idiomsLang, data, fetchingPageNrInfo, fetchMethod));
 }
 
 export const filterList = (data, pagesIds = []) => {
@@ -48,10 +53,10 @@ export const filterList = (data, pagesIds = []) => {
   return {pagesIds, cmcontinue};
 }
 
-export const fetchNextIdiomsIndexesPage = (idiomsLang, data, fetchingPageNrInfo, fetchMethod) => {
+export const fetchNextIdiomsIndexesPage = (dispatch, idiomsLang, data, fetchingPageNrInfo, fetchMethod) => {
   if (data && data.cmcontinue) {
     return indexArrayMethods.singleIndexesQuery(
-      idiomsLang, fetchingPageNrInfo, data, fetchMethod
+      dispatch, idiomsLang, fetchingPageNrInfo, data, fetchMethod
     )
   } else {
     localStorage.setItem(`${idiomsLang}Idioms`, JSON.stringify(data.pagesIds));

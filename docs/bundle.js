@@ -1687,6 +1687,7 @@ module.exports = ReactCurrentOwner;
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return RESET_MISSED_LETTERS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SET_PLAYED_WORDS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return LOAD_IDIOM; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return SET_LOADING_MESSAGE; });
 var SET_WORD = 'SET_WORD';
 var SET_WINNING_LETTERS = 'SET_WINNING_LETTERS';
 var SET_MESSAGE = 'SET_MESSAGE';
@@ -1695,6 +1696,7 @@ var SET_MISSED_LETTERS = 'SET_MISSED_LETTERS';
 var RESET_MISSED_LETTERS = 'RESET_MISSED_LETTERS';
 var SET_PLAYED_WORDS = 'SET_PLAYED_WORDS';
 var LOAD_IDIOM = 'LOAD_IDIOM';
+var SET_LOADING_MESSAGE = "SET_LOADING_MESSAGE";
 
 /***/ }),
 /* 17 */
@@ -1707,6 +1709,8 @@ var LOAD_IDIOM = 'LOAD_IDIOM';
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__game_reducers_showEndGame__ = __webpack_require__(154);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__game_reducers_setPlayedWords__ = __webpack_require__(152);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__game_reducers_setFlags__ = __webpack_require__(150);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__game_reducers_setLoading__ = __webpack_require__(431);
+
 
 
 
@@ -1719,7 +1723,8 @@ var reducers = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_redux__["b" /* 
   missedLettersState: __WEBPACK_IMPORTED_MODULE_2__game_reducers_setMissedLetters__["a" /* default */],
   messageText: __WEBPACK_IMPORTED_MODULE_3__game_reducers_showEndGame__["a" /* default */],
   playedWords: __WEBPACK_IMPORTED_MODULE_4__game_reducers_setPlayedWords__["a" /* default */],
-  flags: __WEBPACK_IMPORTED_MODULE_5__game_reducers_setFlags__["a" /* default */]
+  flags: __WEBPACK_IMPORTED_MODULE_5__game_reducers_setFlags__["a" /* default */],
+  loadingState: __WEBPACK_IMPORTED_MODULE_6__game_reducers_setLoading__["a" /* default */]
 });
 
 var store = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_redux__["c" /* createStore */])(reducers);
@@ -13800,7 +13805,9 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 var mapStateToProps = function mapStateToProps(state) {
-  return {};
+  return {
+    message: state.loadingState.message
+  };
 };
 
 var LoadingIdiom = function (_React$Component) {
@@ -13819,7 +13826,11 @@ var LoadingIdiom = function (_React$Component) {
         'div',
         { className: 'loading-idiom' },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_spinners__["CircleLoader"], null),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { className: 'currenly-loading' })
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'div',
+          { className: 'currenly-loading' },
+          this.props.message
+        )
       );
     }
   }]);
@@ -14051,7 +14062,7 @@ var loadIdiom = function loadIdiom(dispatch, lang) {
   var fetchIdiomsArray = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : __WEBPACK_IMPORTED_MODULE_1__makeIdiomsIndexesArray__["a" /* indexArrayMethods */].fetchIdiomsIndexesList;
 
   dispatch({ type: __WEBPACK_IMPORTED_MODULE_0__reducers_actionTypes__["h" /* LOAD_IDIOM */], loadIdiom: true });
-  return __WEBPACK_IMPORTED_MODULE_1__makeIdiomsIndexesArray__["a" /* indexArrayMethods */].makeIdiomsIndexesArray(lang, fetchIdiomsArray).then(function (data) {
+  return __WEBPACK_IMPORTED_MODULE_1__makeIdiomsIndexesArray__["a" /* indexArrayMethods */].makeIdiomsIndexesArray(dispatch, lang, fetchIdiomsArray).then(function (data) {
     return console.log(data);
   }).then(function () {
     return dispatch({ type: __WEBPACK_IMPORTED_MODULE_0__reducers_actionTypes__["h" /* LOAD_IDIOM */], loadIdiom: false });
@@ -14071,19 +14082,22 @@ var loadIdiom = function loadIdiom(dispatch, lang) {
 /* unused harmony export filterList */
 /* unused harmony export fetchNextIdiomsIndexesPage */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return indexArrayMethods; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__reducers_actionTypes__ = __webpack_require__(16);
+
+
 var categoriesInLanguages = {
   en: "Category%3AEnglish_idioms",
   fr: "Catégorie%3AMétaphores_en_français"
 };
 
-var makeIdiomsIndexesArray = function makeIdiomsIndexesArray(idiomsLang) {
-  var fetchMethod = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : fetchIdiomsIndexesList;
+var makeIdiomsIndexesArray = function makeIdiomsIndexesArray(dispatch, idiomsLang) {
+  var fetchMethod = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : fetchIdiomsIndexesList;
 
   var localStorageKey = idiomsLang + "Idioms";
   var indexes = localStorage.getItem(localStorageKey);
   if (indexes === null) {
     var initialPageNumber = 1;
-    return indexArrayMethods.singleIndexesQuery(idiomsLang, initialPageNumber, { pagesIds: [], cmcontinue: "" }, fetchMethod);
+    return indexArrayMethods.singleIndexesQuery(dispatch, idiomsLang, initialPageNumber, { pagesIds: [], cmcontinue: "" }, fetchMethod);
   }
   return Promise.resolve(JSON.parse(indexes));
 };
@@ -14098,13 +14112,16 @@ var fetchIdiomsIndexesList = function fetchIdiomsIndexesList(url) {
   });
 };
 
-var singleIndexesQuery = function singleIndexesQuery(idiomsLang, fetchingPageNrInfo, idsData, fetchMethod) {
-  console.log(fetchingPageNrInfo);
+var singleIndexesQuery = function singleIndexesQuery(dispatch, idiomsLang, fetchingPageNrInfo, idsData, fetchMethod) {
+  dispatch({
+    type: __WEBPACK_IMPORTED_MODULE_0__reducers_actionTypes__["i" /* SET_LOADING_MESSAGE */],
+    message: "Loading idioms's page no. " + fetchingPageNrInfo
+  });
   fetchingPageNrInfo++;
   return fetchMethod("https://" + idiomsLang + ".wiktionary.org/w/api.php?action=query&format=json&list=categorymembers&cmtitle=" + categoriesInLanguages[idiomsLang] + "&cmlimit=500&cmcontinue=" + idsData.cmcontinue).then(function (data) {
     return indexArrayMethods.filterList(data, idsData.pagesIds);
   }).then(function (data) {
-    return indexArrayMethods.fetchNextIdiomsIndexesPage(idiomsLang, data, fetchingPageNrInfo, fetchMethod);
+    return indexArrayMethods.fetchNextIdiomsIndexesPage(dispatch, idiomsLang, data, fetchingPageNrInfo, fetchMethod);
   });
 };
 
@@ -14127,9 +14144,9 @@ var filterList = function filterList(data) {
   return { pagesIds: pagesIds, cmcontinue: cmcontinue };
 };
 
-var fetchNextIdiomsIndexesPage = function fetchNextIdiomsIndexesPage(idiomsLang, data, fetchingPageNrInfo, fetchMethod) {
+var fetchNextIdiomsIndexesPage = function fetchNextIdiomsIndexesPage(dispatch, idiomsLang, data, fetchingPageNrInfo, fetchMethod) {
   if (data && data.cmcontinue) {
-    return indexArrayMethods.singleIndexesQuery(idiomsLang, fetchingPageNrInfo, data, fetchMethod);
+    return indexArrayMethods.singleIndexesQuery(dispatch, idiomsLang, fetchingPageNrInfo, data, fetchMethod);
   } else {
     localStorage.setItem(idiomsLang + "Idioms", JSON.stringify(data.pagesIds));
     return Promise.resolve(data.pagesIds);
@@ -38663,5 +38680,31 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 }))
 
 
+/***/ }),
+/* 431 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__actionTypes__ = __webpack_require__(16);
+
+
+var initialState = {
+  loadingMessage: ""
+};
+
+var setLoading = function setLoading() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+  var action = arguments[1];
+
+  switch (action.type) {
+    case __WEBPACK_IMPORTED_MODULE_0__actionTypes__["i" /* SET_LOADING_MESSAGE */]:
+      return Object.assign({}, state, action.message);
+    default:
+      return state;
+  }
+};
+
+/* harmony default export */ __webpack_exports__["a"] = (setLoading);
+
 /***/ })
-/******/ ]);
+/******/ ]);******/ ]);
