@@ -1,4 +1,5 @@
 import { SET_LOADING_MESSAGE } from '../reducers/actionTypes';
+import handleResponse from "./handleResponse"
 
 export const categoriesInLanguages = {
   en: "Category%3AEnglish_idioms",
@@ -18,12 +19,9 @@ const makeIdiomsIndexesArray = (dispatch, idiomsLang, fetchMethod = fetchIdiomsI
 }
 
 export const fetchIdiomsIndexesList = (url) => {
-  return fetch( url, {method: 'get'} ).then(response => {
-    if (response.status !== 200) {
-      throw new Error(`Looks like there was a problem with fetching idiom indexes list. Status Code: ${response.status}`)
-    }
-    return response.json()
-  }).catch(error => {console.log(error.message)})
+  return fetch( url, {method: 'get'} )
+  .then(response => handleResponse(response, "idiom indexes list"))
+  .catch(error => {console.log(error.message)})
 }
 
 export const singleIndexesQuery = (dispatch, idiomsLang, fetchingPageNrInfo, titlesData, fetchMethod) => {
