@@ -38742,8 +38742,11 @@ var getRandomTitle = function getRandomTitle(titles) {
 };
 
 var fetchIdiom = function fetchIdiom(lang, title) {
-  return fetch(lang + '.wiktionary.org/w/api.php?action=parse&page=' + title, { method: 'get' }).then(function (response) {
+  var url = 'https://' + lang + '.wiktionary.org/w/api.php?action=parse&format=json&page=' + title;
+  return fetch(url, { method: 'get' }).then(function (response) {
     return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__handleResponse__["a" /* default */])(response, "idiom page");
+  }).catch(function (error) {
+    console.log(error.message);
   });
 };
 
@@ -38752,7 +38755,17 @@ var createPlayableIdiom = function createPlayableIdiom(dispatch, lang, titles) {
     type: __WEBPACK_IMPORTED_MODULE_1__reducers_actionTypes__["i" /* SET_LOADING_MESSAGE */],
     message: 'Loading playable idiom'
   });
-  return getRandomTitle(titles); //.then(title => fetchIdiom(lang, title))
+  return getRandomTitle(titles).then(function (title) {
+    return fetchIdiom(lang, title);
+  }).then(function (idiom) {
+    var title = idiom.parse.title;
+
+    var definition = idiom.parse.text['*'];
+    var sections = idiom.parse.sections;
+    return Promise.resolve({ title: title, definition: definition, sections: sections });
+    //keywords that are interesting for us in sections: Noun, Verb, Adverb, Interjection, Phrase, Prepositional phrase, Preposition, Proverb, Adjective
+    //keywords in sections definetely to avoid: Pronunciation, English, Synonyms, Antonyms, References, See also, Usage notes, Etymology, Hypernyms, Related terms, Translations, Coordinate terms, Derived terms, Anagrams, Alternative forms
+  });
 };
 
 /***/ })
