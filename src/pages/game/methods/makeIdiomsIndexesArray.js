@@ -11,7 +11,7 @@ const makeIdiomsIndexesArray = (dispatch, idiomsLang, fetchMethod = fetchIdiomsI
   if (indexes === null) {
     const initialPageNumber = 1;
     return indexArrayMethods.singleIndexesQuery(
-      dispatch, idiomsLang, initialPageNumber, {pagesIds: [], cmcontinue: ""}, fetchMethod
+      dispatch, idiomsLang, initialPageNumber, {pagesTitles: [], cmcontinue: ""}, fetchMethod
     );
   }
   return Promise.resolve(JSON.parse(indexes))
@@ -20,11 +20,10 @@ const makeIdiomsIndexesArray = (dispatch, idiomsLang, fetchMethod = fetchIdiomsI
 export const fetchIdiomsIndexesList = (url) => {
   return fetch( url, {method: 'get'} ).then(response => {
     if (response.status !== 200) {
-      console.log('Looks like there was a problem. Status Code: ' + response.status);
-      return;
+      throw new Error(`Looks like there was a problem with fetching idiom indexes list. Status Code: ${response.status}`)
     }
     return response.json()
-  })
+  }).catch(error => {console.log(error.message)})
 }
 
 export const singleIndexesQuery = (dispatch, idiomsLang, fetchingPageNrInfo, idsData, fetchMethod) => {
@@ -34,23 +33,23 @@ export const singleIndexesQuery = (dispatch, idiomsLang, fetchingPageNrInfo, ids
   });
   fetchingPageNrInfo++;
   return fetchMethod(`https://${idiomsLang}.wiktionary.org/w/api.php?action=query&format=json&list=categorymembers&cmtitle=${categoriesInLanguages[idiomsLang]}&cmlimit=500&cmcontinue=${idsData.cmcontinue}`)
-  .then(data => indexArrayMethods.filterList(data, idsData.pagesIds))
+  .then(data => indexArrayMethods.filterList(data, idsData.pagesTitles))
   .then(data => indexArrayMethods.fetchNextIdiomsIndexesPage(dispatch, idiomsLang, data, fetchingPageNrInfo, fetchMethod));
 }
 
-export const filterList = (data, pagesIds = []) => {
+export const filterList = (data, pagesTitles = []) => {
   let pagesData;
   let cmcontinue = "";
   if (data && data.query && data.query.categorymembers) {
     pagesData = data.query.categorymembers;
     pagesData.forEach(page => {
-      if (page.ns === 0) {pagesIds.push(page.pageid)}
+      if (page.ns === 0) {pagesTitles.push(page.title)}
     })
   }
   if (data && data.continue && data.continue.cmcontinue) {
     cmcontinue = data.continue.cmcontinue;
   }
-  return {pagesIds, cmcontinue};
+  return {pagesTitles, cmcontinue};
 }
 
 export const fetchNextIdiomsIndexesPage = (dispatch, idiomsLang, data, fetchingPageNrInfo, fetchMethod) => {
@@ -59,8 +58,8 @@ export const fetchNextIdiomsIndexesPage = (dispatch, idiomsLang, data, fetchingP
       dispatch, idiomsLang, fetchingPageNrInfo, data, fetchMethod
     )
   } else {
-    localStorage.setItem(`${idiomsLang}Idioms`, JSON.stringify(data.pagesIds));
-    return Promise.resolve(data.pagesIds);
+    localStorage.setItem(`${idiomsLang}Idioms`, JSON.stringify(data.pagesTitles));
+    return Promise.resolve(data.pagesTitles);
   }
 }
 

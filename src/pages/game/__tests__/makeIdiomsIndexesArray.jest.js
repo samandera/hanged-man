@@ -8,7 +8,7 @@ describe("makeIdiomsIndexesArray behaviour", () => {
   afterEach(() => {
     jest.clearAllMocks();
   });
-  const indexes = filterList(mockedPage1, filterList(mockedPage0).pagesIds).pagesIds;
+  const indexes = filterList(mockedPage1, filterList(mockedPage0).pagesTitles).pagesTitles;
   it("array returned from makeIdiomsIndexesArray should be equal to amout of pages with ns of 0", () => {
     expect(makeIdiomsIndexesArray(store.dispatch, "en", mockFetchIndexesArray)).resolves.toBe(indexes)
   });

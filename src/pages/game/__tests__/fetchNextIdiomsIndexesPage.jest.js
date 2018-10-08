@@ -13,7 +13,7 @@ describe("fetchNextIdiomsIndexesPage behaviour", () => {
   it("should not be called with singleIndexesQuery", () => {
     const spy = jest.spyOn(indexArrayMethods, "singleIndexesQuery");
     fetchNextIdiomsIndexesPage(store.dispatch, "en", {
-      pagesIds: [],
+      pagesTitles: [],
       cmcontinue: ""
     }, 1, mockFetchIndexesArray);
     expect(spy).not.toHaveBeenCalled();
@@ -21,7 +21,7 @@ describe("fetchNextIdiomsIndexesPage behaviour", () => {
   it("should not be called with singleIndexesQuery", () => {
     const spy = jest.spyOn(indexArrayMethods, "singleIndexesQuery");
     fetchNextIdiomsIndexesPage(store.dispatch, "en", {
-      pagesIds: [],
+      pagesTitles: [],
       cmcontinue: "mockedPage1"
     }, 1, mockFetchIndexesArray);
     expect(spy).toHaveBeenCalled();
