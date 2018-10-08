@@ -1684,7 +1684,7 @@ module.exports = ReactCurrentOwner;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__game_reducers_setMissedLetters__ = __webpack_require__(149);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__game_reducers_showEndGame__ = __webpack_require__(152);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__game_reducers_setPlayedWords__ = __webpack_require__(150);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__game_reducers_flags__ = __webpack_require__(148);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__game_reducers_setFlags__ = __webpack_require__(148);
 
 
 
@@ -1697,7 +1697,7 @@ var reducers = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_redux__["b" /* 
   missedLettersState: __WEBPACK_IMPORTED_MODULE_2__game_reducers_setMissedLetters__["a" /* default */],
   messageText: __WEBPACK_IMPORTED_MODULE_3__game_reducers_showEndGame__["a" /* default */],
   playedWords: __WEBPACK_IMPORTED_MODULE_4__game_reducers_setPlayedWords__["a" /* default */],
-  flags: setFlag
+  flags: __WEBPACK_IMPORTED_MODULE_5__game_reducers_setFlags__["a" /* default */]
 });
 
 var store = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_redux__["c" /* createStore */])(reducers);
@@ -12909,7 +12909,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
         return console.log(data);
       });
     }
-    //loadWord: (lang) => {makeIdiomsIndexesArray(dispatch, lang)}
+    //loadIdiom: (lang) => {makeIdiomsIndexesArray(dispatch, lang)}
   };
 };
 
@@ -14058,7 +14058,9 @@ var fetchNextIdiomsIndexesPage = function fetchNextIdiomsIndexesPage(idiomsLang,
 var indexArrayMethods = {
   singleIndexesQuery: singleIndexesQuery,
   filterList: filterList,
-  fetchNextIdiomsIndexesPage: fetchNextIdiomsIndexesPage
+  fetchNextIdiomsIndexesPage: fetchNextIdiomsIndexesPage,
+  makeIdiomsIndexesArray: makeIdiomsIndexesArray,
+  fetchIdiomsIndexesList: fetchIdiomsIndexesList
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (makeIdiomsIndexesArray);
@@ -14119,7 +14121,7 @@ var initialState = {
   loadIdiom: false
 };
 
-var setFlag = function setFlag() {
+var setFlags = function setFlags() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
   var action = arguments[1];
 
@@ -14131,7 +14133,7 @@ var setFlag = function setFlag() {
   }
 };
 
-/* unused harmony default export */ var _unused_webpack_default_export = (setFlag);
+/* harmony default export */ __webpack_exports__["a"] = (setFlags);
 
 /***/ }),
 /* 149 */

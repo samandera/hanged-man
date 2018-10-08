@@ -62,7 +62,9 @@ export const fetchNextIdiomsIndexesPage = (idiomsLang, data, fetchingPageNrInfo,
 export const indexArrayMethods = {
   singleIndexesQuery,
   filterList,
-  fetchNextIdiomsIndexesPage
+  fetchNextIdiomsIndexesPage,
+  makeIdiomsIndexesArray,
+  fetchIdiomsIndexesList
 }
 
 export default makeIdiomsIndexesArray;

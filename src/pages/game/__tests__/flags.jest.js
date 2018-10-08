@@ -1,4 +1,4 @@
-import setFlag from '../reducers/flags';
+import setFlag from '../reducers/setFlags';
 import {LOAD_IDIOM} from '../reducers/actionTypes';
 
 describe("test flags", () => {
@@ -32,7 +32,7 @@ describe("test setting loading idioms flag", () => {
     const newState = setFlag(state, {type: LOAD_IDIOM, loadIdiom: true});
     expect(newState.loadIdiom).toBeTruthy();
   });
-  it("output's loadIdiom key value should falsy", () => {
+  it("output's loadIdiom key value should false", () => {
     const state = {loadIdiom: true};
     const newState = setFlag(state, {type: LOAD_IDIOM, loadIdiom: false});
     expect(newState.loadIdiom).toBeFalsy();

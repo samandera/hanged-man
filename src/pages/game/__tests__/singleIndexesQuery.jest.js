@@ -12,15 +12,17 @@ describe("fetchNextIdiomsIndexesPage behaviour", () => {
   it("should be called with filterList", () => {
     const spy = jest.spyOn(indexArrayMethods, "filterList");
     singleIndexesQuery("en", 1, {pagesIds: [], cmcontinue: mockedPage1}, mockFetchIndexesArray)
-    .then(data => (
-      expect(spy).toBeCalled()
-    ))
+    .then(data => {
+      expect(spy).toBeCalled();
+      done();
+    })
   });
   it("should be called with fetchNextIdiomsIndexesPage", () => {
     const spy = jest.spyOn(indexArrayMethods, "fetchNextIdiomsIndexesPage");
     singleIndexesQuery("en", 1, {pagesIds: [], cmcontinue: mockedPage1}, mockFetchIndexesArray)
-    .then(data => (
-      expect(spy).toBeCalled()
-    ))
+    .then(data => {
+      expect(spy).toBeCalled();
+      done();
+    })
   });
 })
