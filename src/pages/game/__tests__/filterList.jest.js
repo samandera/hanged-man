@@ -5,7 +5,7 @@ describe("testing filterList", () => {
   it("should return an object", () => {
     expect(typeof filterList()).toBe("object")
   });
-  it("pagesIds key in an object returned by filterList should be an array", () => {
+  it("pagesTitles key in an object returned by filterList should be an array", () => {
     expect(filterList().pagesTitles).toBeInstanceOf(Array)
   });
   it("returned object should have a key cmcontinue", () => {

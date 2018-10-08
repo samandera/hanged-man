@@ -26,14 +26,14 @@ export const fetchIdiomsIndexesList = (url) => {
   }).catch(error => {console.log(error.message)})
 }
 
-export const singleIndexesQuery = (dispatch, idiomsLang, fetchingPageNrInfo, idsData, fetchMethod) => {
+export const singleIndexesQuery = (dispatch, idiomsLang, fetchingPageNrInfo, titlesData, fetchMethod) => {
   dispatch({
     type: SET_LOADING_MESSAGE,
     message: `Loading idioms's page no. ${fetchingPageNrInfo}`
   });
   fetchingPageNrInfo++;
-  return fetchMethod(`https://${idiomsLang}.wiktionary.org/w/api.php?action=query&format=json&list=categorymembers&cmtitle=${categoriesInLanguages[idiomsLang]}&cmlimit=500&cmcontinue=${idsData.cmcontinue}`)
-  .then(data => indexArrayMethods.filterList(data, idsData.pagesTitles))
+  return fetchMethod(`https://${idiomsLang}.wiktionary.org/w/api.php?action=query&format=json&list=categorymembers&cmtitle=${categoriesInLanguages[idiomsLang]}&cmlimit=500&cmcontinue=${titlesData.cmcontinue}`)
+  .then(data => indexArrayMethods.filterList(data, titlesData.pagesTitles))
   .then(data => indexArrayMethods.fetchNextIdiomsIndexesPage(dispatch, idiomsLang, data, fetchingPageNrInfo, fetchMethod));
 }
 
