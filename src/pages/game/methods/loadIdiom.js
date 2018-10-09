@@ -1,6 +1,6 @@
 import { LOAD_IDIOM } from '../reducers/actionTypes';
 import { indexArrayMethods } from './makeIdiomsIndexesArray';
-import { createPlayableIdiom } from './createPlayableIdiom';
+import createPlayableIdiom from './createPlayableIdiom';
 
 const loadIdiom = (dispatch, lang, fetchIdiomsArray = indexArrayMethods.fetchIdiomsIndexesList) => {
   dispatch({type: LOAD_IDIOM, loadIdiom: true});

@@ -3,7 +3,7 @@ import handleResponse from "./handleResponse"
 
 export const categoriesInLanguages = {
   en: "Category%3AEnglish_idioms",
-  fr: "Catégorie%3AMétaphores_en_français"
+  fr: "Catégorie%3AIdiotismes_animaliers_en_français"
 }
 
 const makeIdiomsIndexesArray = (dispatch, idiomsLang, fetchMethod = fetchIdiomsIndexesList) => {
