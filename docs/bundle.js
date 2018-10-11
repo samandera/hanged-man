@@ -16634,11 +16634,6 @@ var fetchIdiom = function fetchIdiom(lang, title) {
   });
 };
 
-var definitionSections = {
-  en: ["Noun", "Verb", "Adverb", "Interjection", "Phrase", "Prepositional phrase", "Preposition", "Proverb", "Adjective"],
-  fr: ["Locution adverbiale", "Adverbe", "Nom commun", "Locution nominale", "Locution verbale", "Locution adjectivale", "Locution-phrase", "Nom propre", "Locution interjective"]
-};
-
 var PlayableIdiom = function PlayableIdiom(fetchFunction) {
   var _this = this;
 
@@ -16654,15 +16649,55 @@ var PlayableIdiom = function PlayableIdiom(fetchFunction) {
     return _this.getRandomTitle(titles).then(function (title) {
       return _this.fetchFunction(lang, title);
     }).then(function (idiom) {
-      var title = idiom.parse.title;
-
-      var definition = idiom.parse.text['*'];
-      return Promise.resolve({ title: title, definition: definition });
+      return _this.setIdiomData(dispatch, lang, idiom);
     });
+  };
+
+  this.definitionSections = {
+    en: ["Noun", "Verb", "Adverb", "Interjection", "Phrase", "Prepositional phrase", "Preposition", "Proverb", "Adjective"],
+    fr: ["Locution adverbiale", "Adverbe", "Nom commun", "Locution nominale", "Locution verbale", "Locution adjectivale", "Locution-phrase", "Nom propre", "Locution interjective"]
   };
 
   this.getRandomTitle = function (titles) {
     return Promise.resolve(titles[Math.floor(Math.random() * titles.length)]);
+  };
+
+  this.setIdiomData = function (dispatch, lang, idiom) {
+    var title = idiom.parse.title;
+
+    var definitions = _this.extractDefinitions(idiom.parse.text['*'], lang);
+    definitions = _this.removeExamplesFromDefinitions(definitions);
+    console.log(definitions);
+    dispatch({
+      type: __WEBPACK_IMPORTED_MODULE_1__reducers_actionTypes__["e" /* SET_WORD */],
+      word: title
+    });
+    return Promise.resolve({ title: title });
+  };
+  this.extractDefinitions = function (definition, lang) {
+    var definitions = [];
+    _this.definitionSections[lang].forEach(function (sectionName) {
+      var htmlTreeHeader = new RegExp('<h3>.*' + sectionName + '.*</h3>');
+      var headerIndex = definition.search(htmlTreeHeader);
+      console.log(sectionName);
+      console.log(headerIndex);
+      if (headerIndex >= 0) {
+        var startSectionIndex = definition.indexOf("<ol", headerIndex);
+        var endSectionIndex = definition.indexOf("</ol>", startSectionIndex);
+        definitions.push(definition.substring(startSectionIndex, endSectionIndex + "</ol>".length));
+      }
+    });
+    return definitions;
+  };
+
+  this.removeExamplesFromDefinitions = function (definitions) {
+    return definitions.map(function (definition) {
+      var exampleRegExp = /<dl>.*.<\/dl>/;
+      var examples = definition.match(exampleRegExp);
+      return examples ? examples.map(function (example) {
+        return definition.replace(example, "");
+      }) : definition;
+    });
   };
 };
 
