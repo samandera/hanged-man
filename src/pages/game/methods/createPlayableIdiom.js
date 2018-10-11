@@ -49,27 +49,26 @@ export const PlayableIdiom = class {
         const htmlTreeHeader = new RegExp('<h3>.*.>' + sectionName + '<.*.</h3>');
         const headerIndex = definition.search(htmlTreeHeader);
         if (headerIndex >= 0) {
-          console.log(sectionName);
-          console.log(definition.match(htmlTreeHeader));
           const startSectionIndex = definition.indexOf("<ol", headerIndex);
           const endSectionIndex = definition.indexOf("</ol>", startSectionIndex);
           definitions.push(definition.substring(startSectionIndex, endSectionIndex + "</ol>".length))
         }
       })
-      console.log(definitions);
       return definitions;
     }
 
     this.removeExamplesFromDefinitions = definitions => {
-      return definitions.map(definition => {
+      const strippedFromExamples = [];
+      definitions.forEach(definition => {
         const exampleRegExp = /<dl>.*.<\/dl>/;
         const examples = definition.match(exampleRegExp);
-        return examples
-          ? examples.map(example => {
-            return definition.replace(example, "");
-          })
-          : definition
-      })
+        examples !== null
+          && examples.map(example => {
+            definition = definition.replace(example, "");
+          });
+          strippedFromExamples.push(definition)
+      });
+      return strippedFromExamples;
     }
   }
 }

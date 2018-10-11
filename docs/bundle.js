@@ -16681,25 +16681,25 @@ var PlayableIdiom = function PlayableIdiom(fetchFunction) {
       var htmlTreeHeader = new RegExp('<h3>.*.>' + sectionName + '<.*.</h3>');
       var headerIndex = definition.search(htmlTreeHeader);
       if (headerIndex >= 0) {
-        console.log(sectionName);
-        console.log(definition.match(htmlTreeHeader));
         var startSectionIndex = definition.indexOf("<ol", headerIndex);
         var endSectionIndex = definition.indexOf("</ol>", startSectionIndex);
         definitions.push(definition.substring(startSectionIndex, endSectionIndex + "</ol>".length));
       }
     });
-    console.log(definitions);
     return definitions;
   };
 
   this.removeExamplesFromDefinitions = function (definitions) {
-    return definitions.map(function (definition) {
+    var strippedFromExamples = [];
+    definitions.forEach(function (definition) {
       var exampleRegExp = /<dl>.*.<\/dl>/;
       var examples = definition.match(exampleRegExp);
-      return examples ? examples.map(function (example) {
-        return definition.replace(example, "");
-      }) : definition;
+      examples !== null && examples.map(function (example) {
+        definition = definition.replace(example, "");
+      });
+      strippedFromExamples.push(definition);
     });
+    return strippedFromExamples;
   };
 };
 
