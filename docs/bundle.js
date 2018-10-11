@@ -16626,7 +16626,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 
 var fetchIdiom = function fetchIdiom(lang, title) {
-  var url = 'https://' + lang + '.wiktionary.org/w/api.php?action=parse&format=json&page=' + title;
+  var url = 'https://' + lang + '.wiktionary.org/w/api.php?action=parse&format=json&page=one and only';
+  //const url = `https://${lang}.wiktionary.org/w/api.php?action=parse&format=json&page=${title}`;
   return fetch(url, { method: 'get' }).then(function (response) {
     return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__handleResponse__["a" /* default */])(response, "idiom page");
   }).catch(function (error) {
@@ -16677,16 +16678,17 @@ var PlayableIdiom = function PlayableIdiom(fetchFunction) {
   this.extractDefinitions = function (definition, lang) {
     var definitions = [];
     _this.definitionSections[lang].forEach(function (sectionName) {
-      var htmlTreeHeader = new RegExp('<h3>.*' + sectionName + '.*</h3>');
+      var htmlTreeHeader = new RegExp('<h3>.*.>' + sectionName + '<.*.</h3>');
       var headerIndex = definition.search(htmlTreeHeader);
-      console.log(sectionName);
-      console.log(headerIndex);
       if (headerIndex >= 0) {
+        console.log(sectionName);
+        console.log(definition.match(htmlTreeHeader));
         var startSectionIndex = definition.indexOf("<ol", headerIndex);
         var endSectionIndex = definition.indexOf("</ol>", startSectionIndex);
         definitions.push(definition.substring(startSectionIndex, endSectionIndex + "</ol>".length));
       }
     });
+    console.log(definitions);
     return definitions;
   };
 

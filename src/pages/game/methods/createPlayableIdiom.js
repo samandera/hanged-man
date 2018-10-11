@@ -2,7 +2,8 @@ import handleResponse from "./handleResponse";
 import { SET_LOADING_MESSAGE, SET_WORD } from '../reducers/actionTypes';
 
 const fetchIdiom = (lang, title) => {
-  const url = `https://${lang}.wiktionary.org/w/api.php?action=parse&format=json&page=${title}`;
+  const url = `https://${lang}.wiktionary.org/w/api.php?action=parse&format=json&page=one and only`;
+  //const url = `https://${lang}.wiktionary.org/w/api.php?action=parse&format=json&page=${title}`;
   return fetch( url, {method: 'get'} )
   .then(response => handleResponse(response, "idiom page"))
   .catch(error => {console.log(error.message)})
@@ -45,16 +46,17 @@ export const PlayableIdiom = class {
     this.extractDefinitions = (definition, lang) => {
       const definitions = [];
       this.definitionSections[lang].forEach(sectionName => {
-        const htmlTreeHeader = new RegExp('<h3>.*' + sectionName + '.*</h3>');
+        const htmlTreeHeader = new RegExp('<h3>.*.>' + sectionName + '<.*.</h3>');
         const headerIndex = definition.search(htmlTreeHeader);
-        console.log(sectionName);
-        console.log(headerIndex);
         if (headerIndex >= 0) {
+          console.log(sectionName);
+          console.log(definition.match(htmlTreeHeader));
           const startSectionIndex = definition.indexOf("<ol", headerIndex);
           const endSectionIndex = definition.indexOf("</ol>", startSectionIndex);
           definitions.push(definition.substring(startSectionIndex, endSectionIndex + "</ol>".length))
         }
       })
+      console.log(definitions);
       return definitions;
     }
 
