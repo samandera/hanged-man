@@ -36,13 +36,15 @@ export const PlayableIdiom = class {
       const {title} = idiom.parse;
       let definitions = this.extractDefinitions(idiom.parse.text['*'], lang);
       definitions = this.removeExamplesFromDefinitions(definitions);
-      console.log(definitions);
+      let extractedDefinitions = this.extractHigestLevelListItems(definitions);
+      console.log(extractedDefinitions);
       dispatch({
         type: SET_WORD,
         word: title
       });
       return Promise.resolve({title})
     }
+
     this.extractDefinitions = (definition, lang) => {
       const definitions = [];
       this.definitionSections[lang].forEach(sectionName => {
@@ -69,6 +71,40 @@ export const PlayableIdiom = class {
           strippedFromExamples.push(definition)
       });
       return strippedFromExamples;
+    }
+
+    this.extractHigestLevelListItems = definitions => {
+      const extractedDefinitions = [];
+      definitions.forEach(definition => {
+        const openLi = "<li>";
+        const closeLi = "</li>";
+        let openIndex = definition.indexOf(openLi);
+        let closeIndex = definition.indexOf(closeLi, openIndex);
+        let substractedDefinition = "";
+        let substractedDefinitionsArray = [];
+        while (openIndex > -1 && closeIndex > -1) {
+          if (substractedDefinition.length === 0) {
+            substractedDefinition = definition.substring(openIndex + openLi.length, closeIndex);
+          }
+          else if (substractedDefinitionsArray.length === 0) {
+            substractedDefinitionsArray.push(substractedDefinition);
+            substractedDefinition = definition.substring(openIndex + openLi.length, closeIndex);
+            substractedDefinitionsArray.push(substractedDefinition);
+          }
+          else {
+            substractedDefinition = definition.substring(openIndex + openLi.length, closeIndex);
+            substractedDefinitionsArray.push(substractedDefinition);
+          }
+          definition = definition.replace(openLi + substractedDefinition + closeLi, "");
+          openIndex = definition.indexOf(openLi);
+          closeIndex = definition.indexOf(closeLi, openIndex);
+        }
+        if (substractedDefinitionsArray.length > 0) {
+          extractedDefinitions.push(substractedDefinitionsArray)
+        }
+        else {extractedDefinitions.push(substractedDefinition)}
+      });
+      return extractedDefinitions;
     }
   }
 }

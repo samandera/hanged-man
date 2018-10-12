@@ -16668,13 +16668,15 @@ var PlayableIdiom = function PlayableIdiom(fetchFunction) {
 
     var definitions = _this.extractDefinitions(idiom.parse.text['*'], lang);
     definitions = _this.removeExamplesFromDefinitions(definitions);
-    console.log(definitions);
+    var extractedDefinitions = _this.extractHigestLevelListItems(definitions);
+    console.log(extractedDefinitions);
     dispatch({
       type: __WEBPACK_IMPORTED_MODULE_1__reducers_actionTypes__["e" /* SET_WORD */],
       word: title
     });
     return Promise.resolve({ title: title });
   };
+
   this.extractDefinitions = function (definition, lang) {
     var definitions = [];
     _this.definitionSections[lang].forEach(function (sectionName) {
@@ -16700,6 +16702,39 @@ var PlayableIdiom = function PlayableIdiom(fetchFunction) {
       strippedFromExamples.push(definition);
     });
     return strippedFromExamples;
+  };
+
+  this.extractHigestLevelListItems = function (definitions) {
+    var extractedDefinitions = [];
+    definitions.forEach(function (definition) {
+      var openLi = "<li>";
+      var closeLi = "</li>";
+      var openIndex = definition.indexOf(openLi);
+      var closeIndex = definition.indexOf(closeLi, openIndex);
+      var substractedDefinition = "";
+      var substractedDefinitionsArray = [];
+      while (openIndex > -1 && closeIndex > -1) {
+        if (substractedDefinition.length === 0) {
+          substractedDefinition = definition.substring(openIndex + openLi.length, closeIndex);
+        } else if (substractedDefinitionsArray.length === 0) {
+          substractedDefinitionsArray.push(substractedDefinition);
+          substractedDefinition = definition.substring(openIndex + openLi.length, closeIndex);
+          substractedDefinitionsArray.push(substractedDefinition);
+        } else {
+          substractedDefinition = definition.substring(openIndex + openLi.length, closeIndex);
+          substractedDefinitionsArray.push(substractedDefinition);
+        }
+        definition = definition.replace(openLi + substractedDefinition + closeLi, "");
+        openIndex = definition.indexOf(openLi);
+        closeIndex = definition.indexOf(closeLi, openIndex);
+      }
+      if (substractedDefinitionsArray.length > 0) {
+        extractedDefinitions.push(substractedDefinitionsArray);
+      } else {
+        extractedDefinitions.push(substractedDefinition);
+      }
+    });
+    return extractedDefinitions;
   };
 };
 
