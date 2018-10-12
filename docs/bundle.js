@@ -9181,45 +9181,7 @@ module.exports = g;
 
 
 /***/ }),
-/* 103 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store__ = __webpack_require__(19);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__reducers_actionTypes__ = __webpack_require__(13);
-
-
-
-var dispatched = function dispatched(data) {
-  __WEBPACK_IMPORTED_MODULE_0__store__["a" /* default */].dispatch({
-    word: data.word,
-    type: __WEBPACK_IMPORTED_MODULE_1__reducers_actionTypes__["i" /* SET_WORD */]
-  });
-  __WEBPACK_IMPORTED_MODULE_0__store__["a" /* default */].dispatch({
-    playedWord: [],
-    type: __WEBPACK_IMPORTED_MODULE_1__reducers_actionTypes__["a" /* SET_PLAYED_WORDS */]
-  });
-};
-
-var fetchWord = function fetchWord() {
-  var maxWordLength = 12;
-  var apiRequest = 'http://api.wordnik.com:80/v4/words.json/randomWord?hasDictionaryDef=true&minCorpusCount=0&maxCorpusCount=-1&minDictionaryCount=1&maxDictionaryCount=-1&minLength=5&maxLength=' + maxWordLength + '&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5';
-  return fetch(apiRequest, { method: 'get' }).then(function (response) {
-    if (response.status !== 200) {
-      console.log('Looks like there was a problem. Status Code: ' + response.status);
-      return;
-    }
-    response.json().then(function (data) {
-      return dispatched(data);
-    });
-  }).catch(function (err) {
-    console.log(err);
-  });
-};
-
-/* unused harmony default export */ var _unused_webpack_default_export = (fetchWord);
-
-/***/ }),
+/* 103 */,
 /* 104 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -15451,12 +15413,11 @@ var Index = function (_React$Component) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_redux__ = __webpack_require__(24);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__methods_fetchWord__ = __webpack_require__(103);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__methods_loadIdiom__ = __webpack_require__(198);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__methods_handleKeyPress__ = __webpack_require__(104);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_PrimaryContent__ = __webpack_require__(195);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_EndGame__ = __webpack_require__(175);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_LoadingIdiom__ = __webpack_require__(193);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__methods_loadIdiom__ = __webpack_require__(198);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__methods_handleKeyPress__ = __webpack_require__(104);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_PrimaryContent__ = __webpack_require__(195);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_EndGame__ = __webpack_require__(175);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_LoadingIdiom__ = __webpack_require__(193);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -15473,11 +15434,10 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
-
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     loadIdiom: function loadIdiom(lang) {
-      __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__methods_loadIdiom__["a" /* default */])(dispatch, lang);
+      __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__methods_loadIdiom__["a" /* default */])(dispatch, lang);
     }
   };
 };
@@ -15499,10 +15459,9 @@ var Game = function (_React$Component) {
   _createClass(Game, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      //fetchWord();
       this.props.loadIdiom("en");
       window.onkeydown = function () {
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__methods_handleKeyPress__["a" /* default */])(String.fromCharCode(event.keyCode));
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__methods_handleKeyPress__["a" /* default */])(String.fromCharCode(event.keyCode));
       };
     }
   }, {
@@ -15511,9 +15470,9 @@ var Game = function (_React$Component) {
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
         { className: 'game' },
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_6__components_EndGame__["a" /* default */], null),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__components_PrimaryContent__["a" /* default */], null),
-        this.props.IdiomIsLoading && __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__components_LoadingIdiom__["a" /* default */], null)
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__components_EndGame__["a" /* default */], null),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__components_PrimaryContent__["a" /* default */], null),
+        this.props.IdiomIsLoading && __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_6__components_LoadingIdiom__["a" /* default */], null)
       );
     }
   }]);
@@ -16898,9 +16857,7 @@ var indexArrayMethods = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store__ = __webpack_require__(19);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__reducers_actionTypes__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__handleKeyPress__ = __webpack_require__(104);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__fetchWord__ = __webpack_require__(103);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__loadIdiom__ = __webpack_require__(198);
-
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__loadIdiom__ = __webpack_require__(198);
 
 
 
@@ -16916,7 +16873,7 @@ var resetStateOnEndGame = function resetStateOnEndGame(dispatch, lang) {
     playedWord: state.wordState.word,
     type: __WEBPACK_IMPORTED_MODULE_1__reducers_actionTypes__["a" /* SET_PLAYED_WORDS */]
   });
-  __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__loadIdiom__["a" /* default */])(dispatch, lang).then(function () {
+  __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__loadIdiom__["a" /* default */])(dispatch, lang).then(function () {
     dispatch({
       showEndGame: endGameStatus,
       type: __WEBPACK_IMPORTED_MODULE_1__reducers_actionTypes__["b" /* SET_MESSAGE */]

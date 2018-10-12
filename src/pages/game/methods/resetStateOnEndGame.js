@@ -1,7 +1,6 @@
 import store from '../../store';
 import {SET_MESSAGE, SHOW_END_GAME, RESET_MISSED_LETTERS, SET_PLAYED_WORDS} from '../reducers/actionTypes';
 import handleKeyPress from './handleKeyPress';
-import fetchWord from './fetchWord';
 import loadIdiom from './loadIdiom';
 
 const resetStateOnEndGame = (dispatch, lang) => {

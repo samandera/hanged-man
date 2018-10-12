@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import fetchWord from './methods/fetchWord';
 import loadIdiom from './methods/loadIdiom';
 import handleKeyPress from './methods/handleKeyPress';
 import PrimaryContent from './components/PrimaryContent';
@@ -17,7 +16,6 @@ const mapStateToProps = state => ({
 class Game extends React.Component {
 
   componentDidMount() {
-    //fetchWord();
     this.props.loadIdiom("en");
     window.onkeydown = () => {handleKeyPress(String.fromCharCode(event.keyCode))}
   }
