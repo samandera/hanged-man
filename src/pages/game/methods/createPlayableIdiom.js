@@ -2,8 +2,7 @@ import handleResponse from "./handleResponse";
 import { SET_LOADING_MESSAGE, SET_WORD } from '../reducers/actionTypes';
 
 const fetchIdiom = (lang, title) => {
-  const url = `https://${lang}.wiktionary.org/w/api.php?action=parse&format=json&page=one and only`;
-  //const url = `https://${lang}.wiktionary.org/w/api.php?action=parse&format=json&page=${title}`;
+  const url = `https://${lang}.wiktionary.org/w/api.php?action=parse&format=json&page=${title}`;
   return fetch( url, {method: 'get'} )
   .then(response => handleResponse(response, "idiom page"))
   .catch(error => {console.log(error.message)})
@@ -37,7 +36,8 @@ export const PlayableIdiom = class {
       let definitions = this.extractDefinitions(idiom.parse.text['*'], lang);
       definitions = this.removeExamplesFromDefinitions(definitions);
       let extractedDefinitions = this.extractHigestLevelListItems(definitions);
-      console.log(extractedDefinitions);
+      let strippedDefinitions = this.stripFromHTMLelements(extractedDefinitions);
+      console.log(strippedDefinitions);
       dispatch({
         type: SET_WORD,
         word: title
@@ -73,6 +73,24 @@ export const PlayableIdiom = class {
       return strippedFromExamples;
     }
 
+    this.stripFromHTMLelements = definitions => {
+      let htmlElementRegExp = /<.*?.>/g;
+      let strippedDefinitions = [];
+      definitions.forEach(definition => {
+        let htmlElements = [];
+        if (typeof definition === "string") {
+          htmlElements = definition.match(htmlElementRegExp);
+          htmlElements.forEach(el => {
+            definition = definition.replace(el, "");
+          });
+          strippedDefinitions.push(definition);
+        } else {
+          strippedDefinitions.push(this.stripFromHTMLelements(definition));
+        }
+      })
+      return strippedDefinitions;
+    }
+
     this.extractHigestLevelListItems = definitions => {
       const extractedDefinitions = [];
       definitions.forEach(definition => {
@@ -99,11 +117,13 @@ export const PlayableIdiom = class {
           openIndex = definition.indexOf(openLi);
           closeIndex = definition.indexOf(closeLi, openIndex);
         }
+
         if (substractedDefinitionsArray.length > 0) {
           extractedDefinitions.push(substractedDefinitionsArray)
         }
         else {extractedDefinitions.push(substractedDefinition)}
       });
+
       return extractedDefinitions;
     }
   }

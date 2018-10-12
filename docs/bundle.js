@@ -16626,8 +16626,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 
 var fetchIdiom = function fetchIdiom(lang, title) {
-  var url = 'https://' + lang + '.wiktionary.org/w/api.php?action=parse&format=json&page=one and only';
-  //const url = `https://${lang}.wiktionary.org/w/api.php?action=parse&format=json&page=${title}`;
+  var url = 'https://' + lang + '.wiktionary.org/w/api.php?action=parse&format=json&page=' + title;
   return fetch(url, { method: 'get' }).then(function (response) {
     return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__handleResponse__["a" /* default */])(response, "idiom page");
   }).catch(function (error) {
@@ -16669,7 +16668,8 @@ var PlayableIdiom = function PlayableIdiom(fetchFunction) {
     var definitions = _this.extractDefinitions(idiom.parse.text['*'], lang);
     definitions = _this.removeExamplesFromDefinitions(definitions);
     var extractedDefinitions = _this.extractHigestLevelListItems(definitions);
-    console.log(extractedDefinitions);
+    var strippedDefinitions = _this.stripFromHTMLelements(extractedDefinitions);
+    console.log(strippedDefinitions);
     dispatch({
       type: __WEBPACK_IMPORTED_MODULE_1__reducers_actionTypes__["e" /* SET_WORD */],
       word: title
@@ -16704,6 +16704,24 @@ var PlayableIdiom = function PlayableIdiom(fetchFunction) {
     return strippedFromExamples;
   };
 
+  this.stripFromHTMLelements = function (definitions) {
+    var htmlElementRegExp = /<.*?.>/g;
+    var strippedDefinitions = [];
+    definitions.forEach(function (definition) {
+      var htmlElements = [];
+      if (typeof definition === "string") {
+        htmlElements = definition.match(htmlElementRegExp);
+        htmlElements.forEach(function (el) {
+          definition = definition.replace(el, "");
+        });
+        strippedDefinitions.push(definition);
+      } else {
+        strippedDefinitions.push(_this.stripFromHTMLelements(definition));
+      }
+    });
+    return strippedDefinitions;
+  };
+
   this.extractHigestLevelListItems = function (definitions) {
     var extractedDefinitions = [];
     definitions.forEach(function (definition) {
@@ -16728,12 +16746,14 @@ var PlayableIdiom = function PlayableIdiom(fetchFunction) {
         openIndex = definition.indexOf(openLi);
         closeIndex = definition.indexOf(closeLi, openIndex);
       }
+
       if (substractedDefinitionsArray.length > 0) {
         extractedDefinitions.push(substractedDefinitionsArray);
       } else {
         extractedDefinitions.push(substractedDefinition);
       }
     });
+
     return extractedDefinitions;
   };
 };
