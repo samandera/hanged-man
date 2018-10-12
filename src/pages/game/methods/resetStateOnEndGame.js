@@ -8,11 +8,6 @@ const resetStateOnEndGame = (dispatch, lang) => {
     won:false,
     lost:false
   };
-  let state = store.getState();
-  dispatch({
-    playedWord: state.wordState.word,
-    type: SET_PLAYED_WORDS
-  });
   loadIdiom(dispatch, lang).then(() => {
     dispatch({
       showEndGame: endGameStatus,
