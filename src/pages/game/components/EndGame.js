@@ -10,12 +10,16 @@ const mapStateToProps = (store) => {
   }
 }
 
-const renderEndGame = (showEndGame, message) => {
+const mapDispatchToProps = dispatch => ({
+  resetStateOnEndGame: (lang) => resetStateOnEndGame(dispatch, lang)
+})
+
+const renderEndGame = (showEndGame, message, resetStateOnEndGame) => {
   if (showEndGame) {
     return (
       <div className="message">
         <p>{message}</p>
-        <button onClick={resetStateOnEndGame} >New word</button>
+        <button onClick={() => resetStateOnEndGame("en")} >New word</button>
       </div>
     )
   }
@@ -25,9 +29,9 @@ class EndGame extends React.Component {
   render() {
     return (
       <div className={"ratio-content" + (this.props.showEndGame ? " game-end" : "")} >
-        {renderEndGame(this.props.showEndGame, this.props.message)}
+        {renderEndGame(this.props.showEndGame, this.props.message, this.props.resetStateOnEndGame)}
       </div>
     );
   }
 }
-export default connect(mapStateToProps)(EndGame);
+export default connect(mapStateToProps, mapDispatchToProps)(EndGame);

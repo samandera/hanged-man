@@ -2333,15 +2333,15 @@ module.exports = ReactComponentTreeHook;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return SET_WORD; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return SET_WINNING_LETTERS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return SET_WORD; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return SET_WINNING_LETTERS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return SET_MESSAGE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return SHOW_END_GAME; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return SET_MISSED_LETTERS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return SET_MISSED_LETTERS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return RESET_MISSED_LETTERS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SET_PLAYED_WORDS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return LOAD_IDIOM; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return SET_LOADING_MESSAGE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return LOAD_IDIOM; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return SET_LOADING_MESSAGE; });
 var SET_WORD = 'SET_WORD';
 var SET_WINNING_LETTERS = 'SET_WINNING_LETTERS';
 var SET_MESSAGE = 'SET_MESSAGE';
@@ -9193,7 +9193,7 @@ module.exports = g;
 var dispatched = function dispatched(data) {
   __WEBPACK_IMPORTED_MODULE_0__store__["a" /* default */].dispatch({
     word: data.word,
-    type: __WEBPACK_IMPORTED_MODULE_1__reducers_actionTypes__["e" /* SET_WORD */]
+    type: __WEBPACK_IMPORTED_MODULE_1__reducers_actionTypes__["i" /* SET_WORD */]
   });
   __WEBPACK_IMPORTED_MODULE_0__store__["a" /* default */].dispatch({
     playedWord: [],
@@ -9217,7 +9217,7 @@ var fetchWord = function fetchWord() {
   });
 };
 
-/* harmony default export */ __webpack_exports__["a"] = (fetchWord);
+/* unused harmony default export */ var _unused_webpack_default_export = (fetchWord);
 
 /***/ }),
 /* 104 */
@@ -9264,14 +9264,14 @@ var handleKeyPress = function handleKeyPress(pressedKey) {
       pressedKey: pressedKey,
       missedLetters: state.missedLettersState.missedLetters
     },
-    type: __WEBPACK_IMPORTED_MODULE_1__reducers_actionTypes__["f" /* SET_MISSED_LETTERS */]
+    type: __WEBPACK_IMPORTED_MODULE_1__reducers_actionTypes__["e" /* SET_MISSED_LETTERS */]
   });
   __WEBPACK_IMPORTED_MODULE_0__store__["a" /* default */].dispatch({
     wordProps: {
       word: state.wordState.word,
       pressedKey: pressedKey
     },
-    type: __WEBPACK_IMPORTED_MODULE_1__reducers_actionTypes__["g" /* SET_WINNING_LETTERS */]
+    type: __WEBPACK_IMPORTED_MODULE_1__reducers_actionTypes__["f" /* SET_WINNING_LETTERS */]
   });
   state = __WEBPACK_IMPORTED_MODULE_0__store__["a" /* default */].getState();
   showEndGame(state.wordState.word, state.missedLettersState.missedLetters);
@@ -15553,7 +15553,15 @@ var mapStateToProps = function mapStateToProps(store) {
   };
 };
 
-var renderEndGame = function renderEndGame(showEndGame, message) {
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    resetStateOnEndGame: function resetStateOnEndGame(lang) {
+      return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__methods_resetStateOnEndGame__["a" /* default */])(dispatch, lang);
+    }
+  };
+};
+
+var renderEndGame = function renderEndGame(showEndGame, message, resetStateOnEndGame) {
   if (showEndGame) {
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       'div',
@@ -15565,7 +15573,9 @@ var renderEndGame = function renderEndGame(showEndGame, message) {
       ),
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'button',
-        { onClick: __WEBPACK_IMPORTED_MODULE_3__methods_resetStateOnEndGame__["a" /* default */] },
+        { onClick: function onClick() {
+            return resetStateOnEndGame("en");
+          } },
         'New word'
       )
     );
@@ -15587,7 +15597,7 @@ var EndGame = function (_React$Component) {
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
         { className: "ratio-content" + (this.props.showEndGame ? " game-end" : "") },
-        renderEndGame(this.props.showEndGame, this.props.message)
+        renderEndGame(this.props.showEndGame, this.props.message, this.props.resetStateOnEndGame)
       );
     }
   }]);
@@ -15595,7 +15605,7 @@ var EndGame = function (_React$Component) {
   return EndGame;
 }(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
 
-/* harmony default export */ __webpack_exports__["a"] = (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_react_redux__["b" /* connect */])(mapStateToProps)(EndGame));
+/* harmony default export */ __webpack_exports__["a"] = (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_react_redux__["b" /* connect */])(mapStateToProps, mapDispatchToProps)(EndGame));
 
 /***/ }),
 /* 176 */
@@ -16643,7 +16653,7 @@ var PlayableIdiom = function PlayableIdiom(fetchFunction) {
 
   this.create = function (dispatch, lang, titles) {
     dispatch({
-      type: __WEBPACK_IMPORTED_MODULE_1__reducers_actionTypes__["i" /* SET_LOADING_MESSAGE */],
+      type: __WEBPACK_IMPORTED_MODULE_1__reducers_actionTypes__["h" /* SET_LOADING_MESSAGE */],
       message: 'Loading playable idiom'
     });
     return _this.getRandomTitle(titles).then(function (title) {
@@ -16671,7 +16681,7 @@ var PlayableIdiom = function PlayableIdiom(fetchFunction) {
     var strippedDefinitions = _this.stripFromHTMLelements(extractedDefinitions);
     console.log(strippedDefinitions);
     dispatch({
-      type: __WEBPACK_IMPORTED_MODULE_1__reducers_actionTypes__["e" /* SET_WORD */],
+      type: __WEBPACK_IMPORTED_MODULE_1__reducers_actionTypes__["i" /* SET_WORD */],
       word: title
     });
     return Promise.resolve({ title: title });
@@ -16776,13 +16786,13 @@ var createPlayableIdiom = new PlayableIdiom(fetchIdiom);
 var loadIdiom = function loadIdiom(dispatch, lang) {
   var fetchIdiomsArray = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : __WEBPACK_IMPORTED_MODULE_1__makeIdiomsIndexesArray__["a" /* indexArrayMethods */].fetchIdiomsIndexesList;
 
-  dispatch({ type: __WEBPACK_IMPORTED_MODULE_0__reducers_actionTypes__["h" /* LOAD_IDIOM */], loadIdiom: true });
+  dispatch({ type: __WEBPACK_IMPORTED_MODULE_0__reducers_actionTypes__["g" /* LOAD_IDIOM */], loadIdiom: true });
   return __WEBPACK_IMPORTED_MODULE_1__makeIdiomsIndexesArray__["a" /* indexArrayMethods */].makeIdiomsIndexesArray(dispatch, lang, fetchIdiomsArray).then(function (titles) {
     return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__createPlayableIdiom__["a" /* default */])(dispatch, lang, titles);
   }).then(function (data) {
     return console.log(data);
   }).then(function () {
-    return dispatch({ type: __WEBPACK_IMPORTED_MODULE_0__reducers_actionTypes__["h" /* LOAD_IDIOM */], loadIdiom: false });
+    return dispatch({ type: __WEBPACK_IMPORTED_MODULE_0__reducers_actionTypes__["g" /* LOAD_IDIOM */], loadIdiom: false });
   });
 };
 
@@ -16831,7 +16841,7 @@ var fetchIdiomsIndexesList = function fetchIdiomsIndexesList(url) {
 
 var singleIndexesQuery = function singleIndexesQuery(dispatch, idiomsLang, fetchingPageNrInfo, titlesData, fetchMethod) {
   dispatch({
-    type: __WEBPACK_IMPORTED_MODULE_0__reducers_actionTypes__["i" /* SET_LOADING_MESSAGE */],
+    type: __WEBPACK_IMPORTED_MODULE_0__reducers_actionTypes__["h" /* SET_LOADING_MESSAGE */],
     message: "Loading idioms's page no. " + fetchingPageNrInfo
   });
   fetchingPageNrInfo++;
@@ -16889,31 +16899,33 @@ var indexArrayMethods = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__reducers_actionTypes__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__handleKeyPress__ = __webpack_require__(104);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__fetchWord__ = __webpack_require__(103);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__loadIdiom__ = __webpack_require__(198);
 
 
 
 
 
-var resetStateOnEndGame = function resetStateOnEndGame() {
+
+var resetStateOnEndGame = function resetStateOnEndGame(dispatch, lang) {
   var endGameStatus = {
     won: false,
     lost: false
   };
   var state = __WEBPACK_IMPORTED_MODULE_0__store__["a" /* default */].getState();
-  __WEBPACK_IMPORTED_MODULE_0__store__["a" /* default */].dispatch({
+  dispatch({
     playedWord: state.wordState.word,
     type: __WEBPACK_IMPORTED_MODULE_1__reducers_actionTypes__["a" /* SET_PLAYED_WORDS */]
   });
-  __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__fetchWord__["a" /* default */])().then(function () {
-    __WEBPACK_IMPORTED_MODULE_0__store__["a" /* default */].dispatch({
+  __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__loadIdiom__["a" /* default */])(dispatch, lang).then(function () {
+    dispatch({
       showEndGame: endGameStatus,
       type: __WEBPACK_IMPORTED_MODULE_1__reducers_actionTypes__["b" /* SET_MESSAGE */]
     });
-    __WEBPACK_IMPORTED_MODULE_0__store__["a" /* default */].dispatch({
+    dispatch({
       showEndGame: endGameStatus,
       type: __WEBPACK_IMPORTED_MODULE_1__reducers_actionTypes__["c" /* SHOW_END_GAME */]
     });
-    __WEBPACK_IMPORTED_MODULE_0__store__["a" /* default */].dispatch({
+    dispatch({
       type: __WEBPACK_IMPORTED_MODULE_1__reducers_actionTypes__["d" /* RESET_MISSED_LETTERS */]
     });
     window.onkeydown = function () {
@@ -16941,7 +16953,7 @@ var setFlags = function setFlags() {
   var action = arguments[1];
 
   switch (action.type) {
-    case __WEBPACK_IMPORTED_MODULE_0__actionTypes__["h" /* LOAD_IDIOM */]:
+    case __WEBPACK_IMPORTED_MODULE_0__actionTypes__["g" /* LOAD_IDIOM */]:
       return Object.assign({}, state, { loadIdiom: action.loadIdiom });
     default:
       return state;
@@ -16967,7 +16979,7 @@ var setLoading = function setLoading() {
   var action = arguments[1];
 
   switch (action.type) {
-    case __WEBPACK_IMPORTED_MODULE_0__actionTypes__["i" /* SET_LOADING_MESSAGE */]:
+    case __WEBPACK_IMPORTED_MODULE_0__actionTypes__["h" /* SET_LOADING_MESSAGE */]:
       return Object.assign({}, state, { message: action.message });
     default:
       return state;
@@ -17019,7 +17031,7 @@ var setMissedLetters = function setMissedLetters() {
   var action = arguments[1];
 
   switch (action.type) {
-    case __WEBPACK_IMPORTED_MODULE_0__actionTypes__["f" /* SET_MISSED_LETTERS */]:
+    case __WEBPACK_IMPORTED_MODULE_0__actionTypes__["e" /* SET_MISSED_LETTERS */]:
       return Object.assign({}, state, handleMissedLetters(action.lettersProps));
     case __WEBPACK_IMPORTED_MODULE_0__actionTypes__["d" /* RESET_MISSED_LETTERS */]:
       return Object.assign({}, state, { missedLetters: [] });
@@ -17134,9 +17146,9 @@ var setWord = function setWord() {
   var action = arguments[1];
 
   switch (action.type) {
-    case __WEBPACK_IMPORTED_MODULE_0__actionTypes__["e" /* SET_WORD */]:
+    case __WEBPACK_IMPORTED_MODULE_0__actionTypes__["i" /* SET_WORD */]:
       return Object.assign({}, state, getWord(action.word));
-    case __WEBPACK_IMPORTED_MODULE_0__actionTypes__["g" /* SET_WINNING_LETTERS */]:
+    case __WEBPACK_IMPORTED_MODULE_0__actionTypes__["f" /* SET_WINNING_LETTERS */]:
       return Object.assign({}, state, updateWord(action.wordProps));
   }
   return state;
