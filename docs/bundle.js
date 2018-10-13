@@ -16621,10 +16621,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 
 var fetchIdiom = function fetchIdiom(lang, title) {
-  var url = 'https://' + lang + '.wiktionary.org/w/api.php?action=parse&format=json&page=' + title;
+  //const url = `https://${lang}.wiktionary.org/w/api.php?action=parse&format=json&page=${title}`;
   //const url = `https://${lang}.wiktionary.org/w/api.php?action=parse&format=json&page=grind down`;
   //const url = `https://${lang}.wiktionary.org/w/api.php?action=parse&format=json&page=of an`;
-  //const url = `https://${lang}.wiktionary.org/w/api.php?action=parse&format=json&page=in the offing`;
+  var url = 'https://' + lang + '.wiktionary.org/w/api.php?action=parse&format=json&page=pipe';
   return fetch(url, { method: 'get' }).then(function (response) {
     return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__handleResponse__["a" /* default */])(response, "idiom page");
   }).catch(function (error) {
@@ -16664,8 +16664,7 @@ var PlayableIdiom = function PlayableIdiom(fetchFunction) {
     var title = idiom.parse.title;
 
     var definitions = _this.extractDefinitions(idiom.parse.text['*'], lang);
-    //definitions = this.removeCitation(definitions);
-    definitions = _this.removeNestedCitation(definitions);
+    definitions = _this.removeCitation(definitions);
     definitions = _this.removeExamplesFromDefinitions(definitions);
     var extractedDefinitions = _this.extractHigestLevelListItems(definitions);
     var strippedDefinitions = _this.stripFromHTMLelements(extractedDefinitions);
@@ -16692,28 +16691,6 @@ var PlayableIdiom = function PlayableIdiom(fetchFunction) {
   };
 
   this.removeCitation = function (definitions) {
-    var definitionsWithoutCitations = [];
-    definitions.forEach(function (definition) {
-      var startSearchIndex = 0;
-      var citationTag = '<div class="citation-whole">';
-      var citationIndex = definition.indexOf(citationTag, startSearchIndex);
-      var tagStart = "<ul><li>";
-      var tagEnd = "</ul>";
-      if (citationIndex > -1) {
-        do {
-          var citationStart = citationIndex - tagStart.length;
-          var citationEnd = definition.indexOf(tagEnd, citationStart) + tagEnd.length;
-          var citation = definition.slice(citationStart, citationEnd);
-          definition = definition.replace(citation, "");
-          citationIndex = definition.indexOf(citationTag, citationIndex + citationTag.length);
-        } while (citationIndex > -1);
-      }
-      definitionsWithoutCitations.push(definition);
-    });
-    return definitionsWithoutCitations;
-  };
-
-  this.removeNestedCitation = function (definitions) {
     var plainDefinitions = [];
     var startNestedTag = "<ul>";
     var endNestedTag = "</ul>";
