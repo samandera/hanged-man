@@ -13,12 +13,12 @@ describe("Handling word and winning letters reducer", () => {
             word:'abca'
           }
         ).word
-      ).toEqual([
+      ).toEqual([[
           {letter:'a', visible:false},
           {letter:'b', visible:false},
           {letter:'c', visible:false},
           {letter:'a', visible:false}
-        ])
+        ]])
     });
 
   it("Passing pressedKey:'A' should change word's state's each siblings of key 'letter' of a value 'A', 'visible', into value boolean true", () => {

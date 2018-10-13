@@ -4,13 +4,18 @@ export const initialWordState = {
   word: []
 };
 
-const getWord = (word) => {
-  let letters = [];
-  for (let letter of word) {
-    let visible = !(/^[a-zA-Z]$/.test(letter));
-    letters.push({letter, visible});
-  }
-  return {word: letters};
+const getWord = (phrase) => {
+  const words = phrase.split(" ");
+  const password = [];
+  words.forEach(word => {
+    let letters = [];
+    for (let letter of word) {
+      let visible = !(/^[a-zA-Z]$/.test(letter));
+      letters.push({letter, visible});
+    }
+    password.push(letters);
+  })
+  return {word: password};
 }
 
 const updateWord = (wordProps) => {

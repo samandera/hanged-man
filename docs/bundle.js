@@ -17065,35 +17065,40 @@ var initialWordState = {
   word: []
 };
 
-var getWord = function getWord(word) {
-  var letters = [];
-  var _iteratorNormalCompletion = true;
-  var _didIteratorError = false;
-  var _iteratorError = undefined;
+var getWord = function getWord(phrase) {
+  var words = phrase.split(" ");
+  var password = [];
+  words.forEach(function (word) {
+    var letters = [];
+    var _iteratorNormalCompletion = true;
+    var _didIteratorError = false;
+    var _iteratorError = undefined;
 
-  try {
-    for (var _iterator = word[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-      var letter = _step.value;
-
-      var visible = !/^[a-zA-Z]$/.test(letter);
-      letters.push({ letter: letter, visible: visible });
-    }
-  } catch (err) {
-    _didIteratorError = true;
-    _iteratorError = err;
-  } finally {
     try {
-      if (!_iteratorNormalCompletion && _iterator.return) {
-        _iterator.return();
+      for (var _iterator = word[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+        var letter = _step.value;
+
+        var visible = !/^[a-zA-Z]$/.test(letter);
+        letters.push({ letter: letter, visible: visible });
       }
+    } catch (err) {
+      _didIteratorError = true;
+      _iteratorError = err;
     } finally {
-      if (_didIteratorError) {
-        throw _iteratorError;
+      try {
+        if (!_iteratorNormalCompletion && _iterator.return) {
+          _iterator.return();
+        }
+      } finally {
+        if (_didIteratorError) {
+          throw _iteratorError;
+        }
       }
     }
-  }
 
-  return { word: letters };
+    password.push(letters);
+  });
+  return { word: password };
 };
 
 var updateWord = function updateWord(wordProps) {
