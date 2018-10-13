@@ -16621,10 +16621,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 
 var fetchIdiom = function fetchIdiom(lang, title) {
-  var url = 'https://' + lang + '.wiktionary.org/w/api.php?action=parse&format=json&page=' + title;
+  //const url = `https://${lang}.wiktionary.org/w/api.php?action=parse&format=json&page=${title}`;
   //const url = `https://${lang}.wiktionary.org/w/api.php?action=parse&format=json&page=grind down`;
   //const url = `https://${lang}.wiktionary.org/w/api.php?action=parse&format=json&page=of an`;
   //const url = `https://${lang}.wiktionary.org/w/api.php?action=parse&format=json&page=pipe`;
+  var url = 'https://' + lang + '.wiktionary.org/w/api.php?action=parse&format=json&page=snap judgment';
   return fetch(url, { method: 'get' }).then(function (response) {
     return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__handleResponse__["a" /* default */])(response, "idiom page");
   }).catch(function (error) {
@@ -16756,7 +16757,6 @@ var PlayableIdiom = function PlayableIdiom(fetchFunction) {
       var openIndex = definition.indexOf(openLi);
       var closeIndex = definition.indexOf(closeLi, openIndex);
       var substractedDefinition = "";
-      var substractedDefinitionsArray = [];
       while (openIndex > -1 && closeIndex > -1) {
         substractedDefinition = definition.substring(openIndex + openLi.length, closeIndex);
         definition = definition.replace(openLi + substractedDefinition + closeLi, "");

@@ -2,10 +2,11 @@ import handleResponse from "./handleResponse";
 import { SET_LOADING_MESSAGE, SET_WORD } from '../reducers/actionTypes';
 
 const fetchIdiom = (lang, title) => {
-  const url = `https://${lang}.wiktionary.org/w/api.php?action=parse&format=json&page=${title}`;
+  //const url = `https://${lang}.wiktionary.org/w/api.php?action=parse&format=json&page=${title}`;
   //const url = `https://${lang}.wiktionary.org/w/api.php?action=parse&format=json&page=grind down`;
   //const url = `https://${lang}.wiktionary.org/w/api.php?action=parse&format=json&page=of an`;
   //const url = `https://${lang}.wiktionary.org/w/api.php?action=parse&format=json&page=pipe`;
+  const url = `https://${lang}.wiktionary.org/w/api.php?action=parse&format=json&page=snap judgment`
   return fetch( url, {method: 'get'} )
   .then(response => handleResponse(response, "idiom page"))
   .catch(error => {console.log(error.message)})
@@ -129,7 +130,6 @@ export const PlayableIdiom = class {
         let openIndex = definition.indexOf(openLi);
         let closeIndex = definition.indexOf(closeLi, openIndex);
         let substractedDefinition = "";
-        let substractedDefinitionsArray = [];
         while (openIndex > -1 && closeIndex > -1) {
           substractedDefinition = definition.substring(openIndex + openLi.length, closeIndex);
           definition = definition.replace(openLi + substractedDefinition + closeLi, "");
