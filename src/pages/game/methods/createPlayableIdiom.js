@@ -2,10 +2,10 @@ import handleResponse from "./handleResponse";
 import { SET_LOADING_MESSAGE, SET_WORD } from '../reducers/actionTypes';
 
 const fetchIdiom = (lang, title) => {
-  //const url = `https://${lang}.wiktionary.org/w/api.php?action=parse&format=json&page=${title}`;
+  const url = `https://${lang}.wiktionary.org/w/api.php?action=parse&format=json&page=${title}`;
   //const url = `https://${lang}.wiktionary.org/w/api.php?action=parse&format=json&page=grind down`;
   //const url = `https://${lang}.wiktionary.org/w/api.php?action=parse&format=json&page=of an`;
-  const url = `https://${lang}.wiktionary.org/w/api.php?action=parse&format=json&page=pipe`;
+  //const url = `https://${lang}.wiktionary.org/w/api.php?action=parse&format=json&page=pipe`;
   return fetch( url, {method: 'get'} )
   .then(response => handleResponse(response, "idiom page"))
   .catch(error => {console.log(error.message)})
@@ -131,27 +131,12 @@ export const PlayableIdiom = class {
         let substractedDefinition = "";
         let substractedDefinitionsArray = [];
         while (openIndex > -1 && closeIndex > -1) {
-          if (substractedDefinition.length === 0) {
-            substractedDefinition = definition.substring(openIndex + openLi.length, closeIndex);
-          }
-          else if (substractedDefinitionsArray.length === 0) {
-            substractedDefinitionsArray.push(substractedDefinition);
-            substractedDefinition = definition.substring(openIndex + openLi.length, closeIndex);
-            substractedDefinitionsArray.push(substractedDefinition);
-          }
-          else {
-            substractedDefinition = definition.substring(openIndex + openLi.length, closeIndex);
-            substractedDefinitionsArray.push(substractedDefinition);
-          }
+          substractedDefinition = definition.substring(openIndex + openLi.length, closeIndex);
           definition = definition.replace(openLi + substractedDefinition + closeLi, "");
           openIndex = definition.indexOf(openLi);
           closeIndex = definition.indexOf(closeLi, openIndex);
+          extractedDefinitions.push(substractedDefinition);
         }
-
-        if (substractedDefinitionsArray.length > 0) {
-          extractedDefinitions.push(substractedDefinitionsArray)
-        }
-        else {extractedDefinitions.push(substractedDefinition)}
       });
 
       return extractedDefinitions;
