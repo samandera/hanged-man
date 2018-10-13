@@ -9,15 +9,21 @@ const mapStateToProps = (store) => {
   }
 }
 
-const renderLetters = (word) => {
-  return word.map(function(letterObj, index) {
-    let space = (letterObj.letter==' ' ? "disabled": '')
-    return(
-      <AspectRatio parentClass={space} key={"letter" + index}>
-        <div id={"letter" + index}>{letterObj.visible ? letterObj.letter : ''}</div>
-      </AspectRatio>
+const renderLetters = (phrase) => {
+  return phrase.map( (word, index) => {
+    console.log(word);
+    return (
+      <div key={`word ${index}`} className="word">
+        {word.map( (letterObj, index) => {
+          return(
+              <div key={`letter ${index}`} id={`letter ${index}`}>
+                {letterObj.visible ? letterObj.letter : ''}
+              </div>
+          )
+        })}
+      </div>
     )
-  }) ;
+  })
 }
 
 class Puzzle extends React.Component {

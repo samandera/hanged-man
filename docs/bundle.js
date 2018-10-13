@@ -16567,17 +16567,19 @@ var mapStateToProps = function mapStateToProps(store) {
   };
 };
 
-var renderLetters = function renderLetters(word) {
-  return word.map(function (letterObj, index) {
-    var space = letterObj.letter == ' ' ? "disabled" : '';
+var renderLetters = function renderLetters(phrase) {
+  return phrase.map(function (word, index) {
+    console.log(word);
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-      __WEBPACK_IMPORTED_MODULE_3__AspectRatio__["a" /* default */],
-      { parentClass: space, key: "letter" + index },
-      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        'div',
-        { id: "letter" + index },
-        letterObj.visible ? letterObj.letter : ''
-      )
+      'div',
+      { key: 'word ' + index, className: 'word' },
+      word.map(function (letterObj, index) {
+        return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'div',
+          { key: 'letter ' + index, id: 'letter ' + index },
+          letterObj.visible ? letterObj.letter : ''
+        );
+      })
     );
   });
 };
