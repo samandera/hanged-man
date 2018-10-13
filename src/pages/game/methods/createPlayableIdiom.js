@@ -2,8 +2,9 @@ import handleResponse from "./handleResponse";
 import { SET_LOADING_MESSAGE, SET_WORD } from '../reducers/actionTypes';
 
 const fetchIdiom = (lang, title) => {
-  //const url = `https://${lang}.wiktionary.org/w/api.php?action=parse&format=json&page=${title}`;grind down
-  const url = `https://${lang}.wiktionary.org/w/api.php?action=parse&format=json&page=grind down`
+  //const url = `https://${lang}.wiktionary.org/w/api.php?action=parse&format=json&page=${title}`;
+  //const url = `https://${lang}.wiktionary.org/w/api.php?action=parse&format=json&page=grind down`;
+  const url = `https://${lang}.wiktionary.org/w/api.php?action=parse&format=json&page=of an`;
   return fetch( url, {method: 'get'} )
   .then(response => handleResponse(response, "idiom page"))
   .catch(error => {console.log(error.message)})
@@ -35,7 +36,9 @@ export const PlayableIdiom = class {
     this.setIdiomData = (dispatch, lang, idiom) => {
       const {title} = idiom.parse;
       let definitions = this.extractDefinitions(idiom.parse.text['*'], lang);
+      console.log(this.removeCitation(definitions));
       definitions = this.removeExamplesFromDefinitions(definitions);
+      console.log(definitions);
       let extractedDefinitions = this.extractHigestLevelListItems(definitions);
       let strippedDefinitions = this.stripFromHTMLelements(extractedDefinitions);
       console.log(strippedDefinitions);
@@ -63,15 +66,42 @@ export const PlayableIdiom = class {
     this.removeExamplesFromDefinitions = definitions => {
       const strippedFromExamples = [];
       definitions.forEach(definition => {
-        const exampleRegExp = /<dl>.*.<\/dl>/;
+        console.log(definition);
+        const exampleRegExp = /<dl>.*.<\/dl>/g;
         const examples = definition.match(exampleRegExp);
+        console.log(`examples ${examples.length} ${examples}`);
         examples !== null
           && examples.map(example => {
             definition = definition.replace(example, "");
           });
+          console.log(definition);
           strippedFromExamples.push(definition)
       });
       return strippedFromExamples;
+    }
+
+    this.removeCitation = definitions => {
+      const definitionsWithoutCitations = [];
+      definitions.forEach(definition => {
+        let startSearchIndex = 0;
+        const citationTag = '<div class="citation-whole">';
+        let citationIndex = definition.indexOf(citationTag, startSearchIndex);
+        const citationTagIndexes = [];
+        const tagStart = "<ul><li>";
+        const tagEnd = "</ul>";
+        if (citationIndex > -1){
+          do {
+            debugger;
+            let citationStart = citationIndex - tagStart.length;
+            let citationEnd = definition.indexOf(tagEnd, citationStart) + tagEnd.length;
+            let citation = definition.slice(citationStart, citationEnd);
+            definition = definition.replace(citation,"");
+            citationIndex = definition.indexOf(citationTag, citationIndex + citationTag.length);
+          } while (citationIndex > -1);
+        }
+        definitionsWithoutCitations.push(definition);
+      });
+      return definitionsWithoutCitations;
     }
 
     this.stripFromHTMLelements = definitions => {
