@@ -16621,10 +16621,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 
 var fetchIdiom = function fetchIdiom(lang, title) {
-  //const url = `https://${lang}.wiktionary.org/w/api.php?action=parse&format=json&page=${title}`;
+  var url = 'https://' + lang + '.wiktionary.org/w/api.php?action=parse&format=json&page=' + title;
   //const url = `https://${lang}.wiktionary.org/w/api.php?action=parse&format=json&page=grind down`;
   //const url = `https://${lang}.wiktionary.org/w/api.php?action=parse&format=json&page=of an`;
-  var url = 'https://' + lang + '.wiktionary.org/w/api.php?action=parse&format=json&page=in the offing';
+  //const url = `https://${lang}.wiktionary.org/w/api.php?action=parse&format=json&page=in the offing`;
   return fetch(url, { method: 'get' }).then(function (response) {
     return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__handleResponse__["a" /* default */])(response, "idiom page");
   }).catch(function (error) {
@@ -16664,7 +16664,8 @@ var PlayableIdiom = function PlayableIdiom(fetchFunction) {
     var title = idiom.parse.title;
 
     var definitions = _this.extractDefinitions(idiom.parse.text['*'], lang);
-    definitions = _this.removeDLcitation(definitions);
+    //definitions = this.removeCitation(definitions);
+    definitions = _this.removeNestedCitation(definitions);
     definitions = _this.removeExamplesFromDefinitions(definitions);
     var extractedDefinitions = _this.extractHigestLevelListItems(definitions);
     var strippedDefinitions = _this.stripFromHTMLelements(extractedDefinitions);
@@ -16690,7 +16691,7 @@ var PlayableIdiom = function PlayableIdiom(fetchFunction) {
     return definitions;
   };
 
-  this.removeDLcitation = function (definitions) {
+  this.removeCitation = function (definitions) {
     var definitionsWithoutCitations = [];
     definitions.forEach(function (definition) {
       var startSearchIndex = 0;
@@ -16710,6 +16711,26 @@ var PlayableIdiom = function PlayableIdiom(fetchFunction) {
       definitionsWithoutCitations.push(definition);
     });
     return definitionsWithoutCitations;
+  };
+
+  this.removeNestedCitation = function (definitions) {
+    var plainDefinitions = [];
+    var startNestedTag = "<ul>";
+    var endNestedTag = "</ul>";
+    definitions.forEach(function (definition) {
+      var citationStartIndex = definition.indexOf(startNestedTag);
+      var citationEndIndex = definition.indexOf(endNestedTag, startNestedTag);
+      if (citationStartIndex > -1) {
+        do {
+          var citation = definition.slice(citationStartIndex, citationEndIndex + endNestedTag.length);
+          definition = definition.replace(citation, "");
+          citationStartIndex = definition.indexOf(startNestedTag);
+          citationEndIndex = definition.indexOf(endNestedTag, startNestedTag);
+        } while (citationStartIndex > -1);
+      }
+      plainDefinitions.push(definition);
+    });
+    return plainDefinitions;
   };
 
   this.removeExamplesFromDefinitions = function (definitions) {
