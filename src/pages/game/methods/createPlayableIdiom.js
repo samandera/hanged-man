@@ -36,9 +36,8 @@ export const PlayableIdiom = class {
     this.setIdiomData = (dispatch, lang, idiom) => {
       const {title} = idiom.parse;
       let definitions = this.extractDefinitions(idiom.parse.text['*'], lang);
-      console.log(this.removeCitation(definitions));
+      definitions = this.removeCitation(definitions);
       definitions = this.removeExamplesFromDefinitions(definitions);
-      console.log(definitions);
       let extractedDefinitions = this.extractHigestLevelListItems(definitions);
       let strippedDefinitions = this.stripFromHTMLelements(extractedDefinitions);
       console.log(strippedDefinitions);
@@ -63,35 +62,16 @@ export const PlayableIdiom = class {
       return definitions;
     }
 
-    this.removeExamplesFromDefinitions = definitions => {
-      const strippedFromExamples = [];
-      definitions.forEach(definition => {
-        console.log(definition);
-        const exampleRegExp = /<dl>.*.<\/dl>/g;
-        const examples = definition.match(exampleRegExp);
-        console.log(`examples ${examples.length} ${examples}`);
-        examples !== null
-          && examples.map(example => {
-            definition = definition.replace(example, "");
-          });
-          console.log(definition);
-          strippedFromExamples.push(definition)
-      });
-      return strippedFromExamples;
-    }
-
     this.removeCitation = definitions => {
       const definitionsWithoutCitations = [];
       definitions.forEach(definition => {
         let startSearchIndex = 0;
         const citationTag = '<div class="citation-whole">';
         let citationIndex = definition.indexOf(citationTag, startSearchIndex);
-        const citationTagIndexes = [];
         const tagStart = "<ul><li>";
         const tagEnd = "</ul>";
         if (citationIndex > -1){
           do {
-            debugger;
             let citationStart = citationIndex - tagStart.length;
             let citationEnd = definition.indexOf(tagEnd, citationStart) + tagEnd.length;
             let citation = definition.slice(citationStart, citationEnd);
@@ -102,6 +82,26 @@ export const PlayableIdiom = class {
         definitionsWithoutCitations.push(definition);
       });
       return definitionsWithoutCitations;
+    }
+
+    this.removeExamplesFromDefinitions = definitions => {
+      const strippedFromExamples = [];
+      definitions.forEach(definition => {
+        const tagStart = "<dl>";
+        const tagEnd = "</dl>";
+        let exampleStartIndex = definition.indexOf(tagStart);
+        let exampleEndIndex = definition.indexOf(tagEnd);
+        if (exampleStartIndex > -1) {
+          do {
+            let example = definition.slice(exampleStartIndex, exampleEndIndex + tagEnd.length);
+            definition = definition.replace(example,"");
+            exampleStartIndex = definition.indexOf(tagStart);
+            exampleEndIndex = definition.indexOf(tagEnd);
+          } while (exampleStartIndex > -1);
+        }
+        strippedFromExamples.push(definition)
+      });
+      return strippedFromExamples;
     }
 
     this.stripFromHTMLelements = definitions => {

@@ -16663,9 +16663,8 @@ var PlayableIdiom = function PlayableIdiom(fetchFunction) {
     var title = idiom.parse.title;
 
     var definitions = _this.extractDefinitions(idiom.parse.text['*'], lang);
-    console.log(_this.removeCitation(definitions));
+    definitions = _this.removeCitation(definitions);
     definitions = _this.removeExamplesFromDefinitions(definitions);
-    console.log(definitions);
     var extractedDefinitions = _this.extractHigestLevelListItems(definitions);
     var strippedDefinitions = _this.stripFromHTMLelements(extractedDefinitions);
     console.log(strippedDefinitions);
@@ -16690,34 +16689,16 @@ var PlayableIdiom = function PlayableIdiom(fetchFunction) {
     return definitions;
   };
 
-  this.removeExamplesFromDefinitions = function (definitions) {
-    var strippedFromExamples = [];
-    definitions.forEach(function (definition) {
-      console.log(definition);
-      var exampleRegExp = /<dl>.*.<\/dl>/g;
-      var examples = definition.match(exampleRegExp);
-      console.log('examples ' + examples.length + ' ' + examples);
-      examples !== null && examples.map(function (example) {
-        definition = definition.replace(example, "");
-      });
-      console.log(definition);
-      strippedFromExamples.push(definition);
-    });
-    return strippedFromExamples;
-  };
-
   this.removeCitation = function (definitions) {
     var definitionsWithoutCitations = [];
     definitions.forEach(function (definition) {
       var startSearchIndex = 0;
       var citationTag = '<div class="citation-whole">';
       var citationIndex = definition.indexOf(citationTag, startSearchIndex);
-      var citationTagIndexes = [];
       var tagStart = "<ul><li>";
       var tagEnd = "</ul>";
       if (citationIndex > -1) {
         do {
-          debugger;
           var citationStart = citationIndex - tagStart.length;
           var citationEnd = definition.indexOf(tagEnd, citationStart) + tagEnd.length;
           var citation = definition.slice(citationStart, citationEnd);
@@ -16728,6 +16709,26 @@ var PlayableIdiom = function PlayableIdiom(fetchFunction) {
       definitionsWithoutCitations.push(definition);
     });
     return definitionsWithoutCitations;
+  };
+
+  this.removeExamplesFromDefinitions = function (definitions) {
+    var strippedFromExamples = [];
+    definitions.forEach(function (definition) {
+      var tagStart = "<dl>";
+      var tagEnd = "</dl>";
+      var exampleStartIndex = definition.indexOf(tagStart);
+      var exampleEndIndex = definition.indexOf(tagEnd);
+      if (exampleStartIndex > -1) {
+        do {
+          var example = definition.slice(exampleStartIndex, exampleEndIndex + tagEnd.length);
+          definition = definition.replace(example, "");
+          exampleStartIndex = definition.indexOf(tagStart);
+          exampleEndIndex = definition.indexOf(tagEnd);
+        } while (exampleStartIndex > -1);
+      }
+      strippedFromExamples.push(definition);
+    });
+    return strippedFromExamples;
   };
 
   this.stripFromHTMLelements = function (definitions) {
