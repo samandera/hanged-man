@@ -4,7 +4,8 @@ import { SET_LOADING_MESSAGE, SET_WORD } from '../reducers/actionTypes';
 const fetchIdiom = (lang, title) => {
   //const url = `https://${lang}.wiktionary.org/w/api.php?action=parse&format=json&page=${title}`;
   //const url = `https://${lang}.wiktionary.org/w/api.php?action=parse&format=json&page=grind down`;
-  const url = `https://${lang}.wiktionary.org/w/api.php?action=parse&format=json&page=of an`;
+  //const url = `https://${lang}.wiktionary.org/w/api.php?action=parse&format=json&page=of an`;
+  const url = `https://${lang}.wiktionary.org/w/api.php?action=parse&format=json&page=in the offing`;
   return fetch( url, {method: 'get'} )
   .then(response => handleResponse(response, "idiom page"))
   .catch(error => {console.log(error.message)})
@@ -36,7 +37,7 @@ export const PlayableIdiom = class {
     this.setIdiomData = (dispatch, lang, idiom) => {
       const {title} = idiom.parse;
       let definitions = this.extractDefinitions(idiom.parse.text['*'], lang);
-      definitions = this.removeCitation(definitions);
+      definitions = this.removeDLcitation(definitions);
       definitions = this.removeExamplesFromDefinitions(definitions);
       let extractedDefinitions = this.extractHigestLevelListItems(definitions);
       let strippedDefinitions = this.stripFromHTMLelements(extractedDefinitions);
@@ -62,7 +63,7 @@ export const PlayableIdiom = class {
       return definitions;
     }
 
-    this.removeCitation = definitions => {
+    this.removeDLcitation = definitions => {
       const definitionsWithoutCitations = [];
       definitions.forEach(definition => {
         let startSearchIndex = 0;
