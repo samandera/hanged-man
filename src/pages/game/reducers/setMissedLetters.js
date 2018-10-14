@@ -11,9 +11,13 @@ const handleMissedLetters = (lettersProps) => {
   let {word,missedLetters,pressedKey} = lettersProps;
   const missedLetterWasPressed = (word,pressedKey) => {
     let hasLetter = word.find((element)=>{
-      return element.letter.toUpperCase() === pressedKey;
+      for (let i = 0; i < element.length; i++) {
+        if (element[i].letter.toUpperCase() === pressedKey) {
+          return true;
+        }
+      }
+      return false;
     }, pressedKey);
-
     return (hasLetter===undefined)&&(/^[a-zA-Z]$/.test(pressedKey));
   }
 

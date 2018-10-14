@@ -20,13 +20,15 @@ const getWord = (phrase) => {
 
 const updateWord = (wordProps) => {
   let {word, pressedKey} = wordProps;
-  word = Array.from(word);
-  word.map((letterObj, index) => {
-    if (/^[a-zA-Z]$/.test(pressedKey) && letterObj.letter.toUpperCase() == pressedKey) {
-      letterObj.visible = true;
-    }
+  let phrase = Array.from(word);
+  phrase.map((word, index) => {
+    word.forEach(letterObj => {
+      if (/^[a-zA-Z]$/.test(pressedKey) && letterObj.letter.toUpperCase() == pressedKey) {
+        letterObj.visible = true;
+      }
+    })
   });
-  return {word};
+  return {word: phrase};
 }
 
 const setWord = (state = initialWordState, action) => {

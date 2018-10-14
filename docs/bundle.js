@@ -16569,7 +16569,6 @@ var mapStateToProps = function mapStateToProps(store) {
 
 var renderLetters = function renderLetters(phrase) {
   return phrase.map(function (word, index) {
-    console.log(word);
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       'div',
       { key: 'word ' + index, className: 'word' },
@@ -16980,9 +16979,13 @@ var handleMissedLetters = function handleMissedLetters(lettersProps) {
 
   var missedLetterWasPressed = function missedLetterWasPressed(word, pressedKey) {
     var hasLetter = word.find(function (element) {
-      return element.letter.toUpperCase() === pressedKey;
+      for (var i = 0; i < element.length; i++) {
+        if (element[i].letter.toUpperCase() === pressedKey) {
+          return true;
+        }
+      }
+      return false;
     }, pressedKey);
-
     return hasLetter === undefined && /^[a-zA-Z]$/.test(pressedKey);
   };
 
@@ -17107,13 +17110,15 @@ var updateWord = function updateWord(wordProps) {
   var word = wordProps.word,
       pressedKey = wordProps.pressedKey;
 
-  word = Array.from(word);
-  word.map(function (letterObj, index) {
-    if (/^[a-zA-Z]$/.test(pressedKey) && letterObj.letter.toUpperCase() == pressedKey) {
-      letterObj.visible = true;
-    }
+  var phrase = Array.from(word);
+  phrase.map(function (word, index) {
+    word.forEach(function (letterObj) {
+      if (/^[a-zA-Z]$/.test(pressedKey) && letterObj.letter.toUpperCase() == pressedKey) {
+        letterObj.visible = true;
+      }
+    });
   });
-  return { word: word };
+  return { word: phrase };
 };
 
 var setWord = function setWord() {

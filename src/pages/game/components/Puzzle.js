@@ -11,7 +11,6 @@ const mapStateToProps = (store) => {
 
 const renderLetters = (phrase) => {
   return phrase.map( (word, index) => {
-    console.log(word);
     return (
       <div key={`word ${index}`} className="word">
         {word.map( (letterObj, index) => {
