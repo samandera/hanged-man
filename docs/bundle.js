@@ -16627,11 +16627,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 
 var fetchIdiom = function fetchIdiom(lang, title) {
-  //const url = `https://${lang}.wiktionary.org/w/api.php?action=parse&format=json&page=${title}`;
+  var url = 'https://' + lang + '.wiktionary.org/w/api.php?action=parse&format=json&page=' + title;
   //const url = `https://${lang}.wiktionary.org/w/api.php?action=parse&format=json&page=grind down`;
   //const url = `https://${lang}.wiktionary.org/w/api.php?action=parse&format=json&page=of an`;
   //const url = `https://${lang}.wiktionary.org/w/api.php?action=parse&format=json&page=pipe`;
-  var url = 'https://' + lang + '.wiktionary.org/w/api.php?action=parse&format=json&page=snap judgment';
+  //const url = `https://${lang}.wiktionary.org/w/api.php?action=parse&format=json&page=snap judgment`
   return fetch(url, { method: 'get' }).then(function (response) {
     return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__handleResponse__["a" /* default */])(response, "idiom page");
   }).catch(function (error) {
@@ -16670,17 +16670,16 @@ var PlayableIdiom = function PlayableIdiom(fetchFunction) {
   this.setIdiomData = function (dispatch, lang, idiom) {
     var title = idiom.parse.title;
 
-    var definitions = _this.extractDefinitions(idiom.parse.text['*'], lang);
-    definitions = _this.removeCitation(definitions);
-    definitions = _this.removeExamplesFromDefinitions(definitions);
-    var extractedDefinitions = _this.extractHigestLevelListItems(definitions);
-    var strippedDefinitions = _this.stripFromHTMLelements(extractedDefinitions);
-    console.log(strippedDefinitions);
+    var extractedDefinitions = _this.extractDefinitions(idiom.parse.text['*'], lang);
+    var definitionsWithoutCitations = _this.removeCitation(extractedDefinitions);
+    var definitionsWithoutExamples = _this.removeExamplesFromDefinitions(definitionsWithoutCitations);
+    var splitDefinitions = _this.extractHigestLevelListItems(definitionsWithoutExamples);
+    var definitions = _this.stripFromHTMLelements(splitDefinitions);
     dispatch({
       type: __WEBPACK_IMPORTED_MODULE_1__reducers_actionTypes__["h" /* SET_WORD */],
       word: title
     });
-    return Promise.resolve({ title: title });
+    return Promise.resolve({ title: title, definitions: definitions });
   };
 
   this.extractDefinitions = function (definition, lang) {

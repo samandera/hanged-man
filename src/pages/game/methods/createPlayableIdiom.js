@@ -2,11 +2,11 @@ import handleResponse from "./handleResponse";
 import { SET_LOADING_MESSAGE, SET_WORD } from '../reducers/actionTypes';
 
 const fetchIdiom = (lang, title) => {
-  //const url = `https://${lang}.wiktionary.org/w/api.php?action=parse&format=json&page=${title}`;
+  const url = `https://${lang}.wiktionary.org/w/api.php?action=parse&format=json&page=${title}`;
   //const url = `https://${lang}.wiktionary.org/w/api.php?action=parse&format=json&page=grind down`;
   //const url = `https://${lang}.wiktionary.org/w/api.php?action=parse&format=json&page=of an`;
   //const url = `https://${lang}.wiktionary.org/w/api.php?action=parse&format=json&page=pipe`;
-  const url = `https://${lang}.wiktionary.org/w/api.php?action=parse&format=json&page=snap judgment`
+  //const url = `https://${lang}.wiktionary.org/w/api.php?action=parse&format=json&page=snap judgment`
   return fetch( url, {method: 'get'} )
   .then(response => handleResponse(response, "idiom page"))
   .catch(error => {console.log(error.message)})
@@ -37,17 +37,16 @@ export const PlayableIdiom = class {
 
     this.setIdiomData = (dispatch, lang, idiom) => {
       const {title} = idiom.parse;
-      let definitions = this.extractDefinitions(idiom.parse.text['*'], lang);
-      definitions = this.removeCitation(definitions);
-      definitions = this.removeExamplesFromDefinitions(definitions);
-      let extractedDefinitions = this.extractHigestLevelListItems(definitions);
-      let strippedDefinitions = this.stripFromHTMLelements(extractedDefinitions);
-      console.log(strippedDefinitions);
+      let extractedDefinitions = this.extractDefinitions(idiom.parse.text['*'], lang);
+      let definitionsWithoutCitations = this.removeCitation(extractedDefinitions);
+      let definitionsWithoutExamples = this.removeExamplesFromDefinitions(definitionsWithoutCitations);
+      let splitDefinitions = this.extractHigestLevelListItems(definitionsWithoutExamples);
+      let definitions = this.stripFromHTMLelements(splitDefinitions);
       dispatch({
         type: SET_WORD,
         word: title
       });
-      return Promise.resolve({title})
+      return Promise.resolve({title, definitions})
     }
 
     this.extractDefinitions = (definition, lang) => {
