@@ -17,7 +17,7 @@ const handleMissedLetters = (lettersProps) => {
         }
       }
       return false;
-    }, pressedKey);
+    });
     return (hasLetter===undefined)&&(/^[a-zA-Z]$/.test(pressedKey));
   }
 
