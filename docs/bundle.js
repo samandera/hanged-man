@@ -9187,13 +9187,18 @@ module.exports = g;
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__reducers_actionTypes__ = __webpack_require__(16);
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 
 
-var showEndGame = function showEndGame(word, missedLetters) {
+
+var showEndGame = function showEndGame(phrase, missedLetters) {
   var steps = 11;
-  var unvisibles = word.map(function (letter) {
-    return letter.visible;
+  var unvisibles = [];
+  phrase.forEach(function (word) {
+    unvisibles.push.apply(unvisibles, _toConsumableArray(word.map(function (letter) {
+      return letter.visible;
+    })));
   });
   var won = unvisibles.find(function (el) {
     return el === false;

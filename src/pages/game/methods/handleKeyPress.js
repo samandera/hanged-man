@@ -1,9 +1,12 @@
 import store from '../../store';
 import {SHOW_END_GAME, SET_MISSED_LETTERS, SET_WINNING_LETTERS, SET_MESSAGE} from '../reducers/actionTypes';
 
-const showEndGame = (word,missedLetters) => {
+const showEndGame = (phrase,missedLetters) => {
   const steps = 11;
-  let unvisibles = word.map(letter => letter.visible);
+  let unvisibles = [];
+  phrase.forEach(word => {
+    unvisibles.push(...word.map(letter => (letter.visible)))
+  })
   let won = unvisibles.find(el => el===false) === undefined;
   let lost = missedLetters.length===steps;
   let endGameStatus = {won, lost};
