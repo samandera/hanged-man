@@ -1,5 +1,5 @@
 import handleResponse from "./handleResponse";
-import { SET_LOADING_MESSAGE, SET_WORD } from '../reducers/actionTypes';
+import { SET_LOADING_MESSAGE, SET_WORD, SET_DEFINITION } from '../reducers/actionTypes';
 
 const fetchIdiom = (lang, title) => {
   const url = `https://${lang}.wiktionary.org/w/api.php?action=parse&format=json&page=${title}`;
@@ -39,10 +39,8 @@ export const PlayableIdiom = class {
       let definitionsWithoutExamples = this.removeExamplesFromDefinitions(definitionsWithoutCitations);
       let splitDefinitions = this.extractHigestLevelListItems(definitionsWithoutExamples);
       let definitions = this.stripFromHTMLelements(splitDefinitions);
-      dispatch({
-        type: SET_WORD,
-        word: title
-      });
+      dispatch({ type: SET_WORD, word: title });
+      dispatch({ type: SET_DEFINITION, definitions });
       return Promise.resolve({title, definitions})
     }
 
