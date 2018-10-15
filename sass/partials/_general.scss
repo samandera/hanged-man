@@ -1,5 +1,6 @@
 body {
   color: #1c6eb5;
+  font-family: "Roboto"
 }
 .mount {
   @include rwd-properties(width, (xs: 100vw, sm: 100%));
@@ -32,7 +33,7 @@ body {
       @include rwd-properties(width, (xs: 95vw, sm: 450px));
       height:auto;
       box-sizing: border-box;
-      padding:10px;
+      padding:10px 20px;
       background-color: rgba(255,255,255,0.7);
       position: relative;
       z-index: 8;

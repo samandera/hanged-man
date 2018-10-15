@@ -1,6 +1,8 @@
 .puzzle {
   display: flex;
   justify-content: center;
+  max-width:100%;
+  flex-wrap: wrap;
   .word {
     display: flex;
     justify-content: center;
@@ -13,6 +15,7 @@
       height: 20px;
       margin: 0 2px;
       border-bottom: 3px solid #31475a;
+      font-size: 20px;
     }
   }
 }

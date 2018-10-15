@@ -8,24 +8,19 @@ const mapStateToProps = state => {
 }
 
 const renderLetters = (phrase) => {
-  return phrase.map( (word, index) => {
-    return (
-      <div key={`word ${index}`} className="word">
-        {word.map( (letterObj, index) => {
-          return(
-              <div className="letter" key={`letter ${index}`} id={`letter ${index}`}>
-                {letterObj.visible ? letterObj.letter : ''}
-              </div>
-          )
-        })}
-      </div>
-    )
-  })
+  return phrase.map( (word, index) => (
+    <div key={`word ${index}`} className="word">
+      {word.map( (letterObj, index) => (
+        <div className="letter" key={`letter ${index}`} id={`letter ${index}`}>
+          {letterObj.visible ? letterObj.letter : ''}
+        </div>
+      ))}
+    </div>
+  ))
 }
 
 class Puzzle extends React.Component {
   render() {
-    console.log(this.props.word);
     return (
       <div className="puzzle">
         {renderLetters(this.props.word)}
