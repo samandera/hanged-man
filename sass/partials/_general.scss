@@ -10,5 +10,16 @@
     height:100vh;
     width:100%;
     overflow:hidden;
+    position: relative;
+    .grass {
+      width:100%;
+      height:25%;
+      position: absolute;
+      bottom:0;
+      background: url('/assets/img/grass.svg');
+      background-size:cover;
+      background-repeat: no-repeat;
+      background-position: top;
+    }
   }
 }

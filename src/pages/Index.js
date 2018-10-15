@@ -15,6 +15,7 @@ class Index extends React.Component {
       <Router>
         <div className="container">
           <Route exact path="/" component={Game}/>
+          <div className="grass"/>
         </div>
       </Router>
     );
