@@ -21,10 +21,19 @@
   }
 }
 
-@mixin rwd-aspect-ratio($widths, $aspect-ratio: 1) {
+@mixin rwd-width-aspect-ratio($widths, $aspect-ratio: 1) {
   $heights: ();
   @each $key, $value in $widths {
     $heights: map-merge($heights, ($key: $value * $aspect-ratio));
+  }
+  @include rwd-properties(width, $widths);
+  @include rwd-properties(height, $heights);
+}
+
+@mixin rwd-height-aspect-ratio($heights, $aspect-ratio: 1) {
+  $widths: ();
+  @each $key, $value in $heights {
+    $widths: map-merge($widths, ($key: $value / $aspect-ratio));
   }
   @include rwd-properties(width, $widths);
   @include rwd-properties(height, $heights);
