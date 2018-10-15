@@ -15336,7 +15336,7 @@ var Index = function (_React$Component) {
         null,
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'div',
-          { className: 'container' },
+          { className: 'screen-wrapper' },
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Route */], { exact: true, path: '/', component: __WEBPACK_IMPORTED_MODULE_3__game_Game__["a" /* default */] }),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { className: 'grass' })
         )
@@ -18847,7 +18847,7 @@ exports = module.exports = __webpack_require__(239)(false);
 exports.i(__webpack_require__(415), "");
 
 // module
-exports.push([module.i, ".mount {\n  width: 100%;\n  height: 100vh;\n  background: url(\"/assets/img/bg.svg\") no-repeat bottom center;\n  background-size: cover;\n  background-repeat: no-repeat;\n  background-position: center bottom; }\n  .mount .container {\n    height: 100vh;\n    width: 100%;\n    overflow: hidden;\n    position: relative; }\n    .mount .container .grass {\n      width: 100%;\n      height: 25%;\n      position: absolute;\n      bottom: 0;\n      background: url(\"/assets/img/grass.svg\");\n      background-size: cover;\n      background-repeat: no-repeat;\n      background-position: top; }\n", ""]);
+exports.push([module.i, ".mount {\n  width: 100%;\n  height: 100vh;\n  background: url(\"/assets/img/bg.svg\") no-repeat bottom center;\n  background-size: cover;\n  background-repeat: no-repeat;\n  background-position: center bottom; }\n  .mount .screen-wrapper {\n    height: 100vh;\n    width: 100%;\n    overflow: hidden;\n    position: relative; }\n    .mount .screen-wrapper .grass {\n      width: 100%;\n      height: 25%;\n      position: absolute;\n      bottom: 0;\n      background: url(\"/assets/img/grass.svg\");\n      background-size: cover;\n      background-repeat: no-repeat;\n      background-position: top; }\n", ""]);
 
 // exports
 
