@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import loadIdiom from './methods/loadIdiom';
 import handleKeyPress from './methods/handleKeyPress';
 import MainContent from './components/MainContent';
+import Container from '../../components/Container';
 import EndGame from './components/EndGame';
 import LoadingIdiom from './components/LoadingIdiom';
 
@@ -24,9 +25,11 @@ class Game extends React.Component {
   render() {
     return (
       <div className="game">
-        <EndGame/>
-        <MainContent/>
-        {this.props.IdiomIsLoading && <LoadingIdiom/>}
+        <Container>
+          <EndGame/>
+          <MainContent/>
+          {this.props.IdiomIsLoading && <LoadingIdiom/>}
+        </Container>
       </div>
     );
   }
