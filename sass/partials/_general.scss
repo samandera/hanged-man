@@ -1,6 +1,6 @@
 body {
-  color: #1c6eb5;
-  font-family: "Roboto"
+  color: $color-primary-light;
+  font-family: "Roboto";
 }
 .mount {
   @include rwd-properties(width, (xs: 100vw, sm: 100%));

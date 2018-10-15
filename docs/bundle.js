@@ -2464,15 +2464,15 @@ module.exports = { debugTool: debugTool };
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return SET_WORD; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return SET_WINNING_LETTERS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return SET_MESSAGE; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SHOW_END_GAME; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SET_MESSAGE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return SHOW_END_GAME; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return SET_MISSED_LETTERS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return RESET_MISSED_LETTERS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return RESET_MISSED_LETTERS; });
 /* unused harmony export SET_PLAYED_WORDS */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return LOAD_IDIOM; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return SET_LOADING_MESSAGE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return SET_DEFINITION; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return RESET_DEFINITIONS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return RESET_DEFINITIONS; });
 var SET_WORD = 'SET_WORD';
 var SET_WINNING_LETTERS = 'SET_WINNING_LETTERS';
 var SET_MESSAGE = 'SET_MESSAGE';
@@ -9156,12 +9156,12 @@ var showEndGame = function showEndGame(phrase, missedLetters) {
 
   __WEBPACK_IMPORTED_MODULE_0__store__["a" /* default */].dispatch({
     showEndGame: endGameStatus,
-    type: __WEBPACK_IMPORTED_MODULE_1__reducers_actionTypes__["d" /* SET_MESSAGE */]
+    type: __WEBPACK_IMPORTED_MODULE_1__reducers_actionTypes__["a" /* SET_MESSAGE */]
   });
 
   __WEBPACK_IMPORTED_MODULE_0__store__["a" /* default */].dispatch({
     showEndGame: endGameStatus,
-    type: __WEBPACK_IMPORTED_MODULE_1__reducers_actionTypes__["a" /* SHOW_END_GAME */]
+    type: __WEBPACK_IMPORTED_MODULE_1__reducers_actionTypes__["b" /* SHOW_END_GAME */]
   });
   var state = __WEBPACK_IMPORTED_MODULE_0__store__["a" /* default */].getState();
 
@@ -16128,10 +16128,10 @@ var resetStateOnEndGame = function resetStateOnEndGame(dispatch, lang) {
     lost: false
   };
   __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__loadIdiom__["a" /* default */])(dispatch, lang).then(function () {
-    dispatch({ showEndGame: endGameStatus });
-    dispatch({ showEndGame: endGameStatus, type: __WEBPACK_IMPORTED_MODULE_1__reducers_actionTypes__["a" /* SHOW_END_GAME */] });
-    dispatch({ type: __WEBPACK_IMPORTED_MODULE_1__reducers_actionTypes__["b" /* RESET_MISSED_LETTERS */] });
-    dispatch({ type: __WEBPACK_IMPORTED_MODULE_1__reducers_actionTypes__["c" /* RESET_DEFINITIONS */] });
+    dispatch({ showEndGame: endGameStatus, type: __WEBPACK_IMPORTED_MODULE_1__reducers_actionTypes__["a" /* SET_MESSAGE */] });
+    dispatch({ showEndGame: endGameStatus, type: __WEBPACK_IMPORTED_MODULE_1__reducers_actionTypes__["b" /* SHOW_END_GAME */] });
+    dispatch({ type: __WEBPACK_IMPORTED_MODULE_1__reducers_actionTypes__["c" /* RESET_MISSED_LETTERS */] });
+    dispatch({ type: __WEBPACK_IMPORTED_MODULE_1__reducers_actionTypes__["d" /* RESET_DEFINITIONS */] });
     window.onkeydown = function () {
       __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__handleKeyPress__["a" /* default */])(String.fromCharCode(event.keyCode));
     };
@@ -16241,7 +16241,7 @@ var setMissedLetters = function setMissedLetters() {
   switch (action.type) {
     case __WEBPACK_IMPORTED_MODULE_0__actionTypes__["e" /* SET_MISSED_LETTERS */]:
       return Object.assign({}, state, handleMissedLetters(action.lettersProps));
-    case __WEBPACK_IMPORTED_MODULE_0__actionTypes__["b" /* RESET_MISSED_LETTERS */]:
+    case __WEBPACK_IMPORTED_MODULE_0__actionTypes__["c" /* RESET_MISSED_LETTERS */]:
       return Object.assign({}, state, { missedLetters: [] });
   }
   return state;
@@ -16367,9 +16367,9 @@ var setEndGameState = function setEndGameState() {
   var action = arguments[1];
 
   switch (action.type) {
-    case __WEBPACK_IMPORTED_MODULE_0__actionTypes__["d" /* SET_MESSAGE */]:
+    case __WEBPACK_IMPORTED_MODULE_0__actionTypes__["a" /* SET_MESSAGE */]:
       return Object.assign({}, state, setMessageTxt(action.showEndGame));
-    case __WEBPACK_IMPORTED_MODULE_0__actionTypes__["a" /* SHOW_END_GAME */]:
+    case __WEBPACK_IMPORTED_MODULE_0__actionTypes__["b" /* SHOW_END_GAME */]:
       return Object.assign({}, state, { showEndGame: action.showEndGame.won || action.showEndGame.lost });
   }
   return state;
@@ -18839,7 +18839,7 @@ exports = module.exports = __webpack_require__(116)(false);
 exports.i(__webpack_require__(240), "");
 
 // module
-exports.push([module.i, "@font-face {\n  font-family: \"Roboto\";\n  src: url(/assets/fonts/Roboto-Regular.ttf); }\n\nbody {\n  color: #1c6eb5;\n  font-family: \"Roboto\"; }\n\n.mount {\n  width: 320px;\n  height: 100vh;\n  background: url(\"/assets/img/bg.svg\") no-repeat bottom center;\n  background-size: cover;\n  background-repeat: no-repeat;\n  background-position: center bottom; }\n  @media screen and (min-width: 320px) {\n    .mount {\n      width: 100vw; } }\n  @media screen and (min-width: 576px) {\n    .mount {\n      width: 100%; } }\n  .mount .screen-wrapper {\n    height: 100vh;\n    width: 100%;\n    overflow: hidden;\n    position: relative;\n    z-index: 0;\n    display: flex;\n    justify-content: center;\n    align-items: center; }\n    .mount .screen-wrapper .grass {\n      width: 100%;\n      height: 25%;\n      position: absolute;\n      bottom: 0;\n      background: url(\"/assets/img/grass.svg\");\n      background-size: cover;\n      background-repeat: no-repeat;\n      background-position: top;\n      z-index: 100; }\n    .mount .screen-wrapper .container {\n      width: 304px;\n      height: auto;\n      box-sizing: border-box;\n      padding: 10px 20px;\n      background-color: rgba(255, 255, 255, 0.7);\n      position: relative;\n      z-index: 8; }\n      @media screen and (min-width: 320px) {\n        .mount .screen-wrapper .container {\n          width: 95vw; } }\n      @media screen and (min-width: 576px) {\n        .mount .screen-wrapper .container {\n          width: 450px; } }\n\n.hangedman .tree, .hangedman .left-calf, .hangedman .right-calf, .hangedman .right-thigh, .hangedman .left-thigh, .hangedman .corpse, .hangedman .head, .hangedman .hair, .hangedman .left-arm, .hangedman .right-arm {\n  width: 100%;\n  height: 100%;\n  background-size: cover;\n  background-repeat: no-repeat;\n  background-position: left bottom;\n  position: absolute;\n  top: 0;\n  left: 0; }\n\n.hangedman {\n  width: 160vh;\n  height: 100vh;\n  position: absolute;\n  top: 0;\n  left: 0;\n  z-index: 1; }\n  @media screen and (min-width: 320px) {\n    .hangedman {\n      width: 160vh; } }\n  @media screen and (min-width: 320px) {\n    .hangedman {\n      height: 100vh; } }\n  .hangedman .tree {\n    background: url(\"/assets/img/parts/tree.svg\");\n    z-index: 0; }\n  .hangedman .left-calf {\n    background: url(\"/assets/img/parts/rope.svg\"), url(\"/assets/img/parts/left-calf.svg\");\n    z-index: 2; }\n  .hangedman .right-calf {\n    background: url(\"/assets/img/parts/right-calf.svg\");\n    z-index: 1; }\n  .hangedman .right-thigh {\n    background: url(\"/assets/img/parts/right-thigh.svg\");\n    z-index: 3; }\n  .hangedman .left-thigh {\n    background: url(\"/assets/img/parts/left-thigh.svg\");\n    z-index: 4; }\n  .hangedman .corpse {\n    background: url(\"/assets/img/parts/corpse.svg\");\n    z-index: 6; }\n  .hangedman .head {\n    background: url(\"/assets/img/parts/head.svg\");\n    z-index: 5; }\n  .hangedman .hair {\n    background: url(\"/assets/img/parts/hair.svg\");\n    z-index: 6; }\n  .hangedman .left-arm {\n    background: url(\"/assets/img/parts/left-arm.svg\"), url(\"/assets/img/parts/left-palm.svg\");\n    z-index: 7; }\n  .hangedman .right-arm {\n    background: url(\"/assets/img/parts/right-arm.svg\"), url(\"/assets/img/parts/right-palm.svg\");\n    z-index: 7; }\n  .hangedman .visible {\n    visibility: visible; }\n\n.puzzle {\n  display: flex;\n  justify-content: center;\n  max-width: 100%;\n  flex-wrap: wrap; }\n  .puzzle .word {\n    display: flex;\n    justify-content: center;\n    margin: 10px 5px; }\n    .puzzle .word .letter {\n      display: flex;\n      justify-content: center;\n      align-items: center;\n      width: 20px;\n      height: 20px;\n      margin: 0 2px;\n      border-bottom: 3px solid #31475a;\n      font-size: 20px; }\n", ""]);
+exports.push([module.i, "@font-face {\n  font-family: \"Roboto\";\n  src: url(/assets/fonts/Roboto-Regular.ttf); }\n\nbody {\n  color: #1c6eb5;\n  font-family: \"Roboto\"; }\n\n.mount {\n  width: 320px;\n  height: 100vh;\n  background: url(\"/assets/img/bg.svg\") no-repeat bottom center;\n  background-size: cover;\n  background-repeat: no-repeat;\n  background-position: center bottom; }\n  @media screen and (min-width: 320px) {\n    .mount {\n      width: 100vw; } }\n  @media screen and (min-width: 576px) {\n    .mount {\n      width: 100%; } }\n  .mount .screen-wrapper {\n    height: 100vh;\n    width: 100%;\n    overflow: hidden;\n    position: relative;\n    z-index: 0;\n    display: flex;\n    justify-content: center;\n    align-items: center; }\n    .mount .screen-wrapper .grass {\n      width: 100%;\n      height: 25%;\n      position: absolute;\n      bottom: 0;\n      background: url(\"/assets/img/grass.svg\");\n      background-size: cover;\n      background-repeat: no-repeat;\n      background-position: top;\n      z-index: 100; }\n    .mount .screen-wrapper .container {\n      width: 304px;\n      height: auto;\n      box-sizing: border-box;\n      padding: 10px 20px;\n      background-color: rgba(255, 255, 255, 0.7);\n      position: relative;\n      z-index: 8; }\n      @media screen and (min-width: 320px) {\n        .mount .screen-wrapper .container {\n          width: 95vw; } }\n      @media screen and (min-width: 576px) {\n        .mount .screen-wrapper .container {\n          width: 450px; } }\n\n.hangedman .tree, .hangedman .left-calf, .hangedman .right-calf, .hangedman .right-thigh, .hangedman .left-thigh, .hangedman .corpse, .hangedman .head, .hangedman .hair, .hangedman .left-arm, .hangedman .right-arm {\n  width: 100%;\n  height: 100%;\n  background-size: cover;\n  background-repeat: no-repeat;\n  background-position: left bottom;\n  position: absolute;\n  top: 0;\n  left: 0; }\n\n.hangedman {\n  width: 160vh;\n  height: 100vh;\n  position: absolute;\n  top: 0;\n  left: 0;\n  z-index: 1; }\n  @media screen and (min-width: 320px) {\n    .hangedman {\n      width: 160vh; } }\n  @media screen and (min-width: 320px) {\n    .hangedman {\n      height: 100vh; } }\n  .hangedman .tree {\n    background: url(\"/assets/img/parts/tree.svg\");\n    z-index: 0; }\n  .hangedman .left-calf {\n    background: url(\"/assets/img/parts/rope.svg\"), url(\"/assets/img/parts/left-calf.svg\");\n    z-index: 2; }\n  .hangedman .right-calf {\n    background: url(\"/assets/img/parts/right-calf.svg\");\n    z-index: 1; }\n  .hangedman .right-thigh {\n    background: url(\"/assets/img/parts/right-thigh.svg\");\n    z-index: 3; }\n  .hangedman .left-thigh {\n    background: url(\"/assets/img/parts/left-thigh.svg\");\n    z-index: 4; }\n  .hangedman .corpse {\n    background: url(\"/assets/img/parts/corpse.svg\");\n    z-index: 6; }\n  .hangedman .head {\n    background: url(\"/assets/img/parts/head.svg\");\n    z-index: 5; }\n  .hangedman .hair {\n    background: url(\"/assets/img/parts/hair.svg\");\n    z-index: 6; }\n  .hangedman .left-arm {\n    background: url(\"/assets/img/parts/left-arm.svg\"), url(\"/assets/img/parts/left-palm.svg\");\n    z-index: 7; }\n  .hangedman .right-arm {\n    background: url(\"/assets/img/parts/right-arm.svg\"), url(\"/assets/img/parts/right-palm.svg\");\n    z-index: 7; }\n  .hangedman .visible {\n    visibility: visible; }\n\n.game .game-content .missed-characters {\n  text-align: right; }\n  .game .game-content .missed-characters h2 {\n    font-size: 15px;\n    margin: 7px 0;\n    color: #31475a; }\n  .game .game-content .missed-characters .characters {\n    list-style: none;\n    margin: 7px 0;\n    display: flex;\n    justify-content: flex-end; }\n    .game .game-content .missed-characters .characters li {\n      padding: 0 5px; }\n\n.game .game-content .definitions {\n  font-size: 13px;\n  margin: 20px 0; }\n\n.puzzle {\n  display: flex;\n  justify-content: center;\n  max-width: 100%;\n  flex-wrap: wrap; }\n  .puzzle .word {\n    display: flex;\n    justify-content: center;\n    margin: 10px 5px; }\n    .puzzle .word .letter {\n      display: flex;\n      justify-content: center;\n      align-items: center;\n      width: 20px;\n      height: 20px;\n      margin: 0 2px;\n      border-bottom: 3px solid #31475a;\n      font-size: 20px; }\n", ""]);
 
 // exports
 
@@ -38003,7 +38003,7 @@ var handleDefinitions = function handleDefinitions() {
   switch (action.type) {
     case __WEBPACK_IMPORTED_MODULE_0__actionTypes__["j" /* SET_DEFINITION */]:
       return Object.assign({}, state, { definitions: action.definitions });
-    case __WEBPACK_IMPORTED_MODULE_0__actionTypes__["c" /* RESET_DEFINITIONS */]:
+    case __WEBPACK_IMPORTED_MODULE_0__actionTypes__["d" /* RESET_DEFINITIONS */]:
       return Object.assign({}, state, { definitions: [] });
     default:
       return state;
@@ -38069,7 +38069,6 @@ var Definition = function (_React$Component) {
 /* harmony default export */ __webpack_exports__["a"] = (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_react_redux__["b" /* connect */])(mapStateToProps)(Definition));
 
 /***/ })
-/******/ ]);inition));
-
+/******/ ]);
 /***/ })
 /******/ ]);

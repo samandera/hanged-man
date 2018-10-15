@@ -12,7 +12,7 @@ const resetStateOnEndGame = (dispatch, lang) => {
     lost:false
   };
   loadIdiom(dispatch, lang).then(() => {
-    dispatch({ showEndGame: endGameStatus, });
+    dispatch({ showEndGame: endGameStatus, type: SET_MESSAGE });
     dispatch({ showEndGame: endGameStatus, type: SHOW_END_GAME });
     dispatch ({ type: RESET_MISSED_LETTERS });
     dispatch ({ type: RESET_DEFINITIONS });
