@@ -1,0 +1,74 @@
+%backgroud-settings {
+  width:100%;
+  height:100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: left bottom;
+  position: absolute;
+  top:0;
+  left: 0;
+  //visibility: hidden;
+}
+
+.hangedman {
+  @include rwd-height-aspect-ratio((xs: 100vh), 80/128);
+  position: absolute;
+  top:0;
+  left: 0;
+  z-index: 1;
+  .tree {
+    @extend %backgroud-settings;
+    background: url('/assets/img/parts/tree.svg');
+    z-index:0;
+  }
+  .left-calf {
+    @extend %backgroud-settings;
+    background: url('/assets/img/parts/rope.svg'), url('/assets/img/parts/left-calf.svg');
+    z-index:2;
+  }
+  .right-calf {
+    @extend %backgroud-settings;
+    background: url('/assets/img/parts/right-calf.svg');
+    z-index:1;
+  }
+  .right-thigh {
+    @extend %backgroud-settings;
+    background: url('/assets/img/parts/right-thigh.svg');
+    z-index:3;
+  }
+  .left-thigh {
+    @extend %backgroud-settings;
+    background: url('/assets/img/parts/left-thigh.svg');
+    z-index:4;
+  }
+  .corpse {
+    @extend %backgroud-settings;
+    background: url('/assets/img/parts/corpse.svg');
+    z-index:6;
+  }
+  .head {
+    @extend %backgroud-settings;
+    background: url('/assets/img/parts/head.svg');
+    z-index:5;
+  }
+  .hair {
+    @extend %backgroud-settings;
+    background: url('/assets/img/parts/hair.svg');
+    z-index:6;
+  }
+  .left-arm {
+    @extend %backgroud-settings;
+    background: url('/assets/img/parts/left-arm.svg'),
+    url('/assets/img/parts/left-palm.svg');
+    z-index:7;
+  }
+  .right-arm {
+    @extend %backgroud-settings;
+    background: url('/assets/img/parts/right-arm.svg'),
+    url('/assets/img/parts/right-palm.svg');
+    z-index:7;
+  }
+  .progressed {
+    visibility: visible;
+  }
+}

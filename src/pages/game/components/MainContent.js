@@ -1,7 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import store from '../../store';
-import Hangedman from './Hangedman';
 import Puzzle from './Puzzle';
 import MissedCharacters from './MissedCharacters';
 
@@ -15,7 +14,6 @@ const renderPuzzleContent = (word) => {
   if (word.length > 0) {
     return (
       <div className="ratio-content primary-content">
-        <Hangedman/>
         <MissedCharacters/>
         <Puzzle/>
       </div>
