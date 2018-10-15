@@ -9277,8 +9277,6 @@ var loadIdiom = function loadIdiom(dispatch, lang) {
   dispatch({ type: __WEBPACK_IMPORTED_MODULE_0__reducers_actionTypes__["f" /* LOAD_IDIOM */], loadIdiom: true });
   return __WEBPACK_IMPORTED_MODULE_1__makeIdiomsIndexesArray__["a" /* indexArrayMethods */].makeIdiomsIndexesArray(dispatch, lang, fetchIdiomsArray).then(function (titles) {
     return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__createPlayableIdiom__["a" /* default */])(dispatch, lang, titles);
-  }).then(function (data) {
-    return console.log(data);
   }).then(function () {
     return dispatch({ type: __WEBPACK_IMPORTED_MODULE_0__reducers_actionTypes__["f" /* LOAD_IDIOM */], loadIdiom: false });
   });

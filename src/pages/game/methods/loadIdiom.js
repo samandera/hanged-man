@@ -6,7 +6,6 @@ const loadIdiom = (dispatch, lang, fetchIdiomsArray = indexArrayMethods.fetchIdi
   dispatch({type: LOAD_IDIOM, loadIdiom: true});
   return indexArrayMethods.makeIdiomsIndexesArray(dispatch, lang, fetchIdiomsArray)
   .then(titles => createPlayableIdiom(dispatch, lang, titles))
-  .then( data => console.log(data))
   .then(() => dispatch({type: LOAD_IDIOM, loadIdiom: false}))
 }
 
