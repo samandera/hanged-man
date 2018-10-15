@@ -53,14 +53,14 @@ describe("test setting idiom data", () => {
   })
 });
 
-describe("test extracting definition from returned HTML tree", () => {
+describe("test getting definition from returned HTML tree", () => {
   let extracted = mockedPlayableIdiom.extractDefinitions(initialDefinition, "en")
-  it("should return content inside <ol></ol> tags", () => {
+  it("extractDefinitions should return content inside <ol></ol> tags", () => {
     expect(extracted)
     .toEqual(extractedDefinitions)
-  })
-  it("should be an Array", () => {
+  });
+  it("extractDefinitions should be an Array", () => {
     expect(extracted instanceof  Array)
     .toBeTruthy()
-  })
-})
+  });
+});
