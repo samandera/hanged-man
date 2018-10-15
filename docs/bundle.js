@@ -2471,6 +2471,8 @@ module.exports = { debugTool: debugTool };
 /* unused harmony export SET_PLAYED_WORDS */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return LOAD_IDIOM; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return SET_LOADING_MESSAGE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return SET_DEFINITION; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return RESET_DEFINITIONS; });
 var SET_WORD = 'SET_WORD';
 var SET_WINNING_LETTERS = 'SET_WINNING_LETTERS';
 var SET_MESSAGE = 'SET_MESSAGE';
@@ -2480,6 +2482,8 @@ var RESET_MISSED_LETTERS = 'RESET_MISSED_LETTERS';
 var SET_PLAYED_WORDS = 'SET_PLAYED_WORDS';
 var LOAD_IDIOM = 'LOAD_IDIOM';
 var SET_LOADING_MESSAGE = "SET_LOADING_MESSAGE";
+var SET_DEFINITION = 'SET_DEFINITION';
+var RESET_DEFINITIONS = 'RESET_DEFINITIONS';
 
 /***/ }),
 /* 17 */
@@ -3287,6 +3291,8 @@ module.exports = DOMProperty;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__game_reducers_showEndGame__ = __webpack_require__(188);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__game_reducers_setFlags__ = __webpack_require__(183);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__game_reducers_setLoading__ = __webpack_require__(184);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__game_reducers_handleDefinitions__ = __webpack_require__(421);
+
 
 
 
@@ -3299,7 +3305,8 @@ var reducers = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_redux__["b" /* 
   missedLettersState: __WEBPACK_IMPORTED_MODULE_2__game_reducers_setMissedLetters__["a" /* default */],
   messageText: __WEBPACK_IMPORTED_MODULE_3__game_reducers_showEndGame__["a" /* default */],
   flags: __WEBPACK_IMPORTED_MODULE_4__game_reducers_setFlags__["a" /* default */],
-  loadingState: __WEBPACK_IMPORTED_MODULE_5__game_reducers_setLoading__["a" /* default */]
+  loadingState: __WEBPACK_IMPORTED_MODULE_5__game_reducers_setLoading__["a" /* default */],
+  definitionsState: __WEBPACK_IMPORTED_MODULE_6__game_reducers_handleDefinitions__["a" /* default */]
 });
 
 var store = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_redux__["c" /* createStore */])(reducers);
@@ -37985,5 +37992,33 @@ var GameContent = function (_React$Component) {
 
 /* harmony default export */ __webpack_exports__["a"] = (GameContent);
 
+/***/ }),
+/* 421 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__actionTypes__ = __webpack_require__(16);
+
+
+var initialState = {
+  definitions: []
+};
+
+var handleDefinitions = function handleDefinitions() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+  var action = arguments[1];
+
+  switch (action.type) {
+    case __WEBPACK_IMPORTED_MODULE_0__actionTypes__["i" /* SET_DEFINITION */]:
+      return Object.assign({}, state, { definitions: action.definitions });
+    case __WEBPACK_IMPORTED_MODULE_0__actionTypes__["j" /* RESET_DEFINITIONS */]:
+      return Object.assign({}, state, { definitions: [] });
+    default:
+      return state;
+  }
+};
+
+/* harmony default export */ __webpack_exports__["a"] = (handleDefinitions);
+
 /***/ })
-/******/ ]);
+/******/ ]);******/ ]);
