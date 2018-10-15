@@ -1,6 +1,7 @@
 import React from 'react';
 import Puzzle from './Puzzle';
 import MissedCharacters from './MissedCharacters';
+import Definition from './Definition';
 
 class GameContent extends React.Component {
 
@@ -8,6 +9,7 @@ class GameContent extends React.Component {
     return (
       <div className="game-content">
         <MissedCharacters/>
+        <Definition/>
         <Puzzle/>
       </div>
     );
