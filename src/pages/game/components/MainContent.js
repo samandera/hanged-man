@@ -23,7 +23,7 @@ const renderPuzzleContent = (word) => {
   }
 }
 
-class PrimaryContent extends React.Component {
+class MainContent extends React.Component {
 
   render() {
     return (
@@ -33,4 +33,4 @@ class PrimaryContent extends React.Component {
     );
   }
 }
-export default connect(mapStateToProps)(PrimaryContent);
+export default connect(mapStateToProps)(MainContent);
