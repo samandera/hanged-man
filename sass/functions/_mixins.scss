@@ -1,0 +1,38 @@
+@mixin rwd-properties($property, $values-map) {
+  $values-keys: map-keys($values-map);
+  $necessary-breakpoints: intersect-map($values-keys, $breakpoints);
+  $min-breakpoint-key:  min-value-key($necessary-breakpoints);
+  $min-breakpoint: map-get($necessary-breakpoints,$min-breakpoint-key);
+  $min-value: map-get($values-map, $min-breakpoint-key);
+  @if $min-value != null {
+    $values: ();
+    @each $value in $min-value {
+      @if type-of($value) == number and unit($value) == "vw" {
+        $value: percentage-value($min-breakpoint , $value);
+      }
+      $values: append($values, $value);
+    }
+    #{$property}: $values;
+  }
+  @each $breakpoint in $values-keys {
+    @media screen and (min-width: map-get($necessary-breakpoints, $breakpoint) ) {
+      #{$property}: map-get($values-map, $breakpoint);
+    }
+  }
+}
+
+@mixin rwd-aspect-ratio($widths, $aspect-ratio: 1) {
+  $heights: ();
+  @each $key, $value in $widths {
+    $heights: map-merge($heights, ($key: $value * $aspect-ratio));
+  }
+  @include rwd-properties(width, $widths);
+  @include rwd-properties(height, $heights);
+}
+
+@mixin add-browser-prefix($property, $value) {
+  -webkit-#{$property}: $value;
+  -moz-#{$property}: $value;
+  -ms-#{$property}: $value;
+  #{$property}: $value;
+}

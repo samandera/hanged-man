@@ -1,0 +1,31 @@
+@function strip-form-unit($value) {
+  @return $value/($value*0+1);
+}
+
+@function percentage-value($resolution, $value) {
+  @return #{$resolution * strip-form-unit($value) / 100};
+}
+
+@function min-resolution-percentage($value) {
+  @return percentage-value(map-get($breakpoints, xs) , $value);
+}
+
+@function min-value-key($map) {
+  $keys: map-keys($map);
+  $values: map-values($map);
+  $min-value: min($values...);
+  $min-value-index: index($values, $min-value);
+  $min-key: nth($keys, $min-value-index);
+  @return $min-key;
+}
+
+@function intersect-map($necessary-keys, $map) {
+  $intersected-map: ();
+  @each $key in $necessary-keys {
+    @if not map-has-key($map, $key) {
+      @error "Key `#{$key}` doesn't exist in $breakpoints";
+    }
+    $intersected-map: map-merge($intersected-map, ($key: map-get($map, $key)));
+  }
+  @return $intersected-map;
+}

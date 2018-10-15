@@ -1,2 +1,8 @@
 @import "./normalize.css";
+@import "./constants";
+
+@import "./functions/utils";
+@import "./functions/mixins";
+
+
 @import './partials/general';
