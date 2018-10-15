@@ -15,16 +15,7 @@ class Index extends React.Component {
     return (
       <Router>
         <div className="container">
-          <ul className="navigation">
-            <li>
-              <Link to="/">Game</Link>
-            </li>
-            <li>
-              <Link to="/played-words">Played Words</Link>
-            </li>
-          </ul>
           <Route exact path="/" component={Game}/>
-          <Route path="/played-words" component={PlayedWords}/>
 
           <svg viewBox="0 0 100 100"  className="triangle">
             <polygon points="0,100 100,100 100,0"/>
