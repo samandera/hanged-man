@@ -1,5 +1,5 @@
 import { PlayableIdiom } from "../methods/createPlayableIdiom";
-import mockFetchIdiom, { outputIdiom, titles } from '../__mocks__/createPlayableIdiom';
+import mockFetchIdiom, { inputIdiom, outputIdiom, titles } from '../__mocks__/createPlayableIdiom';
 import store from '../../store';
 
 const mockedPlayableIdiom = new PlayableIdiom(mockFetchIdiom);
@@ -37,5 +37,16 @@ describe("test creating playable idiom", () => {
   });
   it("should be an asynchronous function", () => {
     expect(mockedCreateIdiom() instanceof Promise).toBeTruthy();
+  })
+});
+
+describe("test setting idiom data", () => {
+  it("should resolve to object of specified definition and title", () => {
+    expect(mockedPlayableIdiom.setIdiomData(store.dispatch, "en", inputIdiom))
+    .resolves.toBe(outputIdiom)
+  });
+  it("should be an asynchronous function", () => {
+    expect(mockedPlayableIdiom.setIdiomData(store.dispatch, "en", inputIdiom) instanceof Promise)
+    .toBeTruthy();
   })
 })
