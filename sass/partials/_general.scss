@@ -1,4 +1,6 @@
-
+body {
+  color: #1c6eb5;
+}
 .mount {
   @include rwd-properties(width, (xs: 100vw, sm: 100%));
   height:100vh;

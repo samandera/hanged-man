@@ -25,6 +25,7 @@ const renderLetters = (phrase) => {
 
 class Puzzle extends React.Component {
   render() {
+    console.log(this.props.word);
     return (
       <div className="puzzle">
         {renderLetters(this.props.word)}

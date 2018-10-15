@@ -1,0 +1,18 @@
+.puzzle {
+  display: flex;
+  justify-content: center;
+  .word {
+    display: flex;
+    justify-content: center;
+    margin: 10px 5px;
+    .letter {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width:20px;
+      height: 20px;
+      margin: 0 2px;
+      border-bottom: 3px solid #31475a;
+    }
+  }
+}
