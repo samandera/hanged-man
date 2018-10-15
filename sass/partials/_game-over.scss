@@ -1,0 +1,22 @@
+.game-over {
+  text-align: center;
+  font-size: 20px;
+  padding: 40px 0;
+  p {
+    margin-top: 0;
+    margin-bottom:40px;
+  }
+  button {
+    background: none;
+    padding: 10px 20px;
+    border: solid thin $color-primary-light;
+    color: $color-primary-light;
+    border-radius: 7px;
+    font-size: 16px;
+    cursor: pointer;
+    &:hover {
+      border-color: $color-highlight;
+      color: $color-highlight;
+    }
+  }
+}

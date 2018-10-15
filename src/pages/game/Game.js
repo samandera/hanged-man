@@ -27,8 +27,7 @@ class Game extends React.Component {
 
   render() {
     const currentView = (() => {
-      //if (this.props.IdiomIsLoading) {return (<LoadingIdiom/>)}
-      if (true) {return (<LoadingIdiom/>)}
+      if (this.props.IdiomIsLoading) {return (<LoadingIdiom/>)}
       else if (this.props.showEndGame) {return (<EndGame/>)}
       else if (this.props.word.length > 0) {return (<GameContent/>)}
       return (<LoadingIdiom/>)

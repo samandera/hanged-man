@@ -3,11 +3,9 @@ import {connect} from 'react-redux';
 import store from '../../store';
 import resetStateOnEndGame from '../methods/resetStateOnEndGame';
 
-const mapStateToProps = (store) => {
-  return {
-    message: store.messageText.message
-  }
-}
+const mapStateToProps = state => ({
+  message: state.messageText.message
+})
 
 const mapDispatchToProps = dispatch => ({
   resetStateOnEndGame: (lang) => resetStateOnEndGame(dispatch, lang)
