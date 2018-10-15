@@ -5,6 +5,7 @@ import setEndGameState from './game/reducers/showEndGame';
 import setFlags from './game/reducers/setFlags';
 import setLoading from './game/reducers/setLoading';
 import handleDefinitions from './game/reducers/handleDefinitions';
+import displayHangedman from './game/reducers/displayHangedman';
 
 const reducers = combineReducers({
   wordState: setWord,
@@ -12,7 +13,8 @@ const reducers = combineReducers({
   messageText: setEndGameState,
   flags: setFlags,
   loadingState: setLoading,
-  definitionsState: handleDefinitions
+  definitionsState: handleDefinitions,
+  handleHangedman: displayHangedman
 });
 
 const store = createStore(reducers);
