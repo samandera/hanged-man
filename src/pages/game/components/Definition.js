@@ -7,10 +7,11 @@ const mapStateToProps = state => ({
 
 class Definition extends React.Component {
   render() {
-    console.log(this.props);
     return (
       <ol className="definitions">
-
+        {this.props.definitions.map( (definition, i) => (
+          <li key={i} >{definition}</li>
+        ))}
       </ol>
     )
   }
