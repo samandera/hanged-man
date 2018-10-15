@@ -4,7 +4,7 @@ class Hangedman extends React.Component {
   render() {
     return (
       <div className="hangedman">
-        <div className="tree progressed"/>
+        <div className="tree visible"/>
         <div className="left-calf"/>
         <div className="right-calf"/>
         <div className="right-thigh"/>
