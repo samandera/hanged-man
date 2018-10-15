@@ -6,7 +6,6 @@ import {
 } from 'react-router-dom';
 import { createHashHistory, createBrowserHistory } from 'history';
 import Game from './game/Game';
-import PlayedWords from './played-words/PlayedWords';
 
 const history = createBrowserHistory();
 
