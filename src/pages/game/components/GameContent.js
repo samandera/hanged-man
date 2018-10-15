@@ -1,16 +1,8 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import store from '../../store';
 import Puzzle from './Puzzle';
 import MissedCharacters from './MissedCharacters';
 
-const mapStateToProps = (store) => {
-  return {
-    word: store.wordState.word
-  }
-}
-
-class MainContent extends React.Component {
+class GameContent extends React.Component {
 
   render() {
     return (
@@ -21,4 +13,4 @@ class MainContent extends React.Component {
     );
   }
 }
-export default connect(mapStateToProps)(MainContent);
+export default GameContent;
