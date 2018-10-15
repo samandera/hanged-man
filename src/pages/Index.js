@@ -13,7 +13,7 @@ class Index extends React.Component {
   render() {
     return (
       <Router>
-        <div className="container">
+        <div className="screen-wrapper">
           <Route exact path="/" component={Game}/>
           <div className="grass"/>
         </div>
