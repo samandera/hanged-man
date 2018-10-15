@@ -15,10 +15,6 @@ class Index extends React.Component {
       <Router>
         <div className="container">
           <Route exact path="/" component={Game}/>
-
-          <svg viewBox="0 0 100 100"  className="triangle">
-            <polygon points="0,100 100,100 100,0"/>
-          </svg>
         </div>
       </Router>
     );
