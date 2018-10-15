@@ -1,5 +1,5 @@
 import { PlayableIdiom } from "../methods/createPlayableIdiom";
-import mockFetchIdiom, { idiom, titles } from '../__mocks__/createPlayableIdiom';
+import mockFetchIdiom, { outputIdiom, titles } from '../__mocks__/createPlayableIdiom';
 import store from '../../store';
 
 const mockedPlayableIdiom = new PlayableIdiom(mockFetchIdiom);
@@ -28,5 +28,14 @@ describe("test getRandomTitle", () => {
     const spy = jest.spyOn(mockedPlayableIdiom, "getRandomTitle");
     mockedCreateIdiom();
     expect(spy).toHaveBeenCalledWith(titles);
+  })
+});
+
+describe("test creating playable idiom", () => {
+  it("should resolve to object of specified definition and title", () => {
+    expect(mockedCreateIdiom()).resolves.toBe(outputIdiom)
+  });
+  it("should be an asynchronous function", () => {
+    expect(mockedCreateIdiom() instanceof Promise).toBeTruthy();
   })
 })

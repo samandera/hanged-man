@@ -2,11 +2,8 @@ import handleResponse from "./handleResponse";
 import { SET_LOADING_MESSAGE, SET_WORD } from '../reducers/actionTypes';
 
 const fetchIdiom = (lang, title) => {
-  const url = `https://${lang}.wiktionary.org/w/api.php?action=parse&format=json&page=${title}`;
-  //const url = `https://${lang}.wiktionary.org/w/api.php?action=parse&format=json&page=grind down`;
-  //const url = `https://${lang}.wiktionary.org/w/api.php?action=parse&format=json&page=of an`;
-  //const url = `https://${lang}.wiktionary.org/w/api.php?action=parse&format=json&page=pipe`;
-  //const url = `https://${lang}.wiktionary.org/w/api.php?action=parse&format=json&page=snap judgment`
+  //const url = `https://${lang}.wiktionary.org/w/api.php?action=parse&format=json&page=${title}`;
+  const url = `https://${lang}.wiktionary.org/w/api.php?action=parse&format=json&page=a into g`;
   return fetch( url, {method: 'get'} )
   .then(response => handleResponse(response, "idiom page"))
   .catch(error => {console.log(error.message)})

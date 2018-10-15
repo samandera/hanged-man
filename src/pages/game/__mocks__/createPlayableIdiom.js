@@ -1,5 +1,5 @@
 const mockFetchIdiom = (lang, title) => {
-  return Promise.resolve(idiom);
+  return Promise.resolve(inputIdiom);
 }
 
 export const titles = ["10 Downing Street", "11 Downing Street", "110 proof",
@@ -8,7 +8,14 @@ export const titles = ["10 Downing Street", "11 Downing Street", "110 proof",
   "a cold day in July", "a day late and a dollar short", "a good deal",
   "a great deal", "a hair's breadth", "a hundred and ten percent", "a into g"];
 
-export const idiom = {
+export const outputIdiom = {
+  definitions: [
+    "(idiomatic,&#32;euphemistic) Abbreviation of arse into gear (English) or ass into gear (American).↵"
+  ],
+  title: "a into g"
+}
+
+export const inputIdiom = {
   "parse":{
     "title":"a into g",
     "pageid":94342,
