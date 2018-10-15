@@ -1,5 +1,7 @@
 import { PlayableIdiom } from "../methods/createPlayableIdiom";
-import mockFetchIdiom, { inputIdiom, outputIdiom, titles } from '../__mocks__/createPlayableIdiom';
+import mockFetchIdiom, {
+  inputIdiom, outputIdiom, titles, initialDefinition, extractedDefinitions
+} from '../__mocks__/createPlayableIdiom';
 import store from '../../store';
 
 const mockedPlayableIdiom = new PlayableIdiom(mockFetchIdiom);
@@ -48,5 +50,17 @@ describe("test setting idiom data", () => {
   it("should be an asynchronous function", () => {
     expect(mockedPlayableIdiom.setIdiomData(store.dispatch, "en", inputIdiom) instanceof Promise)
     .toBeTruthy();
+  })
+});
+
+describe("test extracting definition from returned HTML tree", () => {
+  let extracted = mockedPlayableIdiom.extractDefinitions(initialDefinition, "en")
+  it("should return content inside <ol></ol> tags", () => {
+    expect(extracted)
+    .toEqual(extractedDefinitions)
+  })
+  it("should be an Array", () => {
+    expect(extracted instanceof  Array)
+    .toBeTruthy()
   })
 })
