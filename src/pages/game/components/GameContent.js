@@ -10,23 +10,13 @@ const mapStateToProps = (store) => {
   }
 }
 
-const renderPuzzleContent = (word) => {
-  if (word.length > 0) {
-    return (
-      <div className="ratio-content primary-content">
-        <MissedCharacters/>
-        <Puzzle/>
-      </div>
-    )
-  }
-}
-
 class MainContent extends React.Component {
 
   render() {
     return (
-      <div className="ratio-content primary-content">
-        {renderPuzzleContent(this.props.word)}
+      <div className="game-content">
+        <MissedCharacters/>
+        <Puzzle/>
       </div>
     );
   }

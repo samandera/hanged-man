@@ -4,7 +4,7 @@ import loadIdiom from './methods/loadIdiom';
 import handleKeyPress from './methods/handleKeyPress';
 import Hangedman from './components/Hangedman';
 import Container from '../../components/Container';
-import MainContent from './components/MainContent';
+import GameContent from './components/GameContent';
 import EndGame from './components/EndGame';
 import LoadingIdiom from './components/LoadingIdiom';
 
@@ -12,7 +12,9 @@ const mapDispatchToProps = dispatch => ({
   loadIdiom: (lang) => {loadIdiom(dispatch, lang)}
 });
 const mapStateToProps = state => ({
-  IdiomIsLoading: state.flags.loadIdiom
+  IdiomIsLoading: state.flags.loadIdiom,
+  word: state.wordState.word,
+  showEndGame: state.messageText.showEndGame
 })
 
 class Game extends React.Component {
@@ -24,13 +26,17 @@ class Game extends React.Component {
 
 
   render() {
+    const currentView = (() => {
+      if (this.props.IdiomIsLoading) {return (<LoadingIdiom/>)}
+      else if (this.props.showEndGame) {return (<EndGame/>)}
+      else if (this.props.word.length > 0) {return (<GameContent/>)}
+      return (<LoadingIdiom/>)
+    })()
     return (
       <div className="game">
         <Hangedman/>
         <Container>
-          <EndGame/>
-          <MainContent/>
-          {this.props.IdiomIsLoading && <LoadingIdiom/>}
+          {currentView}
         </Container>
       </div>
     );

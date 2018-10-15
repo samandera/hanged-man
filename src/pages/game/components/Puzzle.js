@@ -14,7 +14,7 @@ const renderLetters = (phrase) => {
       <div key={`word ${index}`} className="word">
         {word.map( (letterObj, index) => {
           return(
-              <div key={`letter ${index}`} id={`letter ${index}`}>
+              <div className="letter" key={`letter ${index}`} id={`letter ${index}`}>
                 {letterObj.visible ? letterObj.letter : ''}
               </div>
           )
