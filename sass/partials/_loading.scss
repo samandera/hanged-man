@@ -1,0 +1,20 @@
+.loading-idiom {
+  height:400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+    padding: 80px 0;
+  .css-hzw9k3 {
+    & > * {
+      border-color: green;
+    }
+  }
+  .currenly-loading {
+    width:100%;
+    text-align: center;
+    color:green;
+    font-size:20px;
+  }
+}
