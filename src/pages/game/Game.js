@@ -14,7 +14,8 @@ const mapDispatchToProps = dispatch => ({
 const mapStateToProps = state => ({
   IdiomIsLoading: state.flags.loadIdiom,
   word: state.wordState.word,
-  showEndGame: state.messageText.showEndGame
+  showEndGame: state.messageText.showEndGame,
+  hangedman: state.handleHangedman.hangedman
 })
 
 class Game extends React.Component {
