@@ -9145,17 +9145,21 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
 
 var showEndGame = function showEndGame(phrase, missedLetters, hangedman) {
-  var steps = 11;
   var unvisibles = [];
   phrase.forEach(function (word) {
     unvisibles.push.apply(unvisibles, _toConsumableArray(word.map(function (letter) {
       return letter.visible;
     })));
   });
+  var firstHiddenElement = hangedman.findIndex(function (el) {
+    if (!el.visible) {
+      return el;
+    }
+  });
   var won = unvisibles.find(function (el) {
     return el === false;
   }) === undefined;
-  var lost = missedLetters.length === steps;
+  var lost = firstHiddenElement === -1;
   var endGameStatus = { won: won, lost: lost };
 
   __WEBPACK_IMPORTED_MODULE_0__store__["a" /* default */].dispatch({
@@ -9174,7 +9178,7 @@ var showEndGame = function showEndGame(phrase, missedLetters, hangedman) {
   };
 };
 
-var handleKeyPress = function handleKeyPress(pressedKey, hangedman) {
+var handleKeyPress = function handleKeyPress(pressedKey) {
   var state = __WEBPACK_IMPORTED_MODULE_0__store__["a" /* default */].getState();
   __WEBPACK_IMPORTED_MODULE_0__store__["a" /* default */].dispatch({
     lettersProps: {
@@ -9193,7 +9197,7 @@ var handleKeyPress = function handleKeyPress(pressedKey, hangedman) {
     type: __WEBPACK_IMPORTED_MODULE_1__reducers_actionTypes__["f" /* SET_WINNING_LETTERS */]
   });
   state = __WEBPACK_IMPORTED_MODULE_0__store__["a" /* default */].getState();
-  showEndGame(state.wordState.word, state.missedLettersState.missedLetters, hangedman);
+  showEndGame(state.wordState.word, state.missedLettersState.missedLetters, state.missedLettersState.hangedman);
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (handleKeyPress);
@@ -15543,24 +15547,22 @@ var Game = function (_React$Component) {
   _createClass(Game, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      var _this2 = this;
-
       this.props.loadIdiom("en");
       window.onkeydown = function () {
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__methods_handleKeyPress__["a" /* default */])(String.fromCharCode(event.keyCode), _this2.props.hangedman);
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__methods_handleKeyPress__["a" /* default */])(String.fromCharCode(event.keyCode));
       };
     }
   }, {
     key: 'render',
     value: function render() {
-      var _this3 = this;
+      var _this2 = this;
 
       var currentView = function () {
-        if (_this3.props.IdiomIsLoading) {
+        if (_this2.props.IdiomIsLoading) {
           return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8__components_LoadingIdiom__["a" /* default */], null);
-        } else if (_this3.props.showEndGame) {
+        } else if (_this2.props.showEndGame) {
           return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__components_EndGame__["a" /* default */], null);
-        } else if (_this3.props.word.length > 0) {
+        } else if (_this2.props.word.length > 0) {
           return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_6__components_GameContent__["a" /* default */], null);
         }
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8__components_LoadingIdiom__["a" /* default */], null);
