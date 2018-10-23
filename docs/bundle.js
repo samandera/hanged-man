@@ -2335,15 +2335,15 @@ module.exports = ReactComponentTreeHook;
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return SET_WORD; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return SET_WINNING_LETTERS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SET_MESSAGE; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return SHOW_END_GAME; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return SET_MESSAGE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return SHOW_END_GAME; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return SET_MISSED_LETTERS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return RESET_MISSED_LETTERS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return RESET_MISSED_LETTERS; });
 /* unused harmony export SET_PLAYED_WORDS */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return LOAD_IDIOM; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return SET_LOADING_MESSAGE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return SET_DEFINITION; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return RESET_DEFINITIONS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RESET_DEFINITIONS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return UPDATE_HANGEDMAN; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return RESET_HANGEDMAN; });
 var SET_WORD = 'SET_WORD';
@@ -9164,12 +9164,12 @@ var showEndGame = function showEndGame(phrase, missedLetters, hangedman) {
 
   __WEBPACK_IMPORTED_MODULE_0__store__["a" /* default */].dispatch({
     showEndGame: endGameStatus,
-    type: __WEBPACK_IMPORTED_MODULE_1__reducers_actionTypes__["a" /* SET_MESSAGE */]
+    type: __WEBPACK_IMPORTED_MODULE_1__reducers_actionTypes__["b" /* SET_MESSAGE */]
   });
 
   __WEBPACK_IMPORTED_MODULE_0__store__["a" /* default */].dispatch({
     showEndGame: endGameStatus,
-    type: __WEBPACK_IMPORTED_MODULE_1__reducers_actionTypes__["b" /* SHOW_END_GAME */]
+    type: __WEBPACK_IMPORTED_MODULE_1__reducers_actionTypes__["c" /* SHOW_END_GAME */]
   });
   var state = __WEBPACK_IMPORTED_MODULE_0__store__["a" /* default */].getState();
 
@@ -16287,11 +16287,11 @@ var resetStateOnEndGame = function resetStateOnEndGame(dispatch, lang) {
     won: false,
     lost: false
   };
+  dispatch({ type: __WEBPACK_IMPORTED_MODULE_1__reducers_actionTypes__["a" /* RESET_DEFINITIONS */] });
   __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__loadIdiom__["a" /* default */])(dispatch, lang).then(function () {
-    dispatch({ showEndGame: endGameStatus, type: __WEBPACK_IMPORTED_MODULE_1__reducers_actionTypes__["a" /* SET_MESSAGE */] });
-    dispatch({ showEndGame: endGameStatus, type: __WEBPACK_IMPORTED_MODULE_1__reducers_actionTypes__["b" /* SHOW_END_GAME */] });
-    dispatch({ type: __WEBPACK_IMPORTED_MODULE_1__reducers_actionTypes__["c" /* RESET_MISSED_LETTERS */] });
-    dispatch({ type: __WEBPACK_IMPORTED_MODULE_1__reducers_actionTypes__["d" /* RESET_DEFINITIONS */] });
+    dispatch({ showEndGame: endGameStatus, type: __WEBPACK_IMPORTED_MODULE_1__reducers_actionTypes__["b" /* SET_MESSAGE */] });
+    dispatch({ showEndGame: endGameStatus, type: __WEBPACK_IMPORTED_MODULE_1__reducers_actionTypes__["c" /* SHOW_END_GAME */] });
+    dispatch({ type: __WEBPACK_IMPORTED_MODULE_1__reducers_actionTypes__["d" /* RESET_MISSED_LETTERS */] });
     window.onkeydown = function () {
       __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__handleKeyPress__["a" /* default */])(String.fromCharCode(event.keyCode));
     };
@@ -16320,7 +16320,7 @@ var handleDefinitions = function handleDefinitions() {
   switch (action.type) {
     case __WEBPACK_IMPORTED_MODULE_0__actionTypes__["j" /* SET_DEFINITION */]:
       return Object.assign({}, state, { definitions: action.definitions });
-    case __WEBPACK_IMPORTED_MODULE_0__actionTypes__["d" /* RESET_DEFINITIONS */]:
+    case __WEBPACK_IMPORTED_MODULE_0__actionTypes__["a" /* RESET_DEFINITIONS */]:
       return Object.assign({}, state, { definitions: [] });
     default:
       return state;
@@ -16453,7 +16453,7 @@ var setMissedLetters = function setMissedLetters() {
   switch (action.type) {
     case __WEBPACK_IMPORTED_MODULE_0__actionTypes__["e" /* SET_MISSED_LETTERS */]:
       return Object.assign({}, state, handleMissedLetters(action.lettersProps));
-    case __WEBPACK_IMPORTED_MODULE_0__actionTypes__["c" /* RESET_MISSED_LETTERS */]:
+    case __WEBPACK_IMPORTED_MODULE_0__actionTypes__["d" /* RESET_MISSED_LETTERS */]:
       return Object.assign({}, state, { missedLetters: [] });
     case __WEBPACK_IMPORTED_MODULE_0__actionTypes__["k" /* UPDATE_HANGEDMAN */]:
       return Object.assign({}, state, updateHangedman(action.hangedman));
@@ -16583,9 +16583,9 @@ var setEndGameState = function setEndGameState() {
   var action = arguments[1];
 
   switch (action.type) {
-    case __WEBPACK_IMPORTED_MODULE_0__actionTypes__["a" /* SET_MESSAGE */]:
+    case __WEBPACK_IMPORTED_MODULE_0__actionTypes__["b" /* SET_MESSAGE */]:
       return Object.assign({}, state, setMessageTxt(action.showEndGame));
-    case __WEBPACK_IMPORTED_MODULE_0__actionTypes__["b" /* SHOW_END_GAME */]:
+    case __WEBPACK_IMPORTED_MODULE_0__actionTypes__["c" /* SHOW_END_GAME */]:
       return Object.assign({}, state, { showEndGame: action.showEndGame.won || action.showEndGame.lost });
   }
   return state;

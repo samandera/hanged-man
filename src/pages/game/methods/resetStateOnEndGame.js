@@ -11,11 +11,11 @@ const resetStateOnEndGame = (dispatch, lang) => {
     won:false,
     lost:false
   };
+  dispatch ({ type: RESET_DEFINITIONS });
   loadIdiom(dispatch, lang).then(() => {
     dispatch({ showEndGame: endGameStatus, type: SET_MESSAGE });
     dispatch({ showEndGame: endGameStatus, type: SHOW_END_GAME });
     dispatch ({ type: RESET_MISSED_LETTERS });
-    dispatch ({ type: RESET_DEFINITIONS });
     window.onkeydown = () => {handleKeyPress(String.fromCharCode(event.keyCode))};
   });
 }
