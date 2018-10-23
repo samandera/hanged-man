@@ -15,7 +15,7 @@ const mapStateToProps = state => ({
   IdiomIsLoading: state.flags.loadIdiom,
   word: state.wordState.word,
   showEndGame: state.messageText.showEndGame,
-  hangedman: state.handleHangedman.hangedman
+  hangedman: state.missedLettersState.hangedman
 })
 
 class Game extends React.Component {

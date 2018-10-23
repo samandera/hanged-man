@@ -9183,7 +9183,8 @@ var handleKeyPress = function handleKeyPress(pressedKey, hangedman) {
     lettersProps: {
       word: state.wordState.word,
       pressedKey: pressedKey,
-      missedLetters: state.missedLettersState.missedLetters
+      missedLetters: state.missedLettersState.missedLetters,
+      hangedman: state.missedLettersState.hangedman
     },
     type: __WEBPACK_IMPORTED_MODULE_1__reducers_actionTypes__["e" /* SET_MISSED_LETTERS */]
   });
@@ -15529,7 +15530,7 @@ var mapStateToProps = function mapStateToProps(state) {
     IdiomIsLoading: state.flags.loadIdiom,
     word: state.wordState.word,
     showEndGame: state.messageText.showEndGame,
-    hangedman: state.handleHangedman.hangedman
+    hangedman: state.missedLettersState.hangedman
   };
 };
 
@@ -15787,7 +15788,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    hangedman: state.handleHangedman.hangedman
+    hangedman: state.missedLettersState.hangedman
   };
 };
 
@@ -15803,6 +15804,8 @@ var Hangedman = function (_React$Component) {
   _createClass(Hangedman, [{
     key: 'render',
     value: function render() {
+      console.log('hangedman component');
+      console.log(this.props.hangedman);
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
         { className: 'hangedman' },
@@ -16426,31 +16429,41 @@ var setLoading = function setLoading() {
 "use strict";
 /* unused harmony export initialMissedLettersState */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__actionTypes__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__config_hangedmanParts__ = __webpack_require__(417);
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+
 
 
 var initialMissedLettersState = {
   word: [],
   missedLetters: [],
   pressedKey: '',
-  hangedman: [{ bodyPart: 'tree', visible: false }, { bodyPart: 'left-calf', visible: false }, { bodyPart: 'right-calf', visible: false }, { bodyPart: 'right-thigh', visible: false }, { bodyPart: 'left-thigh', visible: false }, { bodyPart: 'corpse', visible: false }, { bodyPart: 'head', visible: false }, { bodyPart: 'hair', visible: false }, { bodyPart: 'left-arm', visible: false }, { bodyPart: 'right-arm', visible: false }]
+  hangedman: __WEBPACK_IMPORTED_MODULE_1__config_hangedmanParts__["a" /* default */]
 };
 
-var updateHangedman = function updateHangedman(hangedmanState) {
-  var firstHiddenElement = hangedmanState.find(function (el, i) {
+var updateHangedman = function updateHangedman(hangedman) {
+  var firstHiddenElement = hangedman.findIndex(function (el) {
     if (!el.visible) {
-      return i++;
+      return el;
     }
   });
-  if (firstHiddenElement !== undefined && firstHiddenElement < hangedmanState.length) {
-    hangedmanState[firstHiddenElement].visible = true;
+  console.log('firstHiddenElement ' + firstHiddenElement);
+  console.log('hangedman before');
+  console.log(hangedman);
+  if (firstHiddenElement >= 0 && firstHiddenElement < hangedman.length) {
+    hangedman[firstHiddenElement].visible = true;
   }
-  return { hangedman: hangedmanState };
+  console.log('hangedman after');
+  console.log(hangedman);
+  return hangedman;
 };
 
-var handleMissedLetters = function handleMissedLetters(lettersProps, hangedman) {
+var handleMissedLetters = function handleMissedLetters(lettersProps) {
   var word = lettersProps.word,
       missedLetters = lettersProps.missedLetters,
-      pressedKey = lettersProps.pressedKey;
+      pressedKey = lettersProps.pressedKey,
+      hangedman = lettersProps.hangedman;
 
   var missedLetterWasPressed = function missedLetterWasPressed(word, pressedKey) {
     var hasLetter = word.find(function (element) {
@@ -16464,14 +16477,21 @@ var handleMissedLetters = function handleMissedLetters(lettersProps, hangedman) 
     return hasLetter === undefined && /^[a-zA-Z]$/.test(pressedKey);
   };
 
+  var newMissedLetters = missedLetters;
+
   if (missedLetterWasPressed(word, pressedKey)) {
     missedLetters.push(pressedKey);
-    missedLetters = missedLetters.filter(function (elem, index, self) {
+    newMissedLetters = missedLetters.filter(function (elem, index, self) {
       return index == self.indexOf(elem);
     });
+    if (newMissedLetters.length === missedLetters.length && newMissedLetters.length > 0) {
+      console.log('missedLetters');
+      console.log(hangedman);
+      hangedman = new (Function.prototype.bind.apply(Array, [null].concat(_toConsumableArray(updateHangedman(hangedman)))))();
+    };
   }
 
-  return { missedLetters: missedLetters };
+  return { missedLetters: newMissedLetters, hangedman: hangedman };
 };
 
 var setMissedLetters = function setMissedLetters() {
@@ -16480,11 +16500,16 @@ var setMissedLetters = function setMissedLetters() {
 
   switch (action.type) {
     case __WEBPACK_IMPORTED_MODULE_0__actionTypes__["e" /* SET_MISSED_LETTERS */]:
-      return Object.assign({}, state, handleMissedLetters(action.lettersProps, action.hangedman));
+      return Object.assign({}, state, handleMissedLetters(action.lettersProps));
     case __WEBPACK_IMPORTED_MODULE_0__actionTypes__["c" /* RESET_MISSED_LETTERS */]:
       return Object.assign({}, state, { missedLetters: [] });
+    case __WEBPACK_IMPORTED_MODULE_0__actionTypes__["k" /* UPDATE_HANGEDMAN */]:
+      return Object.assign({}, state, updateHangedman(action.hangedman));
+    case __WEBPACK_IMPORTED_MODULE_0__actionTypes__["l" /* RESET_HANGEDMAN */]:
+      return Object.assign({}, state, initialState);
+    default:
+      return state;
   }
-  return state;
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (setMissedLetters);
@@ -38127,6 +38152,13 @@ module.exports = function(module) {
 
 module.exports = __webpack_require__(168);
 
+
+/***/ }),
+/* 417 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = ([{ bodyPart: 'tree', visible: false }, { bodyPart: 'left-calf', visible: false }, { bodyPart: 'right-calf', visible: false }, { bodyPart: 'right-thigh', visible: false }, { bodyPart: 'left-thigh', visible: false }, { bodyPart: 'corpse', visible: false }, { bodyPart: 'head', visible: false }, { bodyPart: 'hair', visible: false }, { bodyPart: 'left-arm', visible: false }, { bodyPart: 'right-arm', visible: false }]);
 
 /***/ })
 /******/ ]);

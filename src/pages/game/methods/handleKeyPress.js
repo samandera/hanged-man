@@ -1,5 +1,7 @@
 import store from '../../store';
-import {SHOW_END_GAME, SET_MISSED_LETTERS, SET_WINNING_LETTERS, SET_MESSAGE} from '../reducers/actionTypes';
+import {
+  SHOW_END_GAME, SET_MISSED_LETTERS, SET_WINNING_LETTERS, SET_MESSAGE
+} from '../reducers/actionTypes';
 
 const showEndGame = (phrase,missedLetters, hangedman) => {
   const steps = 11;
@@ -31,7 +33,8 @@ const handleKeyPress = (pressedKey, hangedman) => {
     lettersProps: {
       word:state.wordState.word,
       pressedKey,
-      missedLetters: state.missedLettersState.missedLetters
+      missedLetters: state.missedLettersState.missedLetters,
+      hangedman: state.missedLettersState.hangedman
     },
     type: SET_MISSED_LETTERS
   });
