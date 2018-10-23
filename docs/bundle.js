@@ -4409,8 +4409,6 @@ module.exports = reactProdInvariant;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__game_reducers_setFlags__ = __webpack_require__(188);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__game_reducers_setLoading__ = __webpack_require__(189);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__game_reducers_handleDefinitions__ = __webpack_require__(187);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__game_reducers_displayHangedman__ = __webpack_require__(186);
-
 
 
 
@@ -4425,8 +4423,7 @@ var reducers = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_redux__["b" /* 
   messageText: __WEBPACK_IMPORTED_MODULE_3__game_reducers_showEndGame__["a" /* default */],
   flags: __WEBPACK_IMPORTED_MODULE_4__game_reducers_setFlags__["a" /* default */],
   loadingState: __WEBPACK_IMPORTED_MODULE_5__game_reducers_setLoading__["a" /* default */],
-  definitionsState: __WEBPACK_IMPORTED_MODULE_6__game_reducers_handleDefinitions__["a" /* default */],
-  handleHangedman: __WEBPACK_IMPORTED_MODULE_7__game_reducers_displayHangedman__["a" /* default */]
+  definitionsState: __WEBPACK_IMPORTED_MODULE_6__game_reducers_handleDefinitions__["a" /* default */]
 });
 
 var store = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_redux__["c" /* createStore */])(reducers);
@@ -16302,45 +16299,7 @@ var resetStateOnEndGame = function resetStateOnEndGame(dispatch, lang) {
 /* harmony default export */ __webpack_exports__["a"] = (resetStateOnEndGame);
 
 /***/ }),
-/* 186 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__actionTypes__ = __webpack_require__(13);
-
-var initialState = {
-  hangedman: [{ bodyPart: 'tree', visible: false }, { bodyPart: 'left-calf', visible: false }, { bodyPart: 'right-calf', visible: false }, { bodyPart: 'right-thigh', visible: false }, { bodyPart: 'left-thigh', visible: false }, { bodyPart: 'corpse', visible: false }, { bodyPart: 'head', visible: false }, { bodyPart: 'hair', visible: false }, { bodyPart: 'left-arm', visible: false }, { bodyPart: 'right-arm', visible: false }]
-};
-
-var updateHangedman = function updateHangedman(hangedmanState) {
-  var firstHiddenElement = hangedmanState.find(function (el, i) {
-    if (!el.visible) {
-      return i++;
-    }
-  });
-  if (firstHiddenElement !== undefined && firstHiddenElement < hangedmanState.length) {
-    hangedmanState[firstHiddenElement].visible = true;
-  }
-  return { hangedman: hangedmanState };
-};
-
-var displayHangedMan = function displayHangedMan() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
-  var action = arguments[1];
-
-  switch (action.type) {
-    case __WEBPACK_IMPORTED_MODULE_0__actionTypes__["k" /* UPDATE_HANGEDMAN */]:
-      return Object.assign({}, state, updateHangedman(action.hangedman));
-    case __WEBPACK_IMPORTED_MODULE_0__actionTypes__["l" /* RESET_HANGEDMAN */]:
-      return Object.assign({}, state, initialState);
-    default:
-      return state;
-  }
-};
-
-/* harmony default export */ __webpack_exports__["a"] = (displayHangedMan);
-
-/***/ }),
+/* 186 */,
 /* 187 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
