@@ -22,7 +22,10 @@ class Game extends React.Component {
 
   componentDidMount() {
     this.props.loadIdiom("en");
-    window.onkeydown = () => {handleKeyPress(String.fromCharCode(event.keyCode))}
+    window.onkeydown = () => {handleKeyPress(
+      String.fromCharCode(event.keyCode),
+      this.props.hangedman
+    )}
   }
 
 

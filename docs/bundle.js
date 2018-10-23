@@ -15545,22 +15545,24 @@ var Game = function (_React$Component) {
   _createClass(Game, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
+      var _this2 = this;
+
       this.props.loadIdiom("en");
       window.onkeydown = function () {
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__methods_handleKeyPress__["a" /* default */])(String.fromCharCode(event.keyCode));
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__methods_handleKeyPress__["a" /* default */])(String.fromCharCode(event.keyCode), _this2.props.hangedman);
       };
     }
   }, {
     key: 'render',
     value: function render() {
-      var _this2 = this;
+      var _this3 = this;
 
       var currentView = function () {
-        if (_this2.props.IdiomIsLoading) {
+        if (_this3.props.IdiomIsLoading) {
           return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8__components_LoadingIdiom__["a" /* default */], null);
-        } else if (_this2.props.showEndGame) {
+        } else if (_this3.props.showEndGame) {
           return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__components_EndGame__["a" /* default */], null);
-        } else if (_this2.props.word.length > 0) {
+        } else if (_this3.props.word.length > 0) {
           return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_6__components_GameContent__["a" /* default */], null);
         }
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8__components_LoadingIdiom__["a" /* default */], null);
@@ -16429,10 +16431,23 @@ var setLoading = function setLoading() {
 var initialMissedLettersState = {
   word: [],
   missedLetters: [],
-  pressedKey: ''
+  pressedKey: '',
+  hangedman: [{ bodyPart: 'tree', visible: false }, { bodyPart: 'left-calf', visible: false }, { bodyPart: 'right-calf', visible: false }, { bodyPart: 'right-thigh', visible: false }, { bodyPart: 'left-thigh', visible: false }, { bodyPart: 'corpse', visible: false }, { bodyPart: 'head', visible: false }, { bodyPart: 'hair', visible: false }, { bodyPart: 'left-arm', visible: false }, { bodyPart: 'right-arm', visible: false }]
 };
 
-var handleMissedLetters = function handleMissedLetters(lettersProps) {
+var updateHangedman = function updateHangedman(hangedmanState) {
+  var firstHiddenElement = hangedmanState.find(function (el, i) {
+    if (!el.visible) {
+      return i++;
+    }
+  });
+  if (firstHiddenElement !== undefined && firstHiddenElement < hangedmanState.length) {
+    hangedmanState[firstHiddenElement].visible = true;
+  }
+  return { hangedman: hangedmanState };
+};
+
+var handleMissedLetters = function handleMissedLetters(lettersProps, hangedman) {
   var word = lettersProps.word,
       missedLetters = lettersProps.missedLetters,
       pressedKey = lettersProps.pressedKey;
@@ -16465,7 +16480,7 @@ var setMissedLetters = function setMissedLetters() {
 
   switch (action.type) {
     case __WEBPACK_IMPORTED_MODULE_0__actionTypes__["e" /* SET_MISSED_LETTERS */]:
-      return Object.assign({}, state, handleMissedLetters(action.lettersProps));
+      return Object.assign({}, state, handleMissedLetters(action.lettersProps, action.hangedman));
     case __WEBPACK_IMPORTED_MODULE_0__actionTypes__["c" /* RESET_MISSED_LETTERS */]:
       return Object.assign({}, state, { missedLetters: [] });
   }
