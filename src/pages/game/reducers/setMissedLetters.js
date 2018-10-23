@@ -12,14 +12,9 @@ const updateHangedman = hangedman => {
   const firstHiddenElement = hangedman.findIndex((el) => {
     if (!el.visible) {return el}
   });
-  console.log(`firstHiddenElement ${firstHiddenElement}`);
-  console.log('hangedman before');
-  console.log(hangedman);
   if (firstHiddenElement >= 0 && firstHiddenElement < hangedman.length) {
     hangedman[firstHiddenElement].visible = true;
   }
-  console.log('hangedman after');
-  console.log(hangedman);
   return hangedman
 }
 
@@ -46,8 +41,6 @@ const handleMissedLetters = (lettersProps) => {
       return index == self.indexOf(elem);
     });
     if (newMissedLetters.length === missedLetters.length && newMissedLetters.length > 0) {
-      console.log('missedLetters');
-      console.log(hangedman);
       hangedman = new Array(...updateHangedman(hangedman));
     };
   }

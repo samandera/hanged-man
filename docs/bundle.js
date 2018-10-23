@@ -15804,8 +15804,6 @@ var Hangedman = function (_React$Component) {
   _createClass(Hangedman, [{
     key: 'render',
     value: function render() {
-      console.log('hangedman component');
-      console.log(this.props.hangedman);
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
         { className: 'hangedman' },
@@ -16448,14 +16446,9 @@ var updateHangedman = function updateHangedman(hangedman) {
       return el;
     }
   });
-  console.log('firstHiddenElement ' + firstHiddenElement);
-  console.log('hangedman before');
-  console.log(hangedman);
   if (firstHiddenElement >= 0 && firstHiddenElement < hangedman.length) {
     hangedman[firstHiddenElement].visible = true;
   }
-  console.log('hangedman after');
-  console.log(hangedman);
   return hangedman;
 };
 
@@ -16485,8 +16478,6 @@ var handleMissedLetters = function handleMissedLetters(lettersProps) {
       return index == self.indexOf(elem);
     });
     if (newMissedLetters.length === missedLetters.length && newMissedLetters.length > 0) {
-      console.log('missedLetters');
-      console.log(hangedman);
       hangedman = new (Function.prototype.bind.apply(Array, [null].concat(_toConsumableArray(updateHangedman(hangedman)))))();
     };
   }

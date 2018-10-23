@@ -7,8 +7,6 @@ const mapStateToProps = state => ({
 
 class Hangedman extends React.Component {
   render() {
-    console.log('hangedman component');
-    console.log(this.props.hangedman);
     return (
       <div className="hangedman">
         {this.props.hangedman.map(hangedman => {
