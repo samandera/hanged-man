@@ -48,6 +48,14 @@ const handleMissedLetters = (lettersProps) => {
   return {missedLetters: newMissedLetters, hangedman};
 }
 
+const resetHangedman = () => {
+  const hangedman = initialMissedLettersState.hangedman.map(el => {
+    el.visible = false;
+    return el;
+  });
+  return {hangedman}
+}
+
 
 const setMissedLetters = (state = initialMissedLettersState, action) => {
   switch(action.type) {
@@ -56,7 +64,7 @@ const setMissedLetters = (state = initialMissedLettersState, action) => {
   );
     case RESET_MISSED_LETTERS: return Object.assign({}, state, {missedLetters: []});
     case UPDATE_HANGEDMAN: return Object.assign({}, state, updateHangedman(action.hangedman));
-    case RESET_HANGEDMAN: return Object.assign({}, state, initialState);
+    case RESET_HANGEDMAN: return Object.assign({}, state, resetHangedman());
     default: return state;
   }
 

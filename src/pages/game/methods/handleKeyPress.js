@@ -3,7 +3,7 @@ import {
   SHOW_END_GAME, SET_MISSED_LETTERS, SET_WINNING_LETTERS, SET_MESSAGE
 } from '../reducers/actionTypes';
 
-const showEndGame = (phrase,missedLetters, hangedman) => {
+const showEndGame = (phrase, hangedman) => {
   let unvisibles = [];
   phrase.forEach(word => {
     unvisibles.push(...word.map(letter => (letter.visible)))
@@ -26,7 +26,9 @@ const showEndGame = (phrase,missedLetters, hangedman) => {
   })
   const state = store.getState();
 
-  window.onkeydown = state.messageText.showEndGame ? '' : () => {handleKeyPress(String.fromCharCode(event.keyCode))};
+  window.onkeydown = state.messageText.showEndGame ? '' : () => {
+    handleKeyPress(String.fromCharCode(event.keyCode))
+  };
 }
 
 const handleKeyPress = (pressedKey) => {
@@ -48,7 +50,7 @@ const handleKeyPress = (pressedKey) => {
     type: SET_WINNING_LETTERS
   });
   state = store.getState();
-  showEndGame(state.wordState.word,state.missedLettersState.missedLetters, state.missedLettersState.hangedman);
+  showEndGame(state.wordState.word, state.missedLettersState.hangedman);
 };
 
 export default handleKeyPress;

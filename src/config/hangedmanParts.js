@@ -1,4 +1,4 @@
-export default [
+const hangedmanParts = [
   {bodyPart: 'tree', visible: false},
   {bodyPart: 'left-calf', visible: false},
   {bodyPart: 'right-calf', visible: false},
@@ -10,3 +10,5 @@ export default [
   {bodyPart: 'left-arm', visible: false},
   {bodyPart: 'right-arm', visible: false}
 ];
+
+export default hangedmanParts;

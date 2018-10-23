@@ -2333,19 +2333,19 @@ module.exports = ReactComponentTreeHook;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return SET_WORD; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return SET_WINNING_LETTERS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return SET_WORD; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return SET_WINNING_LETTERS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return SET_MESSAGE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return SHOW_END_GAME; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return SET_MISSED_LETTERS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return SET_MISSED_LETTERS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return RESET_MISSED_LETTERS; });
 /* unused harmony export SET_PLAYED_WORDS */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return LOAD_IDIOM; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return SET_LOADING_MESSAGE; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return SET_DEFINITION; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return LOAD_IDIOM; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return SET_LOADING_MESSAGE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return SET_DEFINITION; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RESET_DEFINITIONS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return UPDATE_HANGEDMAN; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return RESET_HANGEDMAN; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return UPDATE_HANGEDMAN; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return RESET_HANGEDMAN; });
 var SET_WORD = 'SET_WORD';
 var SET_WINNING_LETTERS = 'SET_WINNING_LETTERS';
 var SET_MESSAGE = 'SET_MESSAGE';
@@ -9144,7 +9144,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
 
 
-var showEndGame = function showEndGame(phrase, missedLetters, hangedman) {
+var showEndGame = function showEndGame(phrase, hangedman) {
   var unvisibles = [];
   phrase.forEach(function (word) {
     unvisibles.push.apply(unvisibles, _toConsumableArray(word.map(function (letter) {
@@ -9187,17 +9187,17 @@ var handleKeyPress = function handleKeyPress(pressedKey) {
       missedLetters: state.missedLettersState.missedLetters,
       hangedman: state.missedLettersState.hangedman
     },
-    type: __WEBPACK_IMPORTED_MODULE_1__reducers_actionTypes__["e" /* SET_MISSED_LETTERS */]
+    type: __WEBPACK_IMPORTED_MODULE_1__reducers_actionTypes__["f" /* SET_MISSED_LETTERS */]
   });
   __WEBPACK_IMPORTED_MODULE_0__store__["a" /* default */].dispatch({
     wordProps: {
       word: state.wordState.word,
       pressedKey: pressedKey
     },
-    type: __WEBPACK_IMPORTED_MODULE_1__reducers_actionTypes__["f" /* SET_WINNING_LETTERS */]
+    type: __WEBPACK_IMPORTED_MODULE_1__reducers_actionTypes__["g" /* SET_WINNING_LETTERS */]
   });
   state = __WEBPACK_IMPORTED_MODULE_0__store__["a" /* default */].getState();
-  showEndGame(state.wordState.word, state.missedLettersState.missedLetters, state.missedLettersState.hangedman);
+  showEndGame(state.wordState.word, state.missedLettersState.hangedman);
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (handleKeyPress);
@@ -9231,11 +9231,11 @@ var handleResponse = function handleResponse(response, fetchingSubject) {
 var loadIdiom = function loadIdiom(dispatch, lang) {
   var fetchIdiomsArray = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : __WEBPACK_IMPORTED_MODULE_1__makeIdiomsIndexesArray__["a" /* indexArrayMethods */].fetchIdiomsIndexesList;
 
-  dispatch({ type: __WEBPACK_IMPORTED_MODULE_0__reducers_actionTypes__["g" /* LOAD_IDIOM */], loadIdiom: true });
+  dispatch({ type: __WEBPACK_IMPORTED_MODULE_0__reducers_actionTypes__["h" /* LOAD_IDIOM */], loadIdiom: true });
   return __WEBPACK_IMPORTED_MODULE_1__makeIdiomsIndexesArray__["a" /* indexArrayMethods */].makeIdiomsIndexesArray(dispatch, lang, fetchIdiomsArray).then(function (titles) {
     return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__createPlayableIdiom__["a" /* default */])(dispatch, lang, titles);
   }).then(function () {
-    return dispatch({ type: __WEBPACK_IMPORTED_MODULE_0__reducers_actionTypes__["g" /* LOAD_IDIOM */], loadIdiom: false });
+    return dispatch({ type: __WEBPACK_IMPORTED_MODULE_0__reducers_actionTypes__["h" /* LOAD_IDIOM */], loadIdiom: false });
   });
 };
 
@@ -16048,7 +16048,7 @@ var PlayableIdiom = function PlayableIdiom(fetchFunction) {
 
   this.create = function (dispatch, lang, titles) {
     dispatch({
-      type: __WEBPACK_IMPORTED_MODULE_1__reducers_actionTypes__["h" /* SET_LOADING_MESSAGE */],
+      type: __WEBPACK_IMPORTED_MODULE_1__reducers_actionTypes__["i" /* SET_LOADING_MESSAGE */],
       message: 'Loading playable idiom'
     });
     return _this.getRandomTitle(titles).then(function (title) {
@@ -16075,8 +16075,8 @@ var PlayableIdiom = function PlayableIdiom(fetchFunction) {
     var definitionsWithoutExamples = _this.removeExamplesFromDefinitions(definitionsWithoutCitations);
     var splitDefinitions = _this.extractHigestLevelListItems(definitionsWithoutExamples);
     var definitions = _this.stripFromHTMLelements(splitDefinitions);
-    dispatch({ type: __WEBPACK_IMPORTED_MODULE_1__reducers_actionTypes__["i" /* SET_WORD */], word: title });
-    dispatch({ type: __WEBPACK_IMPORTED_MODULE_1__reducers_actionTypes__["j" /* SET_DEFINITION */], definitions: definitions });
+    dispatch({ type: __WEBPACK_IMPORTED_MODULE_1__reducers_actionTypes__["j" /* SET_WORD */], word: title });
+    dispatch({ type: __WEBPACK_IMPORTED_MODULE_1__reducers_actionTypes__["k" /* SET_DEFINITION */], definitions: definitions });
     return Promise.resolve({ title: title, definitions: definitions });
   };
 
@@ -16219,7 +16219,7 @@ var fetchIdiomsIndexesList = function fetchIdiomsIndexesList(url) {
 
 var singleIndexesQuery = function singleIndexesQuery(dispatch, idiomsLang, fetchingPageNrInfo, titlesData, fetchMethod) {
   dispatch({
-    type: __WEBPACK_IMPORTED_MODULE_0__reducers_actionTypes__["h" /* SET_LOADING_MESSAGE */],
+    type: __WEBPACK_IMPORTED_MODULE_0__reducers_actionTypes__["i" /* SET_LOADING_MESSAGE */],
     message: "Loading idioms's page no. " + fetchingPageNrInfo
   });
   fetchingPageNrInfo++;
@@ -16292,6 +16292,7 @@ var resetStateOnEndGame = function resetStateOnEndGame(dispatch, lang) {
     dispatch({ showEndGame: endGameStatus, type: __WEBPACK_IMPORTED_MODULE_1__reducers_actionTypes__["b" /* SET_MESSAGE */] });
     dispatch({ showEndGame: endGameStatus, type: __WEBPACK_IMPORTED_MODULE_1__reducers_actionTypes__["c" /* SHOW_END_GAME */] });
     dispatch({ type: __WEBPACK_IMPORTED_MODULE_1__reducers_actionTypes__["d" /* RESET_MISSED_LETTERS */] });
+    dispatch({ type: __WEBPACK_IMPORTED_MODULE_1__reducers_actionTypes__["e" /* RESET_HANGEDMAN */] });
     window.onkeydown = function () {
       __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__handleKeyPress__["a" /* default */])(String.fromCharCode(event.keyCode));
     };
@@ -16318,7 +16319,7 @@ var handleDefinitions = function handleDefinitions() {
   var action = arguments[1];
 
   switch (action.type) {
-    case __WEBPACK_IMPORTED_MODULE_0__actionTypes__["j" /* SET_DEFINITION */]:
+    case __WEBPACK_IMPORTED_MODULE_0__actionTypes__["k" /* SET_DEFINITION */]:
       return Object.assign({}, state, { definitions: action.definitions });
     case __WEBPACK_IMPORTED_MODULE_0__actionTypes__["a" /* RESET_DEFINITIONS */]:
       return Object.assign({}, state, { definitions: [] });
@@ -16346,7 +16347,7 @@ var setFlags = function setFlags() {
   var action = arguments[1];
 
   switch (action.type) {
-    case __WEBPACK_IMPORTED_MODULE_0__actionTypes__["g" /* LOAD_IDIOM */]:
+    case __WEBPACK_IMPORTED_MODULE_0__actionTypes__["h" /* LOAD_IDIOM */]:
       return Object.assign({}, state, { loadIdiom: action.loadIdiom });
     default:
       return state;
@@ -16372,7 +16373,7 @@ var setLoading = function setLoading() {
   var action = arguments[1];
 
   switch (action.type) {
-    case __WEBPACK_IMPORTED_MODULE_0__actionTypes__["h" /* SET_LOADING_MESSAGE */]:
+    case __WEBPACK_IMPORTED_MODULE_0__actionTypes__["i" /* SET_LOADING_MESSAGE */]:
       return Object.assign({}, state, { message: action.message });
     default:
       return state;
@@ -16446,19 +16447,27 @@ var handleMissedLetters = function handleMissedLetters(lettersProps) {
   return { missedLetters: newMissedLetters, hangedman: hangedman };
 };
 
+var resetHangedman = function resetHangedman() {
+  var hangedman = initialMissedLettersState.hangedman.map(function (el) {
+    el.visible = false;
+    return el;
+  });
+  return { hangedman: hangedman };
+};
+
 var setMissedLetters = function setMissedLetters() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialMissedLettersState;
   var action = arguments[1];
 
   switch (action.type) {
-    case __WEBPACK_IMPORTED_MODULE_0__actionTypes__["e" /* SET_MISSED_LETTERS */]:
+    case __WEBPACK_IMPORTED_MODULE_0__actionTypes__["f" /* SET_MISSED_LETTERS */]:
       return Object.assign({}, state, handleMissedLetters(action.lettersProps));
     case __WEBPACK_IMPORTED_MODULE_0__actionTypes__["d" /* RESET_MISSED_LETTERS */]:
       return Object.assign({}, state, { missedLetters: [] });
-    case __WEBPACK_IMPORTED_MODULE_0__actionTypes__["k" /* UPDATE_HANGEDMAN */]:
+    case __WEBPACK_IMPORTED_MODULE_0__actionTypes__["l" /* UPDATE_HANGEDMAN */]:
       return Object.assign({}, state, updateHangedman(action.hangedman));
-    case __WEBPACK_IMPORTED_MODULE_0__actionTypes__["l" /* RESET_HANGEDMAN */]:
-      return Object.assign({}, state, initialState);
+    case __WEBPACK_IMPORTED_MODULE_0__actionTypes__["e" /* RESET_HANGEDMAN */]:
+      return Object.assign({}, state, resetHangedman());
     default:
       return state;
   }
@@ -16535,9 +16544,9 @@ var setWord = function setWord() {
   var action = arguments[1];
 
   switch (action.type) {
-    case __WEBPACK_IMPORTED_MODULE_0__actionTypes__["i" /* SET_WORD */]:
+    case __WEBPACK_IMPORTED_MODULE_0__actionTypes__["j" /* SET_WORD */]:
       return Object.assign({}, state, getWord(action.word));
-    case __WEBPACK_IMPORTED_MODULE_0__actionTypes__["f" /* SET_WINNING_LETTERS */]:
+    case __WEBPACK_IMPORTED_MODULE_0__actionTypes__["g" /* SET_WINNING_LETTERS */]:
       return Object.assign({}, state, updateWord(action.wordProps));
   }
   return state;
@@ -38110,7 +38119,9 @@ module.exports = __webpack_require__(168);
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony default export */ __webpack_exports__["a"] = ([{ bodyPart: 'tree', visible: false }, { bodyPart: 'left-calf', visible: false }, { bodyPart: 'right-calf', visible: false }, { bodyPart: 'right-thigh', visible: false }, { bodyPart: 'left-thigh', visible: false }, { bodyPart: 'corpse', visible: false }, { bodyPart: 'head', visible: false }, { bodyPart: 'hair', visible: false }, { bodyPart: 'left-arm', visible: false }, { bodyPart: 'right-arm', visible: false }]);
+var hangedmanParts = [{ bodyPart: 'tree', visible: false }, { bodyPart: 'left-calf', visible: false }, { bodyPart: 'right-calf', visible: false }, { bodyPart: 'right-thigh', visible: false }, { bodyPart: 'left-thigh', visible: false }, { bodyPart: 'corpse', visible: false }, { bodyPart: 'head', visible: false }, { bodyPart: 'hair', visible: false }, { bodyPart: 'left-arm', visible: false }, { bodyPart: 'right-arm', visible: false }];
+
+/* harmony default export */ __webpack_exports__["a"] = (hangedmanParts);
 
 /***/ })
 /******/ ]);
