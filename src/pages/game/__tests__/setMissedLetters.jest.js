@@ -1,6 +1,7 @@
 import setMissedLetters from '../reducers/setMissedLetters';
 import {initialMissedLettersState} from '../reducers/setMissedLetters';
 import {SET_MISSED_LETTERS, RESET_MISSED_LETTERS} from '../reducers/actionTypes';
+import hangedmanParts from '../../../config/hangedmanParts';
 
 
 describe("Handling missed letters reducer", () => {
@@ -15,7 +16,8 @@ describe("Handling missed letters reducer", () => {
               {letter:'B', visible:false}
             ],
             pressedKey: 'C',
-            missedLetters: []
+            missedLetters: [],
+            hangedman: hangedmanParts
           },
           type: SET_MISSED_LETTERS
         }
