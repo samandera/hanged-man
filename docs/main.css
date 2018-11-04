@@ -1,6 +1,6 @@
 @font-face {
   font-family: "Roboto";
-  src: url(/assets/fonts/Roboto-Regular.ttf); }
+  src: url(./assets/fonts/Roboto-Regular.ttf); }
 
 body {
   color: #1c6eb5;
@@ -33,7 +33,7 @@ body {
       height: 25%;
       position: absolute;
       bottom: 0;
-      background: url("/assets/img/grass.svg");
+      background: url("./assets/img/grass.svg");
       background-size: cover;
       background-repeat: no-repeat;
       background-position: top;
@@ -78,34 +78,34 @@ body {
     .hangedman {
       height: 100vh; } }
   .hangedman .tree {
-    background: url("/assets/img/parts/tree.svg");
+    background: url("./assets/img/parts/tree.svg");
     z-index: 0; }
   .hangedman .left-calf {
-    background: url("/assets/img/parts/rope.svg"), url("/assets/img/parts/left-calf.svg");
+    background: url("./assets/img/parts/rope.svg"), url("./assets/img/parts/left-calf.svg");
     z-index: 2; }
   .hangedman .right-calf {
-    background: url("/assets/img/parts/right-calf.svg");
+    background: url("./assets/img/parts/right-calf.svg");
     z-index: 1; }
   .hangedman .right-thigh {
-    background: url("/assets/img/parts/right-thigh.svg");
+    background: url("./assets/img/parts/right-thigh.svg");
     z-index: 3; }
   .hangedman .left-thigh {
-    background: url("/assets/img/parts/left-thigh.svg");
+    background: url("./assets/img/parts/left-thigh.svg");
     z-index: 4; }
   .hangedman .corpse {
-    background: url("/assets/img/parts/corpse.svg");
+    background: url("./assets/img/parts/corpse.svg");
     z-index: 6; }
   .hangedman .head {
-    background: url("/assets/img/parts/head.svg");
+    background: url("./assets/img/parts/head.svg");
     z-index: 5; }
   .hangedman .hair {
-    background: url("/assets/img/parts/hair.svg");
+    background: url("./assets/img/parts/hair.svg");
     z-index: 6; }
   .hangedman .left-arm {
-    background: url("/assets/img/parts/left-arm.svg"), url("/assets/img/parts/left-palm.svg");
+    background: url("./assets/img/parts/left-arm.svg"), url("./assets/img/parts/left-palm.svg");
     z-index: 7; }
   .hangedman .right-arm {
-    background: url("/assets/img/parts/right-arm.svg"), url("/assets/img/parts/right-palm.svg");
+    background: url("./assets/img/parts/right-arm.svg"), url("./assets/img/parts/right-palm.svg");
     z-index: 7; }
   .hangedman .visible {
     visibility: visible; }

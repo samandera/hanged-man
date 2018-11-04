@@ -18,54 +18,54 @@
   z-index: 1;
   .tree {
     @extend %backgroud-settings;
-    background: url('/assets/img/parts/tree.svg');
+    background: url('#{$hangedman-path}/tree.svg');
     z-index:0;
   }
   .left-calf {
     @extend %backgroud-settings;
-    background: url('/assets/img/parts/rope.svg'), url('/assets/img/parts/left-calf.svg');
+    background: url('#{$hangedman-path}/rope.svg'), url('#{$hangedman-path}/left-calf.svg');
     z-index:2;
   }
   .right-calf {
     @extend %backgroud-settings;
-    background: url('/assets/img/parts/right-calf.svg');
+    background: url('#{$hangedman-path}/right-calf.svg');
     z-index:1;
   }
   .right-thigh {
     @extend %backgroud-settings;
-    background: url('/assets/img/parts/right-thigh.svg');
+    background: url('#{$hangedman-path}/right-thigh.svg');
     z-index:3;
   }
   .left-thigh {
     @extend %backgroud-settings;
-    background: url('/assets/img/parts/left-thigh.svg');
+    background: url('#{$hangedman-path}/left-thigh.svg');
     z-index:4;
   }
   .corpse {
     @extend %backgroud-settings;
-    background: url('/assets/img/parts/corpse.svg');
+    background: url('#{$hangedman-path}/corpse.svg');
     z-index:6;
   }
   .head {
     @extend %backgroud-settings;
-    background: url('/assets/img/parts/head.svg');
+    background: url('#{$hangedman-path}/head.svg');
     z-index:5;
   }
   .hair {
     @extend %backgroud-settings;
-    background: url('/assets/img/parts/hair.svg');
+    background: url('#{$hangedman-path}/hair.svg');
     z-index:6;
   }
   .left-arm {
     @extend %backgroud-settings;
-    background: url('/assets/img/parts/left-arm.svg'),
-    url('/assets/img/parts/left-palm.svg');
+    background: url('#{$hangedman-path}/left-arm.svg'),
+    url('#{$hangedman-path}/left-palm.svg');
     z-index:7;
   }
   .right-arm {
     @extend %backgroud-settings;
-    background: url('/assets/img/parts/right-arm.svg'),
-    url('/assets/img/parts/right-palm.svg');
+    background: url('#{$hangedman-path}/right-arm.svg'),
+    url('#{$hangedman-path}/right-palm.svg');
     z-index:7;
   }
   .visible {
