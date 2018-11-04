@@ -19,7 +19,8 @@ const makeIdiomsIndexesArray = (dispatch, idiomsLang, fetchMethod = fetchIdiomsI
 }
 
 export const fetchIdiomsIndexesList = (url) => {
-  return fetch( url, {method: 'get'} )
+  const proxyurl = "https://cors-anywhere.herokuapp.com/";
+  return fetch( proxyurl + url, {method: 'get'} )
   .then(response => handleResponse(response, "idiom indexes list"))
   .catch(error => {console.log(error.message)})
 }

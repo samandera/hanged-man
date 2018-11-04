@@ -2,9 +2,10 @@ import handleResponse from "./handleResponse";
 import { SET_LOADING_MESSAGE, SET_WORD, SET_DEFINITION } from '../reducers/actionTypes';
 
 const fetchIdiom = (lang, title) => {
+  const proxyurl = "https://cors-anywhere.herokuapp.com/";
   const url = `https://${lang}.wiktionary.org/w/api.php?action=parse&format=json&page=${title}`;
   //const url = `https://${lang}.wiktionary.org/w/api.php?action=parse&format=json&page=a into g`;
-  return fetch( url, {method: 'get'} )
+  return fetch( proxyurl + url, {method: 'get'})
   .then(response => handleResponse(response, "idiom page"))
   .catch(error => {console.log(error.message)})
 }
