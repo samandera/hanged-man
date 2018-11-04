@@ -5,7 +5,7 @@
   "main": "src/main.js",
   "scripts": {
     "compile": "webpack",
-    "watch-sass": "webpack --watch",
+    "watch-sass": "node-sass --include-path scss sass/main.scss docs/main.css --watch",
     "test": "jest",
     "test:watch": "npm test -- --watch",
     "start": "node server.js & npm run watch-sass & npm run test:watch",

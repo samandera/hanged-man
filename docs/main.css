@@ -1,0 +1,184 @@
+@import url(./normalize.css);
+@font-face {
+  font-family: "Roboto";
+  src: url(/assets/fonts/Roboto-Regular.ttf); }
+
+body {
+  color: #1c6eb5;
+  font-family: "Roboto"; }
+
+.mount {
+  width: 320px;
+  height: 100vh;
+  background: url("/assets/img/bg.svg") no-repeat bottom center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center bottom; }
+  @media screen and (min-width: 320px) {
+    .mount {
+      width: 100vw; } }
+  @media screen and (min-width: 576px) {
+    .mount {
+      width: 100%; } }
+  .mount .screen-wrapper {
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    z-index: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center; }
+    .mount .screen-wrapper .grass {
+      width: 100%;
+      height: 25%;
+      position: absolute;
+      bottom: 0;
+      background: url("/assets/img/grass.svg");
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: top;
+      z-index: 100; }
+    .mount .screen-wrapper .container {
+      width: 304px;
+      height: auto;
+      box-sizing: border-box;
+      padding: 10px 20px;
+      background-color: rgba(255, 255, 255, 0.7);
+      position: relative;
+      z-index: 8; }
+      @media screen and (min-width: 320px) {
+        .mount .screen-wrapper .container {
+          width: 95vw; } }
+      @media screen and (min-width: 576px) {
+        .mount .screen-wrapper .container {
+          width: 450px; } }
+
+.hangedman .tree, .hangedman .left-calf, .hangedman .right-calf, .hangedman .right-thigh, .hangedman .left-thigh, .hangedman .corpse, .hangedman .head, .hangedman .hair, .hangedman .left-arm, .hangedman .right-arm {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: left bottom;
+  position: absolute;
+  top: 0;
+  left: 0;
+  visibility: hidden; }
+
+.hangedman {
+  width: 160vh;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1; }
+  @media screen and (min-width: 320px) {
+    .hangedman {
+      width: 160vh; } }
+  @media screen and (min-width: 320px) {
+    .hangedman {
+      height: 100vh; } }
+  .hangedman .tree {
+    background: url("/assets/img/parts/tree.svg");
+    z-index: 0; }
+  .hangedman .left-calf {
+    background: url("/assets/img/parts/rope.svg"), url("/assets/img/parts/left-calf.svg");
+    z-index: 2; }
+  .hangedman .right-calf {
+    background: url("/assets/img/parts/right-calf.svg");
+    z-index: 1; }
+  .hangedman .right-thigh {
+    background: url("/assets/img/parts/right-thigh.svg");
+    z-index: 3; }
+  .hangedman .left-thigh {
+    background: url("/assets/img/parts/left-thigh.svg");
+    z-index: 4; }
+  .hangedman .corpse {
+    background: url("/assets/img/parts/corpse.svg");
+    z-index: 6; }
+  .hangedman .head {
+    background: url("/assets/img/parts/head.svg");
+    z-index: 5; }
+  .hangedman .hair {
+    background: url("/assets/img/parts/hair.svg");
+    z-index: 6; }
+  .hangedman .left-arm {
+    background: url("/assets/img/parts/left-arm.svg"), url("/assets/img/parts/left-palm.svg");
+    z-index: 7; }
+  .hangedman .right-arm {
+    background: url("/assets/img/parts/right-arm.svg"), url("/assets/img/parts/right-palm.svg");
+    z-index: 7; }
+  .hangedman .visible {
+    visibility: visible; }
+
+.game .game-content .missed-characters {
+  text-align: right; }
+  .game .game-content .missed-characters h2 {
+    font-size: 15px;
+    margin: 7px 0;
+    color: #31475a; }
+  .game .game-content .missed-characters .characters {
+    list-style: none;
+    margin: 7px 0;
+    display: flex;
+    justify-content: flex-end; }
+    .game .game-content .missed-characters .characters li {
+      padding: 0 5px; }
+
+.game .game-content .definitions {
+  font-size: 13px;
+  margin: 20px 0; }
+
+.puzzle {
+  display: flex;
+  justify-content: center;
+  max-width: 100%;
+  flex-wrap: wrap; }
+  .puzzle .word {
+    display: flex;
+    justify-content: center;
+    margin: 10px 5px; }
+    .puzzle .word .letter {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 20px;
+      height: 20px;
+      margin: 0 2px;
+      border-bottom: 3px solid #31475a;
+      font-size: 20px; }
+
+.loading-idiom {
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+  padding: 80px 0; }
+  .loading-idiom .css-hzw9k3 > * {
+    border-color: green; }
+  .loading-idiom .currenly-loading {
+    width: 100%;
+    text-align: center;
+    color: green;
+    font-size: 20px; }
+
+.game-over {
+  text-align: center;
+  font-size: 20px;
+  padding: 40px 0; }
+  .game-over p {
+    margin-top: 0;
+    margin-bottom: 40px; }
+  .game-over button {
+    background: none;
+    padding: 10px 20px;
+    border: solid thin #1c6eb5;
+    color: #1c6eb5;
+    border-radius: 7px;
+    font-size: 16px;
+    cursor: pointer; }
+    .game-over button:hover {
+      border-color: green;
+      color: green; }
