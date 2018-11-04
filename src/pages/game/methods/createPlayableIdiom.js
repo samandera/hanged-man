@@ -5,7 +5,7 @@ const fetchIdiom = (lang, title) => {
   const proxyurl = "https://cors-anywhere.herokuapp.com/";
   const url = `https://${lang}.wiktionary.org/w/api.php?action=parse&format=json&page=${title}`;
   //const url = `https://${lang}.wiktionary.org/w/api.php?action=parse&format=json&page=a into g`;
-  return fetch( proxyurl + url, {method: 'get'})
+  return fetch( proxyurl + url, {method: 'get'} )
   .then(response => handleResponse(response, "idiom page"))
   .catch(error => {console.log(error.message)})
 }
